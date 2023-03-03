@@ -1,0 +1,10 @@
+{
+  "development": {
+    "BACKEND_URL": "http://43.201.144.113:8080",
+    "HTTP_ONLY": false
+  },
+  "production": {
+    "BACKEND_URL": "",
+    "HTTP_ONLY": true
+  }
+}

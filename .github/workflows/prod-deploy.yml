@@ -13,8 +13,13 @@ jobs:
       ## 웹 이미지 빌드 및 도커허브에 push
       - name: web docker build and push
         run: |
+          echo  "1"
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          
+          echo  "2"
           docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
+          
+          echo  "3"
           docker push ${{ secrets.DOCKER_REPO }}/yeh_front
 
       - name: ls -a via ssh

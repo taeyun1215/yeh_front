@@ -11,6 +11,11 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />        
         <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet"></link>
 
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+
       </Head>
       <body>
         <Main />

@@ -3,13 +3,18 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dropdown, Button } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
-import { useRecoilState } from "recoil";
-import { userState } from "../../store/states";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import { keywordState, pageState, userState } from "../../store/states";
 import cookie from "react-cookies";
+import { useState } from "react";
+import axios from "axios";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useRecoilState(userState);
+  const [searchVal, setSearchVal] = useState(null);
+  const keywordHandler = useSetRecoilState(keywordState);
+  const initHandler = useSetRecoilState(pageState)
 
   const logout = () => {
     setUser((prev) => ({ ...prev, name: null , loggin: false}))
@@ -34,11 +39,29 @@ const AppLayout = ({ children }) => {
    },
   
  ];
+  const handleOnSubmit = async (e) =>{
+  if(e.keyCode === 13) {
+    try {
+      const res = await axios.get(`/post/search/${searchVal}`)
+      if(res.data.success) keywordHandler({posts : res.data.data.posts, postCount : res.data.data.postCount})
+      else alert('잠시 후 다시 시도해주세요.')
+    } 
+    catch(e) {
+      console.log(e)
+      alert('잠시 후 다시 시도해주세요.')
+    }
+  } else null
+  }
+
+  const handleOnInit = () =>{
+    router.push('/');
+    initHandler(1);
+  }
   return (
     <>
       <div className="header">
         <div className="header_wrap">
-          <Image src={logo} alt="yehLogo" className="heaeder_logo" onClick={() => router.push('/')}/>
+          <Image src={logo} alt="yehLogo" className="heaeder_logo" onClick={() => handleOnInit()}/>
           <div className="header_search">
             <button>
               <SearchOutlined style={{fontSize:'22px', color:"#2b3089", fontWeight:'bold'}}/>
@@ -46,6 +69,8 @@ const AppLayout = ({ children }) => {
             <input
               placeholder="관심있는 내용을 검색해보세요"
               className="header_input"
+              onChange={(e) => setSearchVal(e.target.value)}
+              onKeyUp={(e) => handleOnSubmit(e)}
             />
           </div>
         </div>

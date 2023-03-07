@@ -8,7 +8,6 @@ export default function SignupComplete() {
 
   useEffect(() => {
     const params = router.query
-    console.log(router.query)
     axios.get('/api/check-email-code', {params : params}).then((res) => console.log(res))    
     }, [router.query])
     

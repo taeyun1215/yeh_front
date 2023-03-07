@@ -8,6 +8,14 @@ const userState = atom({
   default: {name : null, loggin : false, emailAuth : false},
   effects_UNSTABLE: [persistAtom],
 });
-
-
-export { userState};
+const keywordState = atom({
+  key: 'keywordState',
+  default: {posts : null, postCount : 0},
+  effects_UNSTABLE: [persistAtom],
+});
+const pageState = atom({
+  key: 'pageState',
+  default: 1,
+  effects_UNSTABLE: [persistAtom],
+})
+export { userState, keywordState, pageState};

@@ -1,7 +1,9 @@
 @import "./user/sign.scss";
-@import "./board/post.scss";
-@import "./board//getPost.scss";
+@import "./board/setPost.scss";
+@import "./board/getPost.scss";
 @import "./layout/header.scss";
+@import "./board/details.scss";
+@import "./board/rank.scss";
 
 html,
 body {
@@ -11,4 +13,21 @@ body {
 
 body *{
   font-family: "Noto Sans KR", sans-serif;
+}
+
+.themeToggle {
+  border-radius: 50%;
+  background-color: transparent;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  bottom: 5%;
+  right: 8%;
+  padding: 10px;
+  cursor: pointer;
+
+ .themeToggleIcon {
+  font-size: 20px;
+  font-weight: bold;
+ }
 }

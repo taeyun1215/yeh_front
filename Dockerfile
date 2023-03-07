@@ -1,7 +1,7 @@
 FROM node:14-alpine as build
 WORKDIR /app
 COPY package*.json ./
-RUN npm i -y
+RUN npm install
 COPY . .
 RUN npm run build
 

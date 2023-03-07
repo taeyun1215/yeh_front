@@ -5,9 +5,9 @@ RUN npm i -y
 COPY . .
 CMD [ "npm", "run", "dev"]
 
-FROM nginx
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+FROM nginx:alpine
 COPY --from=build /app/out /usr/share/nginx/html
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 
 

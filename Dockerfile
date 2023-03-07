@@ -1,17 +1,33 @@
-FROM node
-
+FROM node:alpine as builder
 WORKDIR /usr/src/app
+COPY package.json .
+RUN npm install
+COPY ./ ./
+RUN npm run build
 
-COPY package*.json ./
-
-RUN npm i -y
-
-COPY . .
-
+FROM nginx
 EXPOSE 3000
 EXPOSE 80
+#COPY ./default.conf /etc/nginx/conf.d/default.conf
+#COPY --from=builder usr/src/app/build  /usr/share/nginx/html
 
-CMD [ "npm", "run", "dev"]
+#FROM node
+
+#WORKDIR /usr/src/app
+
+#COPY package*.json ./
+
+#RUN npm i -y
+
+#COPY . .
+
+#EXPOSE 3000
+#EXPOSE 80
+
+#CMD [ "npm", "run", "dev"]
+
+
+
 
 #FROM node:16 as builder
 #

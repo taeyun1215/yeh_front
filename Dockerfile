@@ -1,6 +1,6 @@
 FROM node:14.15-alpine3.10 AS build
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 RUN npm install
@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:1.21-alpine
-COPY --from=build /app/out /usr/share/nginx/html
+COPY --from=build  usr/src/app/build /usr/share/nginx/html
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 

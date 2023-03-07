@@ -1,5 +1,4 @@
-FROM node:alpine as builder
-RUN mkdir /app
+FROM node:14-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm i -y

@@ -1,4 +1,5 @@
 FROM node:alpine as builder
+RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i -y
@@ -9,13 +10,6 @@ FROM nginx
 EXPOSE 3000
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder usr/src/app/build  /usr/share/nginx/html
-
-
-
-#EXPOSE 3000
-#COPY ./default.conf /etc/nginx/conf.d/default.conf
-
-
 
 #FROM node:16 as builder
 #

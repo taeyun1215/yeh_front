@@ -127,21 +127,21 @@ export default function New(props) {
   );
 }
 
-export async function getServerSideProps(ctx) {
-  const allCookies = cookies(ctx);
-  if(allCookies.refreshToken) {
-    const res = await getToken(allCookies.accessToken, allCookies.refreshToken)
-    const data = res.data
-    return {
-      props: {
-        name : "post",
-        data : data  
-      },
-    };
-  } else return {
-    props: {
-      name : "post",
-      data : null  
-    },
-  } 
-}
+// export async function getServerSideProps(ctx) {
+//   const allCookies = cookies(ctx);
+//   if(allCookies.refreshToken) {
+//     const res = await getToken(allCookies.accessToken, allCookies.refreshToken)
+//     const data = res.data
+//     return {
+//       props: {
+//         name : "post",
+//         data : data  
+//       },
+//     };
+//   } else return {
+//     props: {
+//       name : "post",
+//       data : null  
+//     },
+//   } 
+// }

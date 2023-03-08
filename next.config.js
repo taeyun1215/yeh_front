@@ -2,13 +2,13 @@
 const path = require('path')
 const nextConfig = {
   reactStrictMode: false,
+  output: 'export',
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['yeh-bucket.s3.ap-northeast-2.amazonaws.com'],
-    loader: 'akamai',
-    path: ''
+    domain : ['yeh-bucket.s3.ap-northeast-2.amazonaws.com'],
+    unoptimized : true
   },
   async redirects() {
     return [

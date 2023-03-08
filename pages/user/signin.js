@@ -104,11 +104,11 @@ export default function Signiin(props) {
     </div>
   );
 }
-export async function getServerSideProps(ctx) {
-return {
-    props: {
-      name : "signin",
-      data : null  
-    },
-  } 
-}
+// export async function getServerSideProps(ctx) {
+// return {
+//     props: {
+//       name : "signin",
+//       data : null  
+//     },
+//   } 
+// }

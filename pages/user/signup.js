@@ -126,11 +126,11 @@ export default function Signup() {
     </div>
   );
 }
-export async function getServerSideProps(ctx) {
-  return {
-      props: {
-        name : "signup",
-        data : null  
-      },
-    } 
-  }
+// export async function getServerSideProps(ctx) {
+//   return {
+//       props: {
+//         name : "signup",
+//         data : null  
+//       },
+//     } 
+//   }

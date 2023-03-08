@@ -27,7 +27,6 @@ jobs:
         with:
           command: |
             docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
-            docker-compose up -d
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}

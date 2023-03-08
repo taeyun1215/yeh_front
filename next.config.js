@@ -6,7 +6,9 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['yeh-bucket.s3.ap-northeast-2.amazonaws.com']
+    domains: ['yeh-bucket.s3.ap-northeast-2.amazonaws.com'],
+    loader: 'akamai',
+    path: ''
   },
   async redirects() {
     return [

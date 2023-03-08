@@ -22,11 +22,3 @@ jobs:
           echo  "3"
           docker push ${{ secrets.DOCKER_REPO }}/yeh_front
 
-      - name: ls -a via ssh
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
-          host: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}

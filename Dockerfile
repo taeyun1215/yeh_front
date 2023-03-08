@@ -10,7 +10,10 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY ./default.conf /etc/nginx/conf.d/default.conf
+
 RUN pwd
+RUN find out -type d
+
 COPY --from=0 /usr/app/out /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -21,6 +21,7 @@ jobs:
           command: |
             cd /home/ec2-user/yeh_front/
             git pull origin main
+            npm run build
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
             docker push ${{ secrets.DOCKER_REPO }}/yeh_front

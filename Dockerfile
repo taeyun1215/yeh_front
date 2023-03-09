@@ -3,13 +3,16 @@ FROM node:alpine as builder
 COPY package*.json ./
 
 COPY . .
-RUN npm run build
 
 FROM nginx:alpine
 EXPOSE 3000
+
+RUN pwd
+
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=builder /out /usr/share/nginx/html
+RUN pwd
+COPY --from=builder ./out /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

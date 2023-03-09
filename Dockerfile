@@ -1,7 +1,6 @@
 FROM node:alpine as builder
-RUN pwd
 
-WORKDIR /
+WORKDIR /home/ec2-user/yeh_front/
 COPY package*.json ./
 RUN npm install
 
@@ -10,10 +9,9 @@ RUN npm run build
 
 FROM nginx:alpine
 EXPOSE 3000
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY /home/ec2-user/yeh_front/default.conf /etc/nginx/conf.d/default.conf
 
-RUN pwd
-COPY --from=builder /.next /usr/share/nginx/html
+COPY /home/ec2-user/yeh_front/out /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

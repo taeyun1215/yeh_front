@@ -12,23 +12,18 @@ jobs:
         node-version: [16.14.x] 
     
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with: 
-          node-version: ${{ matrix.node-version }} 
-
-      ## 웹 이미지 빌드 및 도커허브에 push
-      - name: web docker build and push
-        run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
-          docker push ${{ secrets.DOCKER_REPO }}/yeh_front
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: ls -a via ssh
         uses: fifsky/ssh-action@master
         with:
           command: |
+            WORKDIR /home/ec2-user/yeh_front/
+            git pull origin main
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
+            docker push ${{ secrets.DOCKER_REPO }}/yeh_front
             docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}

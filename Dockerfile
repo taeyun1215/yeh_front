@@ -14,6 +14,8 @@ COPY ./default.conf /etc/nginx/conf.d/default.conf
 RUN pwd
 
 COPY --from=0 /usr/src/app/out /usr/share/nginx/html
+RUN find out -type d
+
 EXPOSE 80
 
 # CMD ["nginx", "-g", "daemon off;"]

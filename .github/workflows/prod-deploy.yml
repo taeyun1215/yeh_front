@@ -19,7 +19,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            WORKDIR /home/ec2-user/yeh_front/
+            cd /home/ec2-user/yeh_front/
             git pull origin main
 #            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 #            docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .

@@ -1,6 +1,7 @@
-FROM node:14-alpine
+FROM node:alpine
+RUN pwd
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
@@ -9,9 +10,14 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY --from=0 ./out /usr/share/nginx/html
+
+RUN pwd
+
+COPY --from=0 /usr/src/app/out /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# CMD ["nginx", "-g", "daemon off;"]
+
 
 
 # FROM node:14-alpine as build-stage

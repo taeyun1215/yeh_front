@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine as builder
 RUN pwd
 
 WORKDIR /
@@ -13,7 +13,7 @@ EXPOSE 3000
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 RUN pwd
-COPY /.next /usr/share/nginx/html
+COPY --from=builder /.next /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

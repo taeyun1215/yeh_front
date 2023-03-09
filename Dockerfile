@@ -9,10 +9,10 @@ EXPOSE 3000
 
 RUN pwd
 
-COPY /home/ec2-user/yeh_front/default.conf /etc/nginx/conf.d/default.conf
+COPY /default.conf /etc/nginx/conf.d/default.conf
 
 RUN pwd
-COPY --from=builder ./out /usr/share/nginx/html
+COPY --from=builder /out /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

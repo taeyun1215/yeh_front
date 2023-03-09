@@ -1,7 +1,7 @@
 FROM node:alpine
 RUN pwd
 
-WORKDIR /usr/src/app
+WORKDIR /
 COPY package*.json ./
 RUN npm install
 
@@ -13,7 +13,7 @@ EXPOSE 3000
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 RUN pwd
-COPY ./out /usr/share/nginx/html
+COPY /.next /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

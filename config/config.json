@@ -4,7 +4,7 @@
     "HTTP_ONLY": false
   },
   "production": {
-    "BACKEND_URL": "",
+    "BACKEND_URL": "https://www.devyeh.com/",
     "HTTP_ONLY": true
   }
 }

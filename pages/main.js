@@ -8,25 +8,26 @@ import {
   LikeOutlined,
   FieldTimeOutlined,
 } from "@ant-design/icons";
-import cookies from "next-cookies";
 import Image from "next/image";
 import axios from "axios";
 
-import getToken from "../component/utils/getToken";
-import setToken from "../component/utils/setToken";
 import CreateTime from "../component/utils/createTime";
-import { keywordState, pageState, userState } from "../store/states";
+import setToken from "../component/utils/setToken";
 import Rank from "./post/rank";
+import { pageState, userState } from "../store/states";
+import { useCookies } from "react-cookie";
 
-export default function Main(props) {
-  const reset = useResetRecoilState(userState);
-  const keywordValue = useRecoilValue(keywordState);
-  const user = useRecoilValue(userState);
+export default function Main() {
   const router = useRouter();
-
+  const user = useRecoilValue(userState);
+  const reset = useResetRecoilState(userState);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+  const [datailData, setDetailData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const [current, setCurrent] = useRecoilState(pageState);
   const [postsCount, setPostsCount] = useState(0);
+
+  // 리프레시 토큰 재발급
 
   // 검색 결과
   // useEffect(() => {
@@ -36,14 +37,10 @@ export default function Main(props) {
   //   } else return
   // },[keywordValue])
 
+  // 리프레시 토큰 발급
   useEffect(() => {
-    setToken({ user, props }).then((res) => {
-      if (res === "logout") {
-        reset();
-        router.push("/user/signin");
-      }
-    });
-  }, []);
+    if(user.loggin) setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
+  },[])
 
   // 전체 글 데이터 통신
   useEffect(() => {
@@ -132,23 +129,3 @@ export default function Main(props) {
     </>
   );
 }
-
-// export async function getServerSideProps(ctx) {
-//   const allCookies = cookies(ctx);
-//   if (allCookies.refreshToken) {
-//     const res = await getToken(allCookies.accessToken, allCookies.refreshToken);
-//     const data = res.data;
-//     return {
-//       props: {
-//         name: "main",
-//         data: data,
-//       },
-//     };
-//   } else
-//     return {
-//       props: {
-//         name: "main",
-//         data: null,
-//       },
-//     };
-// }

@@ -38,7 +38,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   // 실시간 인기 글 배경 색
-  div &.getPost &.ranking  {
+  div &.ranking  {
     background-color: ${({ theme }) => theme.DivBg};
   }
 
@@ -92,4 +92,13 @@ export const GlobalStyles = createGlobalStyle`
   &.themeToggle &.themeToggleIcon {
     color : ${({ theme }) => theme.themeIconColor};
   }
+
+  &.detailPost &.detailPostBox &.detailPostBox_footer p {
+    color : ${({ theme }) => theme.text};
+  }
+
+  &.header &.header_signBtn &.header_user {
+    color : ${({ theme }) => theme.text};
+  }
+  
 `

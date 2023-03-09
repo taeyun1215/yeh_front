@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { Upload, Modal} from 'antd';
 import { InboxOutlined } from "@ant-design/icons";
-import cookies from "next-cookies";
-import cookie from "react-cookies";
+import { useCookies } from 'react-cookie';
 import axios from "axios";
 
 import { userState } from "../../store/states";
-import getToken from "../../component/utils/getToken";
+import setToken from "../../component/utils/setToken";
 
 
 export default function New(props) {
-  const user = useRecoilValue(userState)
+  const user = useRecoilValue(userState);
+  const reset = useResetRecoilState(userState);
   const router = useRouter();
   const { Dragger } = Upload;
   
@@ -20,6 +20,7 @@ export default function New(props) {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
+	const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
   const formData = new FormData()
 
   const inputRefTitle = useRef(null)
@@ -27,16 +28,12 @@ export default function New(props) {
 
   useEffect(() => {   
     if(!user.loggin) {
-      const logginConfirm = confirm('로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.');
-      if(logginConfirm) {
+        alert('로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.');
         router.push("/user/signin");
-      } else router.push("/");
     } else if(user.loggin && !user.emailAuth) {
-      const emailAuthConfirm = confirm('YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.');
-        if(emailAuthConfirm) {
-          router.push("/user/signupComplete");
-        } else router.push("/");
-    }
+          alert('YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.');
+            router.push("/user/signupComplete");
+    } else setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
   }, [])
   
   const handleOnSubmit = async () => {
@@ -74,6 +71,7 @@ export default function New(props) {
       }
     }
   }
+
   const uploads = {
     name: 'file',
     multiple: true,
@@ -126,22 +124,3 @@ export default function New(props) {
     </div>
   );
 }
-
-// export async function getServerSideProps(ctx) {
-//   const allCookies = cookies(ctx);
-//   if(allCookies.refreshToken) {
-//     const res = await getToken(allCookies.accessToken, allCookies.refreshToken)
-//     const data = res.data
-//     return {
-//       props: {
-//         name : "post",
-//         data : data  
-//       },
-//     };
-//   } else return {
-//     props: {
-//       name : "post",
-//       data : null  
-//     },
-//   } 
-// }

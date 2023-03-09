@@ -3,23 +3,26 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dropdown, Button } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { keywordState, pageState, userState } from "../../store/states";
-import cookie from "react-cookies";
+import { useCookies } from 'react-cookie';
 import { useState } from "react";
 import axios from "axios";
+
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useRecoilState(userState);
   const [searchVal, setSearchVal] = useState(null);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
   const keywordHandler = useSetRecoilState(keywordState);
   const initHandler = useSetRecoilState(pageState)
 
   const logout = () => {
     setUser((prev) => ({ ...prev, name: null , loggin: false}))
-    cookie.remove('accessToken');
-    cookie.remove('refreshToken');
+    removecookie('refreshToken')
+    removecookie('accessToken')
+
   }
 
  const items = [
@@ -57,6 +60,7 @@ const AppLayout = ({ children }) => {
     router.push('/');
     initHandler(1);
   }
+  
   return (
     <>
       <div className="header">
@@ -76,9 +80,9 @@ const AppLayout = ({ children }) => {
         </div>
         <div className="header_signBtn">
           {user.loggin ? (
-           <Dropdown menu={{ items }} placement="bottom">
-           <Button>{user.name}</Button>
-         </Dropdown>
+            <Dropdown menu={{ items }} placement="bottom">
+              <Button className="header_user">{user.name}</Button>
+            </Dropdown>
           ) : (
           <div>
             <button

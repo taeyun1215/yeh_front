@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import cookie from "react-cookies";
 import axios from "axios";
 import { Modal } from 'antd';
 import { BsCheck2Circle } from "react-icons/bs";
+import { useCookies } from 'react-cookie';
 
 export default function SignupComplete() {
-  const [isModal, setIsModal] = useState(false)
+  const [isModal, setIsModal] = useState(false);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
   const router = useRouter();
   
   const handleOnAuth = () => {
-    const token = cookie.load("accessToken");
+    const token = cookie.accessToken
     try{
       axios.post("/email/certify-regis", {
         body : null

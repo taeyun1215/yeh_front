@@ -8,7 +8,7 @@ import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig" 
-
+// import AppLayout from '../component/layout/AppLayout'
 const AppLayout = dynamic(() => import('../component/layout/AppLayout'), { ssr: false })
 
 function MyApp({ Component, pageProps}) {

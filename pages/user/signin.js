@@ -3,22 +3,21 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import cookie from "react-cookies";
+import { useCookies } from 'react-cookie';
 import Image from "next/image";
 import axios from "axios";
 
 import logo from "../../asset/images/logo.png";
-import { HTTP_ONLY } from "../../config/config";
 import { userState } from "../../store/states";
 
 export default function Signiin(props) {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState)
-  
+  const setUser = useSetRecoilState(userState);
+  const [cookies, setCookie] = useCookies(['res']);
+ 
   const expires = new Date()
-  expires.setMinutes(expires.getMinutes() + 1);
-  // expires.setDate(Date.now() + 1000 * 60)
-  
+  expires.setHours(expires.getHours() + 2);
+
   const formSchema = yup.object({
     username: yup
     .string()
@@ -44,16 +43,9 @@ export default function Signiin(props) {
           axios.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${accessToken}`;
-          cookie.save("accessToken", accessToken, {
-            httpOnly: HTTP_ONLY,
-            path: "/",
-            expires : expires
-            
-          });
-          cookie.save("refreshToken", refreshToken, {
-            httpOnly: HTTP_ONLY,
-            path: "/",
-          });
+
+          // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
+          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : true });
           router.push("/");
         } else {
           alert(res.data.error.message);
@@ -104,11 +96,3 @@ export default function Signiin(props) {
     </div>
   );
 }
-// export async function getServerSideProps(ctx) {
-// return {
-//     props: {
-//       name : "signin",
-//       data : null  
-//     },
-//   } 
-// }

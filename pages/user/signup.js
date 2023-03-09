@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import * as yup from "yup";
 import axios from "axios";
 import Image from "next/image";
-import cookie from "react-cookies";
 
 import logo from "../../asset/images/logo.png";
 
@@ -126,11 +125,3 @@ export default function Signup() {
     </div>
   );
 }
-// export async function getServerSideProps(ctx) {
-//   return {
-//       props: {
-//         name : "signup",
-//         data : null  
-//       },
-//     } 
-//   }

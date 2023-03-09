@@ -21,10 +21,10 @@ jobs:
           command: |
             cd /home/ec2-user/yeh_front/
             git pull origin main
-#            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-#            docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
-#            docker push ${{ secrets.DOCKER_REPO }}/yeh_front
-#            docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
+            docker push ${{ secrets.DOCKER_REPO }}/yeh_front
+            docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}

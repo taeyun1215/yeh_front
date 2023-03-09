@@ -9,14 +9,12 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
+EXPOSE 3000
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 RUN pwd
 
-COPY --from=0 /usr/src/app/out /usr/share/nginx/html
-RUN find /usr/src/app/out -type d
-
-EXPOSE 80
+COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 
 # CMD ["nginx", "-g", "daemon off;"]
 

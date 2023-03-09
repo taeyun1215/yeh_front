@@ -1,17 +1,15 @@
 FROM node:alpine as builder
 
-WORKDIR /home/ec2-user/yeh_front/
 COPY package*.json ./
-RUN npm install
 
 COPY . .
 RUN npm run build
 
 FROM nginx:alpine
 EXPOSE 3000
-COPY /home/ec2-user/yeh_front/default.conf /etc/nginx/conf.d/default.conf
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 
-COPY /home/ec2-user/yeh_front/out /usr/share/nginx/html
+COPY --from=builder /out /usr/share/nginx/html
 
 # COPY --from=0 /usr/src/app/.next /usr/share/nginx/html
 

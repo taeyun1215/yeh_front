@@ -45,7 +45,7 @@ export default function Signiin(props) {
           ] = `Bearer ${accessToken}`;
 
           // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
-          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false });
+          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : true });
           router.push("/");
         } else {
           alert(res.data.error.message);

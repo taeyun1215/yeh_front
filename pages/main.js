@@ -59,7 +59,6 @@ export default function Main() {
       alert("잠시 후 다시 접속해주세요");
     }
   }, [current]);
-
   return (
     <>
       <div className="getPost">
@@ -71,9 +70,9 @@ export default function Main() {
               className="getPostsBox"
               onClick={() => router.push(`/post/${i.id}`)}
             >
-              {CreateTime(i.createTime).indexOf("방금전") > 0 ||
-              CreateTime(i.createTime).indexOf("분전") > 0 ||
-              CreateTime(i.createTime).indexOf("시간전") > 0 ? (
+              {CreateTime(i.createTime).includes("방금전")  ||
+              CreateTime(i.createTime).includes("분전")  ||
+              CreateTime(i.createTime).includes("시간전")  ? (
                 <p className="NewPosts">NEW</p>
               ) : null}
               <div className="mainInfo">

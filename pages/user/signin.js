@@ -13,7 +13,7 @@ import { userState } from "../../store/states";
 export default function Signiin(props) {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
-  const [cookies, setCookie] = useCookies(['res']);
+  const [cookies, setCookie] = useCookies(['refreshToken']);
  
   const expires = new Date()
   expires.setHours(expires.getHours() + 2);

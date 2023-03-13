@@ -12,7 +12,7 @@ import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeCon
 const AppLayout = dynamic(() => import('../component/layout/AppLayout'), { ssr: false })
 
 function MyApp({ Component, pageProps}) {
-  axios.defaults.baseURL = "http://43.201.144.113:8080";
+  axios.defaults.baseURL = "https://www.devyeh.com/api";
   axios.defaults.withCredentials = true;
 
   const [theme, setTheme] = useState(null);

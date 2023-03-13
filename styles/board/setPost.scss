@@ -11,7 +11,7 @@
   gap: 20px;
   margin-top: 45px;
 
-  input {
+  .postTitle {
     width: 98%;
     height: 40px;
     padding-left: 10px;
@@ -19,8 +19,8 @@
     border-radius: 5px;
     font-size: 14px;
   }
-  
-  textarea {
+
+  .postContents {
     width: 98%;
     height: 250px;
     border: 1px solid #dedede;
@@ -29,31 +29,73 @@
     resize: none;
     font-size: 14px;
   }
-  .postFile {
-    
-    label {
-      display: inline-block;
-      width: 100px;
-      height: 45px;
-      background-color: $main_color;
-      color: #fff;
-      cursor: pointer;
-      line-height: 45px;
-      border-radius: 5px;
-      text-align: center;
-    }
 
-    input[type='file'] {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      clip: rect(0,0,0,0);
-      overflow: hidden;
-      padding: 0;
+  .postFile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 50px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.02);
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      width: 100%;
+      height: 100%;
+      gap: 5px;
+      cursor: pointer;
+
+        .postFile_Icon {
+          color: #2b3089;
+          font-size: 28px !important;
+        }
+        p {
+          margin: 0;
+          margin-bottom: 2px;
+        }
+        input[type='file'] {
+          width: 100%;
+          display: none;
+        }
     }
   }
+  .postFile:hover {
+    border: 1px dashed $main_color;
+  }
  
+  .postFileList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+    .postFileList_wrap {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      width: 100%;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+      }
+      
+      span {
+        font-size: 18px;
+        margin-top: 2px;
+      }
+      
+      span:hover {
+        color: #D9381E;
+      }
+    }
+  }
   .postBtn {
     display: flex;
     justify-content: flex-end;
@@ -78,6 +120,19 @@
       background-color: transparent;
     }
   }  
+}
+
+:where(.css-acm2ia).ant-upload-wrapper .ant-upload-drag p.ant-upload-drag-icon .anticon {
+  color: $main_color;
+  font-size: 28px !important;
+}
+
+:where(.css-acm2ia).ant-upload-wrapper .ant-upload-drag:not(.ant-upload-disabled):hover {
+  border-color: $main_color !important;
+}
+
+:where(.css-acm2ia).ant-upload-wrapper {
+  width: 100%;
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper {

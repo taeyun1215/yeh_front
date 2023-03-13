@@ -8,26 +8,32 @@ jobs:
     runs-on: ubuntu-latest
     
     strategy: 
-      matrix: 
-        node-version: [16.14.x] 
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    matrix: 
+      node-version: [16.14.x] 
 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with: 
+          node-version: ${{ matrix.node-version }} 
+      
+      - name: web docker build and push
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
+          docker push ${{ secrets.DOCKER_REPO }}/yeh_front
+          
       - name: ls -a via ssh
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /home/ec2-user/yeh_front/
-            git pull origin +main
-            rm -rf out
-            npm install
-            npm run build
-#            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-#            docker build -t ${{ secrets.DOCKER_REPO }}/yeh_front .
-#            docker push ${{ secrets.DOCKER_REPO }}/yeh_front
-#            docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
+#            cd /home/ec2-user/yeh_front/
+#            git pull origin +main
+#            rm -rf out
+#            npm install
+#            npm run build
+          docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}

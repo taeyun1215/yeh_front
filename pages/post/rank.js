@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function Rank() {
   const [rankigData, setRankingData] = useState([]);
+
   useEffect(() => {
     async function getRankings() {
       const res = await axios.get("/post/popular");
@@ -16,6 +17,7 @@ export default function Rank() {
       alert("잠시 후 다시 접속해주세요");
     }
   }, []);
+
   return (
     <div className="ranking">
       <p className="rankingTitle">실시간 인기글</p>

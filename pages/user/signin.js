@@ -34,7 +34,8 @@ export default function Signiin(props) {
     formData.append("username", data.username);
     formData.append("password", data.password);
     try {
-      await axios.post("/api/login", formData).then((res) => {
+      await axios.post("/api/login", formData, {withCredentials:true}).then((res) => {
+        console.log(res)
         if (res.data.success === true) {
           const response = res.data.data;
           setUser({name : response.nickname , loggin : true, emailAuth : response.emailVerified})
@@ -60,7 +61,7 @@ export default function Signiin(props) {
   return (
     <div className="sign" style={{ width: "25%", gap: 0 }}>
       <div className="sign_title">
-      <Image src={logo} alt="yehLogo" onClick={() => router.push('/')} style={{cursor:'pointer'}}/>
+      <Image src={logo} alt="yehLogo" onClick={() => router.push('/main')} style={{cursor:'pointer'}}/>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="sign_contents" >
         <label htmlFor="username">아이디</label>

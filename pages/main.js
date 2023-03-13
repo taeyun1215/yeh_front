@@ -59,6 +59,7 @@ export default function Main() {
       alert("잠시 후 다시 접속해주세요");
     }
   }, [current]);
+  
   return (
     <>
       <div className="getPost">

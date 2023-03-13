@@ -57,7 +57,7 @@ const AppLayout = ({ children }) => {
   }
 
   const handleOnInit = () =>{
-    router.push('/');
+    router.push('/main');
     initHandler(1);
   }
   

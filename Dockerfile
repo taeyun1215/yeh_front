@@ -16,11 +16,11 @@ COPY . .
 # Build the Next.js app
 RUN npm run build
 
+CMD [ "npm" , "run" , "start"]
+
 # Create a new image with only the production assets
 FROM nginx:alpine
 EXPOSE 3000
-COPY --from=build /app/out /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
 
 
 # FROM node:alpine as builder

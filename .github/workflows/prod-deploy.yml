@@ -28,11 +28,6 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-#            cd /home/ec2-user/yeh_front/
-#            git pull origin +main
-#            rm -rf out
-#            npm install
-#            npm run build
             docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}

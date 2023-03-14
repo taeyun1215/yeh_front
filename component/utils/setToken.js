@@ -12,7 +12,8 @@ const setToken = async (props) => {
 
     const response = await getToken(cookie.refreshToken)
     if(response.data.success) {
-        setCookie('accessToken', response.data.data.access_token, {expires : expires, httpOnly : true} )
+        // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
+        setCookie('accessToken', response.data.data.access_token, {expires : expires, httpOnly : false} )
         return new Promise((resolve, reject) => {
             resolve('userLogin')
         })

@@ -19,8 +19,8 @@ RUN npm run build
 CMD [ "npm" , "run" , "start"]
 
 # Create a new image with only the production assets
-FROM nginx:alpine
-EXPOSE 3000
+# FROM nginx:alpine
+# EXPOSE 3000
 
 
 # FROM node:alpine as builder

@@ -19,9 +19,9 @@ RUN npm run build
 CMD [ "npm" , "run" , "start"]
 
 # Create a new image with only the production assets
-# FROM nginx:alpine
-# EXPOSE 3000
-
+FROM nginx
+EXPOSE 3000
+COPY --from=build app/out  /usr/share/nginx/html
 
 # FROM node:alpine as builder
 

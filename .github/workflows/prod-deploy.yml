@@ -28,7 +28,10 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
+            docker rm -f $(docker ps -qa)
+            docker rmi taeyun1215/yeh_front
             docker pull ${{ secrets.DOCKER_REPO }}/yeh_front
+            docker-compose up -d
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}

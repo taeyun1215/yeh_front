@@ -6,9 +6,13 @@ import axios from "axios";
 import Image from "next/image";
 
 import logo from "../../asset/images/logo.png";
+import { useCookies } from "react-cookie";
 
 export default function Signup() {
   const router = useRouter();
+  const [cookies, setCookie] = useCookies(['accessToken']);
+  const expires = new Date()
+  expires.setHours(expires.getHours() + 2);
 
   // 회원가입 정보 유효성 검사 및 에러 메시지 출력
   const formSchema = yup.object({
@@ -52,9 +56,7 @@ export default function Signup() {
         .then((res) => {
           if (res.data.success === true) {
             const token = res.data.data.access_token;
-            cookie.save("accessToken", token , {
-              path : '/'
-            });
+            setCookie('accessToken', token ,{ expires : expires, httpOnly : false , secure:true})
             router.push("/user/signupComplete");
           } else if (res.data.success === false) {
             alert(res.data.error[0].message);
@@ -69,7 +71,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="sign">
+    <div className="signup">
       <div className="sign_title">
         <Image src={logo} alt="yehLogo" />
         <span>조직문화의 개선과 소통을 위해 지금 시작해보세요</span>

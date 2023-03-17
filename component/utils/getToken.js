@@ -7,7 +7,7 @@ export default async function getToken (refreshToken) {
     headers: {
       Authorization: `Bearer ${refreshToken}`,
     },
-    withCredentials : true
+    // withCredentials : true
   })
   return new Promise((resolve, reject) => {
     resolve(response)

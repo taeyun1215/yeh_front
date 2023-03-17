@@ -2,6 +2,65 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 0 25px;
+
+    p {
+        margin: 0;
+    }
+ 
+    .postComments_wrap {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0 10px 15px 10px;
+
+        .beingComments {
+            padding-top: 20px; 
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nestedComments {
+            background-color: rgb(53, 54, 58);
+            margin: 10px 20px 0px 30px;
+            padding: 10px;
+        }
+        .writer {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .beingCommentsInfo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .createTime {
+                font-size: 11px;
+                color: #94969b;
+            }
+
+            .nestedComments_button {
+                font-size: 11px;
+                color: #94969b;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+                cursor: pointer;
+            }
+        }
+        .nestedComments_input {
+            min-height: 40px;
+            overflow-y: hidden;
+            background-color: transparent;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            padding: 0 35px 0 10px;
+            margin: 10px 20px 0px 30px;
+            resize: none;
+            outline: none;
+        }
+    }
 
     .notComments {
         margin: 50px 0 ;
@@ -13,9 +72,28 @@
             font-size: 32px;
         }
     }
-    
+}
+.comments_input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 25px;
 
     input {
-        width: 100%;
+        min-height: 40px;
+        overflow-y: hidden;
+        background-color: transparent;
+        border: 1px solid #dedede;
+        border-radius: 3px;
+        padding: 0 35px 0 10px;
+        resize: none;
+        outline: none;
+    }
+    button {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        bottom: 10px;
+        right: 35px;
     }
 }

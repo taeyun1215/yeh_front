@@ -35,7 +35,7 @@ export default function SignupComplete() {
   };
   const handleOnOk = () => {
     setIsModal(false);
-    router.push("/");
+    router.push("/main");
   }
   return (
     <>
@@ -49,7 +49,7 @@ export default function SignupComplete() {
     </div>
           
      {isModal ?
-      <Modal title="이메일 인증" open={isModal} onOk={handleOnOk} onCancel={() => setIsModal(false)} cancelButtonProps={{ style: { display: 'none' } }} width='420px'>
+      <Modal title="이메일 인증" centered okText='확인' open={isModal} onOk={handleOnOk} onCancel={() => setIsModal(false)} cancelButtonProps={{ style: { display: 'none' } }} width='420px'>
         <p>인증 메일이 전송되었습니다.<br/>전송된 메일을 통해 인증해주시기 바랍니다.</p>
       </Modal> 
       : null} 

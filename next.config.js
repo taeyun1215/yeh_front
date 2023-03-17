@@ -6,7 +6,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  // trailingSlash: true,
   images: {
     domain : ['yeh-bucket.s3.ap-northeast-2.amazonaws.com'],
     unoptimized : true

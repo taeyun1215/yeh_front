@@ -17,7 +17,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   body: '#292a2d',
-  text: '#FAFAFA',
+  text: '#d9d9d9',
   toggleBorder: '#6B8096',
   DivBg: '#35363a',
   DivBorder : '1px #3a3b3d solid',
@@ -93,11 +93,22 @@ export const GlobalStyles = createGlobalStyle`
     color : ${({ theme }) => theme.themeIconColor};
   }
 
+  &.detailPost &.detailPostBox &.detailPostBox_footer &.detailPostBox_footer_info button  {
+    color : ${({ theme }) => theme.text};
+  }
+  
   &.detailPost &.detailPostBox &.detailPostBox_footer p {
     color : ${({ theme }) => theme.text};
   }
 
+  &.postComments &.postComments_wrap &.nestedComments {
+    background-color :  ${({ theme }) => theme.DivBg};
+  }
+
   &.header &.header_signBtn &.header_user {
+    color : ${({ theme }) => theme.text};
+  }
+  .comments_input button, .comments_input input {
     color : ${({ theme }) => theme.text};
   }
   

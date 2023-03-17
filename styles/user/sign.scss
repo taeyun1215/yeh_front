@@ -1,22 +1,32 @@
 @import "../variables.scss";
 
-.sign {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 35%;
-  transform: translate(-50%, -50%);
+.signup {
+  width: 50%;
   @include center_sort;
   flex-direction: column;
   gap: 30px;
+  margin: auto;
+  margin-bottom: 30px
+}
+
+.sign {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include center_sort;
+  flex-direction: column;
+  gap: 20px;
+  margin: auto;
+  margin-bottom: 30px
 }
 
 .sign_title {
   @include center_sort;
   flex-direction: column;
   img {
-    width: 15rem;
-    height: 7rem;
+    width: 12rem;
+    height: 6rem;
   }
   span {
     font-size: 1.125rem;
@@ -111,7 +121,7 @@
 }
 
 .sign_Btn {
-  margin-top: 50px;
+  margin-top: 30px;
   background-color: $main_color;
   height: 40px;
   color: white;
@@ -207,17 +217,6 @@
   opacity: 70% !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal-root .ant-modal-wrap {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  inset-inline-end: none !important;
-  bottom: none !important;
-  inset-inline-start: none !important;
-  overflow: none !important;
-  outline: none !important;
-}
-
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body {
   text-align: center;
@@ -236,12 +235,11 @@
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title, :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body  {
-  margin: 20px 0 !important;
+  margin: 0 0 30px 0 !important
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger)  {
-  display: block !important;
-  margin: auto !important;
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer {
+  text-align: center !important;
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary {

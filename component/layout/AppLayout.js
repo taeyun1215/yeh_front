@@ -40,7 +40,6 @@ const AppLayout = ({ children }) => {
        <a onClick={() => logout()}>로그아웃</a>
      ),
    },
-  
  ];
   const handleOnSubmit = async (e) =>{
   if(e.keyCode === 13) {
@@ -57,7 +56,7 @@ const AppLayout = ({ children }) => {
   }
 
   const handleOnInit = () =>{
-    router.push('/main');
+    router.push('/main' , undefined, { shallow: true });
     initHandler(1);
   }
   
@@ -80,7 +79,7 @@ const AppLayout = ({ children }) => {
         </div>
         <div className="header_signBtn">
           {user.loggin ? (
-            <Dropdown menu={{ items }} placement="bottom">
+            <Dropdown menu={{ items }} placement="bottom" className="header_more">
               <Button className="header_user">{user.name}</Button>
             </Dropdown>
           ) : (

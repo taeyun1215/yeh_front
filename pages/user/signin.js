@@ -41,12 +41,12 @@ export default function Signiin(props) {
           setUser({name : response.nickname , loggin : true, emailAuth : response.emailVerified})
           const accessToken = response.access_token;
           const refreshToken = response.refresh_token;
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${accessToken}`;
+          // axios.defaults.headers.common[
+          //   "Authorization"
+          // ] = `Bearer ${accessToken}`;
 
           // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
-          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false });
+          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
           router.push("/");
         } else {
           alert(res.data.error.message);
@@ -61,7 +61,7 @@ export default function Signiin(props) {
   return (
     <div className="sign" style={{ width: "25%", gap: 0 }}>
       <div className="sign_title">
-      <Image src={logo} alt="yehLogo" onClick={() => router.push('/main')} style={{cursor:'pointer'}}/>
+      <Image src={logo} alt="yehLogo" onClick={() => router.push('/main' , undefined, { shallow: true })} style={{cursor:'pointer'}}/>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="sign_contents" >
         <label htmlFor="username">아이디</label>

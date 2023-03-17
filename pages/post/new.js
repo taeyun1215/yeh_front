@@ -20,9 +20,9 @@ export default function New(props) {
   const [images, setImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
 	const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
-  const formData = new FormData()
-  const inputRefTitle = useRef(null)
-  const inputRefContent = useRef(null)
+  const formData = new FormData();
+  const inputRefTitle = useRef(null);
+  const inputRefContent = useRef(null);
 
   useEffect(() => {   
     if(!user.loggin) {
@@ -68,10 +68,14 @@ export default function New(props) {
     }
   }
 
-  // 이미지 추가
+  // 이미지 첨부 핸들러
   const handleOnChange = (e) =>{
     const tmpFiles = Array.from(e.target.files)
-    setImages([...images, ...tmpFiles])
+    if([...images, ...tmpFiles].length < 5 ) setImages([...images, ...tmpFiles])
+    else {
+      setIsModal(true)
+      setImages([...images, ...tmpFiles].slice(0, 5))
+    }
   }
 
   const handleOnCancle = () => {
@@ -121,7 +125,7 @@ export default function New(props) {
         <button className="cancle" onClick={() => handleOnCancle()}>취소</button>
         <button onClick={() => handleOnSubmit()}>등록</button>
       </div>
-      {isModal ? <Modal open={isModal} onOk={() => setIsModal(false)} onCancel={() => setIsModal(false)} cancelButtonProps={{ style: { display: 'none' } }} width='420px'>
+      {isModal ? <Modal open={isModal} centered onOk={() => setIsModal(false)} onCancel={() => setIsModal(false)} cancelButtonProps={{ style: { display: 'none' } }} width='420px'>
         <p>첨부 이미지는 최대 5장까지 가능합니다.</p>
       </Modal> : null}
     </div>

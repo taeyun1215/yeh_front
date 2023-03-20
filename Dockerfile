@@ -23,7 +23,7 @@ FROM nginx
 EXPOSE 3000
 
 COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build app/.next  /usr/share/nginx/html
+COPY --from=build app/out  /usr/share/nginx/html
 
 # FROM node:alpine as builder
 

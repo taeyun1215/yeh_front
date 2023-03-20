@@ -22,42 +22,43 @@ export default function Main() {
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
   const keywordValue = useRecoilValue(keywordState);
+
   const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
   const [postsData, setPostsData] = useState([]);
   const [current, setCurrent] = useRecoilState(pageState);
   const [postsCount, setPostsCount] = useState(0);
 
-  // 검색 결과
-  // useEffect(() => {
-  //   if(keywordValue.postCount !== 0) {
-  //     setPostsData(keywordValue.posts);
-  //     setPostsCount(keywordValue.postCount)
-  //   } else return
-  // },[keywordValue])
-
   // 리프레시 토큰 발급
   useEffect(() => {
-    if(user.loggin) setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
+    if(user?.loggin) setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
   },[])
 
   // 전체 글 데이터 통신
-  useEffect(() => {
-    router.push(`/main?page=${current}`);
-    async function getPosts() {
+  const getPosts = async() => {
+    if(keywordValue?.postCount > 0) {
+      setPostsData(keywordValue.posts);
+      setPostsCount(keywordValue.postCount);
+    } else {
       const res = await axios.get("/post/all", { params: { page: current } });
-      if (res.data.success) {
+       if (res.data.success) {
         setPostsCount(res.data.data.postCount);
         setPostsData(res.data.data.posts);
+        console.log(false)
       } else alert("잠시 후 다시 접속해주세요");
     }
+  }
+
+  useEffect(() => {
+    router.push(`/main?page=${current}`);
     try {
       getPosts();
     } catch (e) {
       console.log(e);
       alert("잠시 후 다시 접속해주세요");
     }
-  }, [current]);
-  
+  }, [current, keywordValue]);
+
+
   return (
     <>
       <div className="getPost">

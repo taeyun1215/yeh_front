@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dropdown, Button } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { keywordState, pageState, userState } from "../../store/states";
 import { useCookies } from 'react-cookie';
 import { useState } from "react";
@@ -12,17 +12,18 @@ import axios from "axios";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const [user, setUser] = useRecoilState(userState);
-  const [searchVal, setSearchVal] = useState(null);
-  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+  const user = useRecoilValue(userState);
   const keywordHandler = useSetRecoilState(keywordState);
-  const initHandler = useSetRecoilState(pageState)
+  const UserHandler = useSetRecoilState(userState);
+  const PageHandler = useSetRecoilState(pageState);
+
+  const [searchVal, setSearchVal] = useState('');
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
 
   const logout = () => {
-    setUser((prev) => ({ ...prev, name: null , loggin: false}))
+    UserHandler()
     removecookie('refreshToken')
     removecookie('accessToken')
-
   }
 
  const items = [
@@ -41,23 +42,28 @@ const AppLayout = ({ children }) => {
      ),
    },
  ];
+
   const handleOnSubmit = async (e) =>{
-  if(e.keyCode === 13) {
-    try {
-      const res = await axios.get(`/post/search/${searchVal}`)
-      if(res.data.success) keywordHandler({posts : res.data.data.posts, postCount : res.data.data.postCount})
-      else alert('잠시 후 다시 시도해주세요.')
-    } 
-    catch(e) {
-      console.log(e)
-      alert('잠시 후 다시 시도해주세요.')
-    }
-  } else null
+    if(e.keyCode === 13 && searchVal.trim() !== '') {
+      try {
+        const res = await axios.get(`/post/search/${searchVal.trim()}`)
+        if(res.data.success && res.data.data.postCount > 0) keywordHandler({posts : res.data.data.posts, postCount : res.data.data.postCount})
+        else if(res.data.success && res.data.data.postCount === 0) alert('검색 결과가 없습니다.')
+        else alert('잠시 후 다시 시도해주세요.')
+      } 
+      catch(e) {
+        console.log(e)
+        alert('잠시 후 다시 시도해주세요.')
+      }
+    } else if(e.keyCode === 13 && searchVal.trim() === '') alert('검색어를 입력해 주세요.')
+      else return
   }
 
   const handleOnInit = () =>{
     router.push('/main' , undefined, { shallow: true });
-    initHandler(1);
+    PageHandler(1);
+    keywordHandler();
+    setSearchVal('');
   }
   
   return (
@@ -74,11 +80,12 @@ const AppLayout = ({ children }) => {
               className="header_input"
               onChange={(e) => setSearchVal(e.target.value)}
               onKeyUp={(e) => handleOnSubmit(e)}
+              value={searchVal}
             />
           </div>
         </div>
         <div className="header_signBtn">
-          {user.loggin ? (
+          {user?.loggin ? (
             <Dropdown menu={{ items }} placement="bottom" className="header_more">
               <Button className="header_user">{user.name}</Button>
             </Dropdown>

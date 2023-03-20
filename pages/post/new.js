@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { Modal} from 'antd';
 import { InboxOutlined , DeleteFilled } from "@ant-design/icons";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 
-import { userState } from "../../store/states";
+import { pageState, userState } from "../../store/states";
 import setToken from "../../component/utils/setToken";
 
 
 export default function New(props) {
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
+  const PageHandler = useSetRecoilState(pageState);
   const router = useRouter();
   
   const [title, setTitle] = useState('');
@@ -25,10 +26,11 @@ export default function New(props) {
   const inputRefContent = useRef(null);
 
   useEffect(() => {   
-    if(!user.loggin) {
+    console.log(user)
+    if(user === undefined || !user.loggin) {
         alert('로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.');
         router.push("/user/signin");
-    } else if(user.loggin && !user.emailAuth) {
+    } else if(user?.loggin && !user.emailAuth) {
           alert('YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.');
             router.push("/user/signupComplete");
     } else setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
@@ -54,8 +56,9 @@ export default function New(props) {
             },
           }).then((res) => {
             if(res.data.success) {
-              alert(res.data.data)
-              router.push("/")
+              alert(res.data.data);
+              PageHandler(1);
+              router.push('/main' , undefined, { shallow: true });
             } else {
               alert('게시글 등록에 실패했습니다. 다시 시도해 주세요')
             }

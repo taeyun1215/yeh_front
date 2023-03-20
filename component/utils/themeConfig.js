@@ -96,6 +96,10 @@ export const GlobalStyles = createGlobalStyle`
   &.detailPost &.detailPostBox &.detailPostBox_footer &.detailPostBox_footer_info button  {
     color : ${({ theme }) => theme.text};
   }
+
+  &.postComments &.postComments_wrap &.nestedComments_active button {
+    color : ${({ theme }) => theme.text};
+  }
   
   &.detailPost &.detailPostBox &.detailPostBox_footer p {
     color : ${({ theme }) => theme.text};

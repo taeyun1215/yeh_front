@@ -3,15 +3,14 @@ import { useEffect, useState } from "react"
 import { useCookies } from 'react-cookie';
 import { Dropdown, Button, Modal } from 'antd';
 import { EyeOutlined , FieldTimeOutlined, CommentOutlined, LikeOutlined , ShareAltOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import axios from "axios";
 import Image from "next/image";
 import { FaPen } from 'react-icons/fa';
 
-
 import CreateTime from "../../component/utils/createTime";
 import setToken from "../../component/utils/setToken";
-import { userState } from "../../store/states";
+import { pageState, userState } from "../../store/states";
 import Rank from "./rank";
 import Comments from "./comments";
 
@@ -20,6 +19,8 @@ export default function Details() {
     const router = useRouter();
     const user = useRecoilValue(userState);
     const reset = useResetRecoilState(userState);
+    const PageHandler = useSetRecoilState(pageState);
+
     const [detailData, setDetailData] = useState([]);
     const [comments, setCommnets] = useState('');
     const [isModal, setIsModal] = useState(false);
@@ -52,25 +53,25 @@ export default function Details() {
           }
         });
         if(res.data.success) setDetailData(res.data.data)
-        else alert('잠시 후 다시 시도해주세요')
     }
 
     useEffect(() => {
+      console.log(user?.loggin);
       try {
-          if(user.loggin) {
+          if(user === undefined) {
+            alert('로그인 후 이용 가능합니다.');
+            router.push("/user/signin");
+          } else if(user?.loggin) {
             setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset}).then((res) =>{
               if(res === 'userLogin') getPostView();
               else return
             })
-          } else {
-            alert('로그인 후 이용 가능합니다.');
-            router.push("/user/signin");
-          }
+          } else return
        } catch(e) {
           console.log(e)
           alert('잠시 후 다시 시도해주세요')
        }
-    },[router , user.loggin]);
+    },[router , user?.loggin]);
     
     // 게시글 공유
     const doCopy = url => {
@@ -144,14 +145,14 @@ export default function Details() {
         if(response.data.success) {
           // alert(response.data.data);
           setIsModal(false);
-          router.push("/main");
+          PageHandler(1);
+          router.push('/main');
         } else alert('잠시 후 다시 시도해주세요');
       } catch(e) {
         console.log(e);
         alert('잠시 후 다시 시도해주세요');
       }
     }
-
     return (
         <div className="detailPost">
           <Rank/>
@@ -192,9 +193,9 @@ export default function Details() {
                   value={comments}
                   onChange={(e) => setCommnets(e.target.value)} 
                   onKeyUp={(e)=> handleOnKeyup(e)} />
-                <button><FaPen/></button>
+                <button onClick={() => insertComments()}><FaPen/></button>
             </div>
-            <Comments comments={detailData}/>
+            <Comments comments={detailData} getPostView={getPostView}/>
               <Modal title="게시글 삭제" open={isModal} centered  okText="확인" cancelText="취소" onOk={handleOnDelete} onCancel={() => setIsModal(false)} >
                 <p>정말 게시글을 삭제하시겠습니까?</p>
               </Modal> 

@@ -49,16 +49,41 @@
                 cursor: pointer;
             }
         }
-        .nestedComments_input {
-            min-height: 40px;
-            overflow-y: hidden;
-            background-color: transparent;
-            border: 1px solid #dedede;
-            border-radius: 3px;
-            padding: 0 35px 0 10px;
-            margin: 10px 20px 0px 30px;
-            resize: none;
-            outline: none;
+        .nestedComments_active {
+            position: relative;
+            display: flex;
+
+            span {
+                position: absolute;
+                top: 22px;
+                left: 24px;
+                font-size: 12px;
+            }
+
+            input {
+                width: 100%;
+                min-height: 40px;
+                overflow-y: hidden;
+                background-color: transparent;
+                border: 1px solid #dedede;
+                border-radius: 3px;
+                padding: 0 45px 0 80px;
+                margin: 10px 0 0px 10px;
+                resize: none;
+                outline: none;
+            }
+            
+            button {
+                background-color: transparent;
+                border: none;
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                cursor: pointer;
+            }
+        }
+        .nestedComments_notActive {
+            display: none;
         }
     }
 
@@ -95,5 +120,6 @@
         position: absolute;
         bottom: 10px;
         right: 35px;
+        cursor: pointer;
     }
 }

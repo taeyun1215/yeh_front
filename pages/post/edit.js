@@ -21,8 +21,9 @@ export default function Edit() {
     const [images, setImages] = useState([]); // props 이미지
     const [reuploadImages, setReuploadImages] = useState([]); // 재 업로드 이미지
     const [preView, setPreView] = useState([]); // 업로드 전 미리보기 preview
-    const [isModal, setIsModal] = useState(false);
-    const formData = new FormData()
+    const [isModal, setIsModal] = useState(false); 
+
+    const formData = new FormData();
     const inputRefTitle = useRef(null);
     const inputRefContent = useRef(null);
 
@@ -50,7 +51,7 @@ export default function Edit() {
     }
     
     useEffect(() => {
-       if(user.loggin) {
+       if(user?.loggin) {
             setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
             getPostView();
         }

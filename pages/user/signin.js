@@ -8,11 +8,12 @@ import Image from "next/image";
 import axios from "axios";
 
 import logo from "../../asset/images/logo.png";
-import { userState } from "../../store/states";
+import { pageState, userState } from "../../store/states";
 
 export default function Signiin(props) {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
+  const PageHandler = useSetRecoilState(pageState);
   const [cookies, setCookie] = useCookies(['refreshToken']);
  
   const expires = new Date()
@@ -47,7 +48,8 @@ export default function Signiin(props) {
 
           // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
           setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
-          router.push("/");
+          PageHandler(1);
+          router.push('/main');
         } else {
           alert(res.data.error.message);
         }

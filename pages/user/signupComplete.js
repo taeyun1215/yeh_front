@@ -4,11 +4,14 @@ import axios from "axios";
 import { Modal } from 'antd';
 import { BsCheck2Circle } from "react-icons/bs";
 import { useCookies } from 'react-cookie';
+import { useSetRecoilState } from "recoil";
+import { pageState } from "../../store/states";
 
 export default function SignupComplete() {
   const [isModal, setIsModal] = useState(false);
   const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
   const router = useRouter();
+  const PageHandler = useSetRecoilState(pageState);
   
   const handleOnAuth = () => {
     const token = cookie.accessToken
@@ -35,7 +38,8 @@ export default function SignupComplete() {
   };
   const handleOnOk = () => {
     setIsModal(false);
-    router.push("/main");
+    PageHandler(1);
+    router.push('/main' , undefined, { shallow: true });
   }
   return (
     <>

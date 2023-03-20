@@ -1,14 +1,47 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { FaCommentDots } from 'react-icons/fa';
+import { useCookies } from 'react-cookie';
+import { FaCommentDots, FaPen } from 'react-icons/fa';
 import CreateTime from '../../component/utils/createTime';
 
-export default function Comments(props) {
-    const Comments = props.comments.comments
-    const [active, setActive] = useState(false)
+export default function Comments({comments, getPostView }) {
+    const Comments = comments.comments;
+    const formData = new FormData();
+    const [id, setId] = useState('');
+    const [value, setValue] = useState('');
+    const [active, setActive] = useState(false);
+    const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+
     const handleOnComments = async(id) => {
-        console.log(id)
+        setId(id);
         setActive(true);
     }
+
+    const handleOnKeyUp = (e) =>{
+        if(e.keyCode === 13) insertNestedComments()
+        else return 
+    }
+
+    const insertNestedComments =  async () => {
+        formData.append('content', value)
+        try {
+            const response = await axios.post(`/comment/reNew/${comments.id}/${id}`, formData,  
+            {headers: {
+                'Authorization' : `Bearer ${cookie.accessToken}`
+            }})
+            if(response.data.success) {
+                alert(response.data.data);
+                getPostView();
+                setValue('');
+                setActive(false);
+            }
+            else alert('잠시 후 다시 시도해 주세요');
+        } catch(e) {
+            console.log(e)
+            alert('잠시 후 다시 시도해 주세요');
+        }
+    }  
+
      return (
         <div className="postComments">
             {Comments !==null ? 
@@ -24,10 +57,11 @@ export default function Comments(props) {
                                 <button className="nestedComments_button" onClick={() => handleOnComments(v.id)}>답글달기</button>
                             </div>
                             {active ? 
-                                <>
-                                    <span>{v.writer}</span>
-                                    <input className="nestedComments_input" autoFocus/>
-                                </>
+                                <div id={v.id} className={v.id === id ? 'nestedComments_active' : 'nestedComments_notActive' }>
+                                    <span>@{v.writer}</span>
+                                    <input id={v.id} value={value} onChange={(e) => setValue(e.target.value)} onKeyUp={(e) => handleOnKeyUp(e)} autoFocus />
+                                    <button onClick={() => insertNestedComments()}><FaPen/></button>
+                                </div>
                             : null}
                         </div>
                         <div>

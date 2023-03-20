@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Modal } from 'antd';
+import { Modal, Spin } from 'antd';
 import { BsCheck2Circle } from "react-icons/bs";
+import { LoadingOutlined } from '@ant-design/icons';
 import { useCookies } from 'react-cookie';
 import { useSetRecoilState } from "recoil";
+
 import { pageState } from "../../store/states";
 
 export default function SignupComplete() {
   const [isModal, setIsModal] = useState(false);
-  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+  const [loading, setLoading] = useState(false);
+  const [cookie,, removecookie] = useCookies(['refreshToken','accessToken']);
   const router = useRouter();
   const PageHandler = useSetRecoilState(pageState);
   
   const handleOnAuth = () => {
-    const token = cookie.accessToken
+    setIsModal(true);
+    setLoading(true);
+    const token = cookie.accessToken;
     try{
       axios.post("/email/certify-regis", {
         body : null
@@ -24,22 +29,28 @@ export default function SignupComplete() {
             'Content-Type': 'application/json'
           },
         }).then((res) => {
-          console.log(res)
           if(res.data.success) {
-             setIsModal(true);
+              setLoading(false);
           } else {
-            alert('잠시 후 다시 시도해 주세요.');
+              setLoading(false);
+              alert('잠시 후 다시 시도해 주세요.');
           }
         })
     } catch(e) {
-      console.log(e)
-      alert('잠시 후 다시 시도해 주세요.');
+        console.log(e)
+        setLoading(false);
+        alert('잠시 후 다시 시도해 주세요.');
     }
-  };
+  }
+  const antIcon = <LoadingOutlined style={{ fontSize: 24, color:'#2b3089' }} spin />;
+
   const handleOnOk = () => {
-    setIsModal(false);
-    PageHandler(1);
-    router.push('/main' , undefined, { shallow: true });
+    if(loading) alert('인증 메일이 전송될 때까지 잠시 기다려주십시오.');
+    else {
+      setIsModal(false);
+      PageHandler(1);
+      router.push('/main' , undefined, { shallow: true });
+    }
   }
   return (
     <>
@@ -54,7 +65,7 @@ export default function SignupComplete() {
           
      {isModal ?
       <Modal title="이메일 인증" centered okText='확인' open={isModal} onOk={handleOnOk} onCancel={() => setIsModal(false)} cancelButtonProps={{ style: { display: 'none' } }} width='420px'>
-        <p>인증 메일이 전송되었습니다.<br/>전송된 메일을 통해 인증해주시기 바랍니다.</p>
+        {loading ? <Spin indicator={antIcon} /> : <p>인증 메일이 전송되었습니다.<br/>전송된 메일을 통해 인증해주시기 바랍니다.</p>}
       </Modal> 
       : null} 
     </>

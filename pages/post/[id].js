@@ -56,9 +56,9 @@ export default function Details() {
     }
 
     useEffect(() => {
-      console.log(user?.loggin);
+      console.log(user);
       try {
-          if(user === undefined) {
+          if(user === undefined || user?.name === null) {
             alert('로그인 후 이용 가능합니다.');
             router.push("/user/signin");
           } else if(user?.loggin) {
@@ -113,21 +113,24 @@ export default function Details() {
     
     // 댓글 작성
     const insertComments = async () => {
-      formData.append('content', comments)
-      try {
-          const response = await axios.post(`/comment/new/${detailData.id}`, formData,  
-          {headers: {
-              'Authorization' : `Bearer ${cookie.accessToken}`
-          }})
-          if(response.data.success) {
-            getPostView()
-            setCommnets('')
-          }
-          else alert('잠시 후 다시 시도해 주세요');
-      } catch(e) {
-          console.log(e)
-          alert('잠시 후 다시 시도해 주세요');
-      }
+      if(comments.trim() !== '') {
+        formData.append('content', comments)
+        try {
+            const response = await axios.post(`/comment/new/${detailData.id}`, formData,  
+            {headers: {
+                'Authorization' : `Bearer ${cookie.accessToken}`
+            }})
+            if(response.data.success) {
+              alert(response.data.data);
+              getPostView();
+              setCommnets('');
+            }
+            else alert('잠시 후 다시 시도해 주세요');
+        } catch(e) {
+            console.log(e)
+            alert('잠시 후 다시 시도해 주세요');
+        }
+      } else alert('댓글을 입력해주세요.')
     }
 
     const handleOnKeyup = (e) =>{

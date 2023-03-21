@@ -21,6 +21,5 @@ const keywordState = atom({
 const pageState = atom({
   key: 'pageState',
   default: 1,
-  effects_UNSTABLE: [persistAtom],
 })
 export { userState, keywordState, pageState};

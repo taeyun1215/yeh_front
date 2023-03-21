@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps}) {
     setTheme(JSON.parse(localStorage.getItem('theme')))
   },[theme])
 
+  console.log(pageProps)
   function PageRouter() {
     const pages = pageProps.name;
     switch(pages) {

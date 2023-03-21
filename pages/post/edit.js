@@ -29,12 +29,7 @@ export default function Edit() {
 
     const getPostView = async () => {
         try{
-            const token = cookie.accessToken
-            const res = await axios.get(`/post/read/${router.query.id}`, {
-              headers : {
-                'Authorization' : `Bearer ${token}`
-              }
-            });
+            const res = await axios.get(`/post/read/${router.query.id}`);
             if(res.data.success) {
                 const response = res.data.data
                 setTitle(res.data.data.title);
@@ -52,14 +47,14 @@ export default function Edit() {
     
     useEffect(() => {
        if(user?.loggin) {
-            setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
+            setToken({cookie:cookie, router : router, reset : reset})  
             getPostView();
         }
     },[])
     
     const handleOnSubmit = async () => {
-        console.log(title)
-        console.log(reuploadImages)
+        console.log(title);
+        console.log(content);
         if(title === '') {
             return inputRefTitle.current.focus();
         } else if(content === '') {
@@ -74,7 +69,6 @@ export default function Edit() {
                 // 이미지 전송을 위해 헤더를 multipart/form-data 로 한다.
                 await axios.put(`/post/edit/${router.query.id}`, formData, {
                     headers: {
-                    'Authorization' : `Bearer ${cookie.accessToken}`,
                     'Content-Type': 'multipart/form-data',
                   },
                 }).then((res) => {

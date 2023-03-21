@@ -20,20 +20,19 @@ export default function New(props) {
   const [content, setContent] = useState('');
   const [images, setImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
-	const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+	const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
   const formData = new FormData();
   const inputRefTitle = useRef(null);
   const inputRefContent = useRef(null);
 
   useEffect(() => {   
-    console.log(user)
     if(user === undefined || !user.loggin) {
         alert('로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.');
         router.push("/user/signin");
     } else if(user?.loggin && !user.emailAuth) {
           alert('YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.');
             router.push("/user/signupComplete");
-    } else setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
+    } else setToken({cookie:cookie, router : router, reset : reset})  
   }, [])
   
   const handleOnSubmit = async () => {
@@ -51,7 +50,6 @@ export default function New(props) {
           // 이미지 전송을 위해 헤더를 multipart/form-data 로 한다.
           await axios.post('/post/new', formData, {
               headers: {
-              'Authorization' : `Bearer ${cookie.accessToken}`,
               'Content-Type': 'multipart/form-data',
             },
           }).then((res) => {

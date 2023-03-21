@@ -6,13 +6,13 @@ import axios from "axios";
 import Image from "next/image";
 
 import logo from "../../asset/images/logo.png";
-import { useCookies } from "react-cookie";
 
 export default function Signup() {
   const router = useRouter();
-  const [cookies, setCookie] = useCookies(['accessToken']);
-  const expires = new Date()
-  expires.setHours(expires.getHours() + 2);
+
+  // const expires = new Date()
+  // expires.setHours(expires.getHours() + 2);
+
 
   // 회원가입 정보 유효성 검사 및 에러 메시지 출력
   const formSchema = yup.object({
@@ -55,11 +55,11 @@ export default function Signup() {
         .post("/api/user", data)
         .then((res) => {
           if (res.data.success === true) {
-            const token = res.data.data.access_token;
-            setCookie('accessToken', token ,{ expires : expires, httpOnly : false , secure:true})
+            // const token = res.data.data.access_token;
+            // setCookie('accessToken', token ,{ expires : expires, httpOnly : false , secure:true})
             router.push("/user/signupComplete");
           } else if (res.data.success === false) {
-            alert(res.data.error[0].message);
+            alert(res.data.error.message);
           } else {
             alert("회원가입에 실패했습니다. 잠시 후 다시 시도해 주십시오.");
           }

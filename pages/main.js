@@ -23,14 +23,14 @@ export default function Main() {
   const reset = useResetRecoilState(userState);
   const keywordValue = useRecoilValue(keywordState);
 
-  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
   const [postsData, setPostsData] = useState([]);
   const [current, setCurrent] = useRecoilState(pageState);
   const [postsCount, setPostsCount] = useState(0);
 
   // 리프레시 토큰 발급
   useEffect(() => {
-    if(user?.loggin) setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset})  
+    if(user?.loggin) setToken({cookie:cookie, router : router, reset : reset})  
   },[])
 
   // 전체 글 데이터 통신
@@ -43,11 +43,10 @@ export default function Main() {
        if (res.data.success) {
         setPostsCount(res.data.data.postCount);
         setPostsData(res.data.data.posts);
-        console.log(false)
       } else alert("잠시 후 다시 접속해주세요");
     }
   }
-
+  
   useEffect(() => {
     router.push(`/main?page=${current}`);
     try {
@@ -58,8 +57,7 @@ export default function Main() {
     }
   }, [current, keywordValue]);
 
-
-  return (
+ return (
     <>
       <div className="getPost">
         <Rank/>

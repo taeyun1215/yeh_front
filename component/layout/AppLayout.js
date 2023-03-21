@@ -18,12 +18,12 @@ const AppLayout = ({ children }) => {
   const PageHandler = useSetRecoilState(pageState);
 
   const [searchVal, setSearchVal] = useState('');
-  const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
 
   const logout = () => {
     UserHandler()
     removecookie('refreshToken')
-    removecookie('accessToken')
+    // removecookie('accessToken')
   }
 
  const items = [
@@ -124,6 +124,9 @@ const AppLayout = ({ children }) => {
         </div>
       </div>
       {children}
+      <div className="footer">
+        await
+      </div>
     </>
   );
 };

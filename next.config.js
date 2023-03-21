@@ -21,17 +21,7 @@ const nextConfig = {
         permanent: false
       }
     ]
-  },
-
-  exportPathMap: async function () {
-    return {
-      '/': { page: '/' },
-      '/user': { page: '/user' },
-      '/post': { page: '/post' },
-      '/post/[id]': { page: '/post/[id]' },
-    };
-  },
-
+  }
 }
 
 module.exports = nextConfig

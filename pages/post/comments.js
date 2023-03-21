@@ -10,7 +10,7 @@ export default function Comments({comments, getPostView }) {
     const [id, setId] = useState('');
     const [value, setValue] = useState('');
     const [active, setActive] = useState(false);
-    const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+    const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
 
     const handleOnComments = async(id) => {
         setId(id);
@@ -26,10 +26,7 @@ export default function Comments({comments, getPostView }) {
         if(value.trim() !== '') {
             formData.append('content', value)
             try {
-                const response = await axios.post(`/comment/reNew/${comments.id}/${id}`, formData,  
-                {headers: {
-                    'Authorization' : `Bearer ${cookie.accessToken}`
-                }})
+                const response = await axios.post(`/comment/reNew/${comments.id}/${id}`, formData)
                 if(response.data.success) {
                     getPostView();
                     setValue('');

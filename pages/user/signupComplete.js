@@ -5,27 +5,32 @@ import { Modal, Spin } from 'antd';
 import { BsCheck2Circle } from "react-icons/bs";
 import { LoadingOutlined } from '@ant-design/icons';
 import { useCookies } from 'react-cookie';
-import { useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 
-import { pageState } from "../../store/states";
+import { pageState, userState } from "../../store/states";
 
 export default function SignupComplete() {
+  const router = useRouter();
+  const user = useRecoilValue(userState);
+  const reset = useResetRecoilState(userState);
+  const PageHandler = useSetRecoilState(pageState);
+  const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
+
   const [isModal, setIsModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [cookie,, removecookie] = useCookies(['refreshToken','accessToken']);
-  const router = useRouter();
-  const PageHandler = useSetRecoilState(pageState);
   
+  useEffect(() => {
+    if(user?.loggin) setToken({cookie:cookie, router : router, reset : reset})  
+  },[])
+
   const handleOnAuth = () => {
     setIsModal(true);
     setLoading(true);
-    const token = cookie.accessToken;
     try{
       axios.post("/email/certify-regis", {
         body : null
       }, {
       headers: {
-            "Authorization" : `Bearer ${token}`,
             'Content-Type': 'application/json'
           },
         }).then((res) => {
@@ -42,6 +47,7 @@ export default function SignupComplete() {
         alert('잠시 후 다시 시도해 주세요.');
     }
   }
+
   const antIcon = <LoadingOutlined style={{ fontSize: 24, color:'#2b3089' }} spin />;
 
   const handleOnOk = () => {

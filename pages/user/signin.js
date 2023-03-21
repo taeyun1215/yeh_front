@@ -10,7 +10,7 @@ import axios from "axios";
 import logo from "../../asset/images/logo.png";
 import { pageState, userState } from "../../store/states";
 
-export default function Signiin(props) {
+export default function Signiin() {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
@@ -35,21 +35,20 @@ export default function Signiin(props) {
     formData.append("username", data.username);
     formData.append("password", data.password);
     try {
-      await axios.post("/api/login", formData, {withCredentials:true}).then((res) => {
-        console.log(res)
+      await axios.post("/login", formData, {withCredentials:true}).then((res) => {
         if (res.data.success === true) {
-          const response = res.data.data;
-          setUser({name : response.nickname , loggin : true, emailAuth : response.emailVerified})
-          const accessToken = response.access_token;
-          const refreshToken = response.refresh_token;
-          // axios.defaults.headers.common[
-          //   "Authorization"
-          // ] = `Bearer ${accessToken}`;
-
-          // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
-          setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
-          PageHandler(1);
-          router.push('/main');
+            const response = res.data.data;
+            const accessToken = response.access_token;
+            const refreshToken = response.refresh_token;
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${accessToken}`;
+            
+            // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
+            setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
+            setUser({name : response.nickname , loggin : true, emailAuth : response.emailVerified});
+            PageHandler(1);
+            router.push('/main');
         } else {
           alert(res.data.error.message);
         }
@@ -90,9 +89,9 @@ export default function Signiin(props) {
         </button>
       </form>
       <div className="sign_Etc_Btn">
-        <button onClick={() => router.push('/user/idFind')}>아이디 찾기</button>
+        <button onClick={() => router.push({pathname: '/user/userFind', query: { type: 'id' }})}>아이디 찾기</button>
         <span>|</span>
-        <button>비밀번호 찾기</button>
+        <button onClick={() => router.push({pathname: '/user/userFind', query: { type: 'password' }})}>비밀번호 찾기</button>
         <span>|</span>
         <button onClick={() => router.push("/user/signup")}>회원가입</button>
       </div>

@@ -24,7 +24,7 @@ export default function Details() {
     const [detailData, setDetailData] = useState([]);
     const [comments, setCommnets] = useState('');
     const [isModal, setIsModal] = useState(false);
-    const [cookie, setCookie, removecookie] = useCookies(['refreshToken','accessToken']);
+    const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
 
     const items = [
       {
@@ -46,23 +46,18 @@ export default function Details() {
 
     // 상세 게시글 받아오기
     const getPostView = async () => {
-      const token = cookie.accessToken
         const res = await axios.get(`/post/read/${router.query.id}`, {
-          headers : {
-            'Authorization' : `Bearer ${token}`
-          }
         });
         if(res.data.success) setDetailData(res.data.data)
     }
 
     useEffect(() => {
-      console.log(user);
       try {
           if(user === undefined || user?.name === null) {
             alert('로그인 후 이용 가능합니다.');
             router.push("/user/signin");
           } else if(user?.loggin) {
-            setToken({cookie:cookie, setCookie : setCookie, router : router, reset : reset}).then((res) =>{
+            setToken({cookie:cookie, router : router, reset : reset}).then((res) =>{
               if(res === 'userLogin') getPostView();
               else return
             })
@@ -99,10 +94,7 @@ export default function Details() {
     // 게시글 좋아요
     const handleOnLike = async () => {
       try {
-        const response = await axios.get(`/post/like/${detailData.id}`,   
-          {headers: {
-            'Authorization' : `Bearer ${cookie.accessToken}`
-          }})
+        const response = await axios.get(`/post/like/${detailData.id}`)
         if(response.data.success) getPostView()
         else alert('잠시 후 다시 시도해주세요');
       } catch(e) {
@@ -116,10 +108,7 @@ export default function Details() {
       if(comments.trim() !== '') {
         formData.append('content', comments)
         try {
-            const response = await axios.post(`/comment/new/${detailData.id}`, formData,  
-            {headers: {
-                'Authorization' : `Bearer ${cookie.accessToken}`
-            }})
+            const response = await axios.post(`/comment/new/${detailData.id}`, formData)
             if(response.data.success) {
               alert(response.data.data);
               getPostView();
@@ -141,10 +130,7 @@ export default function Details() {
     // 게시글 삭제
     const handleOnDelete = async () => {
       try {
-        const response = await axios.delete(`/post/delete/${detailData.id}`,   
-          {headers: {
-            'Authorization' : `Bearer ${cookie.accessToken}`
-          }})
+        const response = await axios.delete(`/post/delete/${detailData.id}`)
         if(response.data.success) {
           // alert(response.data.data);
           setIsModal(false);

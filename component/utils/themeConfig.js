@@ -12,7 +12,8 @@ export const lightTheme = {
   pageRight : 'rgba(0, 0, 0, 0.88) !important',
   pageNum : '#000000 !important',
   themeIconColor : "#424242",
-  themeBorder : "1px #424242 solid"
+  themeBorder : "1px #424242 solid",
+  Cancletext : "#2b3089"
 }
 
 export const darkTheme = {
@@ -29,6 +30,7 @@ export const darkTheme = {
   pageNum_NotAcive : '#a8a8a8',
   themeIconColor : "#94969b",
   themeBorder : "1px #94969b solid",
+  Cancletext: '#d9d9d9',
 }
 
 export const GlobalStyles = createGlobalStyle`
@@ -113,7 +115,7 @@ export const GlobalStyles = createGlobalStyle`
     color : ${({ theme }) => theme.text};
   }
   
-  &.comments_input button {
+  &.comments_input button, &.post &.postContents {
     color : ${({ theme }) => theme.text};
   }
   input {
@@ -121,5 +123,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   .footer {
     border-top : ${({ theme }) => theme.DivBorder};
+  }
+  &.post &.postBtn &.cancle {
+    color : ${({ theme }) => theme.Cancletext};
   }
 `

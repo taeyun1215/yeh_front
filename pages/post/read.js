@@ -108,7 +108,7 @@ export default function Details() {
       if(comments.trim() !== '') {
         formData.append('content', comments)
         try {
-            const response = await axios.post(`/comment/new/${detailData.id}`, formData)
+            const response = await axios.post(`/comment/new/${detailData.id}`, formData);
             if(response.data.success) {
               alert(response.data.data);
               getPostView();

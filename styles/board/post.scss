@@ -53,6 +53,7 @@
       padding: 0;
     }
   }
+  
  
   .postBtn {
     display: flex;
@@ -73,7 +74,6 @@
     }
 
     .cancle {
-      color: $main_color;
       border: 2px solid $main_color;
       background-color: transparent;
     }

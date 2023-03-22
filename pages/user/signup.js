@@ -10,10 +10,6 @@ import logo from "../../asset/images/logo.png";
 export default function Signup() {
   const router = useRouter();
 
-  // const expires = new Date()
-  // expires.setHours(expires.getHours() + 2);
-
-
   // 회원가입 정보 유효성 검사 및 에러 메시지 출력
   const formSchema = yup.object({
     username: yup
@@ -36,9 +32,6 @@ export default function Signup() {
         /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[,./;'<>?:"~!@#$%^&*()])[a-zA-Z0-9,./;'<>?:"~!@#$%^&*()]{8,20}$/,
         "영문, 숫자, 특수문자 포함 8자리를 입력해주세요."
       ),
-    // confirmPassword: yup
-    //   .string()
-    //   .oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다."),
     nickname: yup.string().required("닉네임은 필수 입력 정보입니다"),
   });
 
@@ -52,14 +45,16 @@ export default function Signup() {
   const onSubmit = async (data) => {
     try {
       await axios
-        .post("/api/user", data)
+        .post("/user", data)
         .then((res) => {
+          console.log(res)
           if (res.data.success === true) {
-            // const token = res.data.data.access_token;
-            // setCookie('accessToken', token ,{ expires : expires, httpOnly : false , secure:true})
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${res.data.data.access_token}`;
             router.push("/user/signupComplete");
           } else if (res.data.success === false) {
-            alert(res.data.error.message);
+            alert(res.data.error[0].message);
           } else {
             alert("회원가입에 실패했습니다. 잠시 후 다시 시도해 주십시오.");
           }
@@ -73,7 +68,7 @@ export default function Signup() {
   return (
     <div className="signup">
       <div className="sign_title">
-        <Image src={logo} alt="yehLogo" />
+        <Image src={logo} alt="yehLogo" onClick={() => router.push('/main')}/>
         <span>조직문화의 개선과 소통을 위해 지금 시작해보세요</span>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="sign_contents">

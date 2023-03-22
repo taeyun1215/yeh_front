@@ -36,10 +36,10 @@ function MyApp({ Component, pageProps}) {
       )  
       case 'postNew' : return (
         <Component {...pageProps} />
-    )    
+      )  
       default : return (
         <AppLayout>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </AppLayout> 
       )
     }
@@ -53,7 +53,9 @@ function MyApp({ Component, pageProps}) {
       <ThemeProvider theme={!theme ? lightTheme : darkTheme}>
         <RecoilRoot >
           <GlobalStyles />
-          {PageRouter()}
+          <div className="body_wrap">
+            {PageRouter()}
+          </div>
           <button onClick={() => handleThemeToggle()} className='themeToggle'>
             {!theme ? <BsFillMoonFill className="themeToggleIcon"/> : <BsFillSunFill className="themeToggleIcon"/>}
           </button>

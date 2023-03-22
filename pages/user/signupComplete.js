@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Modal, Spin } from 'antd';
 import { BsCheck2Circle } from "react-icons/bs";
 import { LoadingOutlined } from '@ant-design/icons';
 import { useCookies } from 'react-cookie';
-import { useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
 import { pageState, userState } from "../../store/states";
+import setToken from "../../component/utils/setToken";
 
 export default function SignupComplete() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function SignupComplete() {
       }, {
       headers: {
             'Content-Type': 'application/json'
-          },
+        },
         }).then((res) => {
           if(res.data.success) {
               setLoading(false);

@@ -60,7 +60,7 @@ export default function Signiin() {
   };
 
   return (
-    <div className="sign" style={{ width: "25%", gap: 0 }}>
+    <div className="sign">
       <div className="sign_title">
       <Image src={logo} alt="yehLogo" onClick={() => router.push('/main' , undefined, { shallow: true })} style={{cursor:'pointer'}}/>
       </div>

@@ -24,7 +24,10 @@ export default function Rank() {
     <div className="ranking">
       <p className="rankingTitle">실시간 인기글</p>
       {rankigData.map((i, index) => (
-        <div className="rankingContents" key={i.id} onClick={() => router.push(`/post/${i.id}`)}>
+        <div className="rankingContents" key={i.id} onClick={() => router.push({
+          pathname: '/post/read',
+          query: { id: i.id},
+        })}>
           <p className="index">{index + 1}</p>
           <p className="title">{i.title}</p>
         </div>

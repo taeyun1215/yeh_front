@@ -98,3 +98,11 @@ export default function Signiin() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      path: 'signin',
+    },
+  };
+}

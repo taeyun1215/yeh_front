@@ -66,7 +66,10 @@ export default function Main() {
             <div
               key={i.id}
               className="getPostsBox"
-              onClick={() => router.push(`/post/${i.id}`)}
+              onClick={() => router.push({
+                pathname: '/post/read',
+                query: { id: i.id},
+              })}
             >
               {CreateTime(i.createTime).includes("방금전")  ||
               CreateTime(i.createTime).includes("분전")  ||

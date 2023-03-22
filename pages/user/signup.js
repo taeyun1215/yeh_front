@@ -127,3 +127,10 @@ export default function Signup() {
     </div>
   );
 }
+export async function getStaticProps() {
+  return {
+    props: {
+      path: 'signup',
+    },
+  };
+}

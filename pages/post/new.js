@@ -10,7 +10,7 @@ import { pageState, userState } from "../../store/states";
 import setToken from "../../component/utils/setToken";
 
 
-export default function New(props) {
+export default function New() {
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
@@ -21,7 +21,6 @@ export default function New(props) {
   const [images, setImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
 	const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
-  const formData = new FormData();
   const inputRefTitle = useRef(null);
   const inputRefContent = useRef(null);
 
@@ -36,6 +35,8 @@ export default function New(props) {
   }, [])
   
   const handleOnSubmit = async () => {
+    const formData = new FormData();
+
     if(title === '') {
       return inputRefTitle.current.focus();
     } else if(content === '') {
@@ -90,7 +91,7 @@ export default function New(props) {
   }
 
   return (  
-    <div className="post" >
+    <div className="post" style={{paddingTop:'5rem'}}>
       <input
         type="text"
         placeholder="제목을 입력해 주세요"

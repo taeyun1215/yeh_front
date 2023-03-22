@@ -44,17 +44,17 @@ export default function Edit() {
         }
        
     }
-    
     useEffect(() => {
-       if(user?.loggin) {
+        if(user === undefined || user?.name === null) {
+            alert('로그인 후 이용 가능합니다.');
+            router.push("/user/signin");
+        } else if(user?.loggin) {
             setToken({cookie:cookie, router : router, reset : reset})  
             getPostView();
-        }
-    },[])
+        } else return
+    },[user?.loggin])
     
     const handleOnSubmit = async () => {
-        console.log(title);
-        console.log(content);
         if(title === '') {
             return inputRefTitle.current.focus();
         } else if(content === '') {

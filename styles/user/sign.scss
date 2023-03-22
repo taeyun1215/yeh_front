@@ -211,36 +211,47 @@
     }
 }
 // 이메일 인증 확인 중 모달
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal-root .ant-modal-mask {
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal-root .ant-modal-mask,
+:where(.css-acm2ia).ant-modal-root .ant-modal-mask {
   background-color: black !important;
   opacity: 70% !important;
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body {
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body,
+:where(.css-acm2ia).ant-modal .ant-modal-content {
   text-align: center;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title {
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
+:where(.css-acm2ia).ant-modal .ant-modal-title {
   font-size: 24px !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin{ 
+:where(.css-dev-only-do-not-override-acm2ia).ant-spin, 
+:where(.css-acm2ia).ant-spin{ 
   color: $main_color !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin .ant-spin-dot {
+:where(.css-dev-only-do-not-override-acm2ia).ant-spin .ant-spin-dot, 
+:where(.css-acm2ia).ant-spin .ant-spin-dot {
   font-size: 52px !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title, :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body  {
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title, 
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body  {
   margin: 0 0 30px 0 !important
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer {
+:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer,
+:where(.css-acm2ia).ant-modal .ant-modal-footer {
   text-align: center !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary {
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary, :where(.css-acm2ia).ant-modal .ant-modal-title {
+  background-color: $main_color !important;
+}
+
+:where(.css-acm2ia).ant-btn-primary:not(:disabled):hover {
   background-color: $main_color !important;
 }

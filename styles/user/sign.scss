@@ -220,6 +220,8 @@
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body,
 :where(.css-acm2ia).ant-modal .ant-modal-content {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -248,7 +250,8 @@
   text-align: center !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary, :where(.css-acm2ia).ant-modal .ant-modal-title {
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary,
+:where(.css-acm2ia).ant-modal .ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger) {
   background-color: $main_color !important;
 }
 

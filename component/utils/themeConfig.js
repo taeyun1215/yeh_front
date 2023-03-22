@@ -109,15 +109,17 @@ export const GlobalStyles = createGlobalStyle`
     background-color :  ${({ theme }) => theme.DivBg};
   }
 
-  &.postComments &.postComments_wrap &.nestedComments_active input {
-    color : ${({ theme }) => theme.text};
-  }
-
   &.header &.header_signBtn &.header_user {
     color : ${({ theme }) => theme.text};
   }
-  .comments_input button, .comments_input input {
+  
+  &.comments_input button {
     color : ${({ theme }) => theme.text};
   }
-  
+  input {
+    color : ${({ theme }) => theme.text};
+  }
+  .footer {
+    border-top : ${({ theme }) => theme.DivBorder};
+  }
 `

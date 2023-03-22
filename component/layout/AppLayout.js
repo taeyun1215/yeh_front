@@ -1,14 +1,17 @@
-import logo from "../../asset/images/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dropdown, Button } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { keywordState, pageState, userState } from "../../store/states";
 import { useCookies } from 'react-cookie';
 import { useState } from "react";
 import axios from "axios";
 import qs from 'qs'
+
+
+import logo from "../../asset/images/logo.png";
+import AppFooter from "./appFooter";
+import { keywordState, pageState, userState } from "../../store/states";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
@@ -23,7 +26,6 @@ const AppLayout = ({ children }) => {
   const logout = () => {
     UserHandler()
     removecookie('refreshToken')
-    // removecookie('accessToken')
   }
 
  const items = [
@@ -56,7 +58,10 @@ const AppLayout = ({ children }) => {
             'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
           }
         })
-        if(res.data.success && res.data.data.postCount > 0) keywordHandler({posts : res.data.data.posts, postCount : res.data.data.postCount})
+        if(res.data.success && res.data.data.postCount > 0) {
+          keywordHandler({posts : res.data.data.posts, postCount : res.data.data.postCount})
+          router.push('/main')
+          }
         else if(res.data.success && res.data.data.postCount === 0) alert('검색 결과가 없습니다.')
         else alert('잠시 후 다시 시도해주세요.')
       } 
@@ -124,9 +129,7 @@ const AppLayout = ({ children }) => {
         </div>
       </div>
       {children}
-      <div className="footer">
-        await
-      </div>
+      <AppFooter/>
     </>
   );
 };

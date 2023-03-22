@@ -1,12 +1,15 @@
 @import "../variables.scss";
 
 .post {
-  width: 70%;
+  width: 60%;
   @include center_sort;
   flex-direction: column;
   gap: 20px;
   margin: auto;
-  margin-top: 45px;
+  // position: absolute;
+  // left: 50%;
+  // top: 50%;
+  // transform: translate(-50%, -50%);
 
   .postTitle {
     width: 98%;

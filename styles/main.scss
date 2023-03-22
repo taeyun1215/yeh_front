@@ -2,6 +2,7 @@
 @import "./board/setPost.scss";
 @import "./board/getPost.scss";
 @import "./layout/header.scss";
+@import "./layout/footer.scss";
 @import "./board/details.scss";
 @import "./board/comments.scss";
 @import "./board/rank.scss";
@@ -14,6 +15,10 @@ body {
   overflow-y: auto !important;
 }
 
+input,  textarea {
+  background-color: transparent;
+}
+ 
 body *{
   font-family: "Noto Sans KR", sans-serif;
 }

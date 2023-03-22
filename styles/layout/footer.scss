@@ -1,0 +1,23 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    padding: .5rem;
+    gap: 15px;
+    
+    .footer_image {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .footer_icon {
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .footer_text p{
+        font-size: 10px;
+        margin: 0;
+    }
+}

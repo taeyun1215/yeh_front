@@ -4,7 +4,7 @@ import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userState } from "../../store/states";
 
 import setToken from "../../component/utils/setToken";
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 export default function MyPage() {
   const router = useRouter();
@@ -13,14 +13,20 @@ export default function MyPage() {
 
   const getMyInfo = async () => {
     const response = await axios.get("/user/profile");
+    console.log(response);
   };
   // 리프레시 토큰 발급
   useEffect(() => {
-    if (user?.loggin) {
-      setToken({ router: router, reset: reset }).then((res) => {
-        // if (res === "userLogin") getMyInfo();
-        // else return;
-      });
+    try {
+      if (user?.loggin) {
+        setToken({ router: router, reset: reset }).then((res) => {
+          if (res === "userLogin") getMyInfo();
+          else return;
+        });
+      } else return;
+    } catch (e) {
+      console.log(e);
+      alert("잠시 후 다시 시도해주세요");
     }
   }, []);
 

@@ -39,7 +39,6 @@ export default function Signiin() {
           if (res.data.success === true) {
             const response = res.data.data;
             const accessToken = response.access_token;
-            const refreshToken = response.refresh_token;
             axios.defaults.headers.common[
               "Authorization"
             ] = `Bearer ${accessToken}`;

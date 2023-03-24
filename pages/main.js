@@ -124,6 +124,7 @@ export default function Main() {
           current={current}
           onChange={(page) => setCurrent(page)}
           total={postsCount}
+          showSizeChanger={false}
         />
       </div>
     </>

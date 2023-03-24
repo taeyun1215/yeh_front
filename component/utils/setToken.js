@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const setToken = async (props) => {
-  console.log("tst");
+  // const cookie = props.cookie;
+  // const setCookie = props.setCookie;
+  console.log("*******시작*****************");
+
   const reset = props.reset;
   const router = props.router;
 
@@ -10,6 +13,7 @@ const setToken = async (props) => {
     url: "https://www.devyeh.com/api/user/token/refresh",
   });
 
+  console.log("***********끝*************");
   if (response.data.success) {
     axios.defaults.headers.common[
       "Authorization"

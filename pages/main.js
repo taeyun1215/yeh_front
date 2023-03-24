@@ -23,30 +23,31 @@ export default function Main() {
   const reset = useResetRecoilState(userState);
   const keywordValue = useRecoilValue(keywordState);
 
-  const [cookie, setCookie, removecookie] = useCookies(['refreshToken']);
+  const [cookie, setCookie, removecookie] = useCookies(["refreshToken"]);
   const [postsData, setPostsData] = useState([]);
   const [current, setCurrent] = useRecoilState(pageState);
   const [postsCount, setPostsCount] = useState(0);
 
   // 리프레시 토큰 발급
   useEffect(() => {
-    if(user?.loggin) setToken({cookie:cookie, router : router, reset : reset})  
-  },[])
+    if (user?.loggin)
+      setToken({ cookie: cookie, router: router, reset: reset });
+  }, []);
 
   // 전체 글 데이터 통신
-  const getPosts = async() => {
-    if(keywordValue?.postCount > 0) {
+  const getPosts = async () => {
+    if (keywordValue?.postCount > 0) {
       setPostsData(keywordValue.posts);
       setPostsCount(keywordValue.postCount);
     } else {
       const res = await axios.get("/post/all", { params: { page: current } });
-       if (res.data.success) {
+      if (res.data.success) {
         setPostsCount(res.data.data.postCount);
         setPostsData(res.data.data.posts);
       } else alert("잠시 후 다시 접속해주세요");
     }
-  }
-  
+  };
+
   useEffect(() => {
     router.push(`/main?page=${current}`);
     try {
@@ -57,23 +58,25 @@ export default function Main() {
     }
   }, [current, keywordValue]);
 
- return (
+  return (
     <>
       <div className="getPost">
-        <Rank/>
+        <Rank />
         <div className="getPostsBox_wrap">
           {postsData.map((i) => (
             <div
               key={i.id}
               className="getPostsBox"
-              onClick={() => router.push({
-                pathname: '/post/read',
-                query: { id: i.id},
-              })}
+              onClick={() =>
+                router.push({
+                  pathname: "/post/read",
+                  query: { id: i.id },
+                })
+              }
             >
-              {CreateTime(i.createTime).includes("방금전")  ||
-              CreateTime(i.createTime).includes("분전")  ||
-              CreateTime(i.createTime).includes("시간전")  ? (
+              {CreateTime(i.createTime).includes("방금전") ||
+              CreateTime(i.createTime).includes("분전") ||
+              CreateTime(i.createTime).includes("시간전") ? (
                 <p className="NewPosts">NEW</p>
               ) : null}
               <div className="mainInfo">

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import Image from "next/image";
 import axios from "axios";
 
@@ -14,45 +14,49 @@ export default function Signiin() {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
-  const [cookies, setCookie] = useCookies(['refreshToken']);
- 
-  const expires = new Date()
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
+
+  const expires = new Date();
   expires.setHours(expires.getHours() + 2);
 
   const formSchema = yup.object({
-    username: yup
-    .string()
-    .required(""),
-    password: yup
-    .string()
-    .required("")
+    username: yup.string().required(""),
+    password: yup.string().required(""),
   });
-  
-  
-  const { register, handleSubmit } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+
+  const { register, handleSubmit } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(formSchema),
+  });
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("username", data.username);
     formData.append("password", data.password);
     try {
-      await axios.post("/login", formData, {withCredentials:true}).then((res) => {
-        if (res.data.success === true) {
+      await axios
+        .post("/login", formData, { withCredentials: true })
+        .then((res) => {
+          if (res.data.success === true) {
             const response = res.data.data;
             const accessToken = response.access_token;
             const refreshToken = response.refresh_token;
             axios.defaults.headers.common[
               "Authorization"
             ] = `Bearer ${accessToken}`;
-            
+
             // 쿠키에 리프레시 토큰 저장 배포 때는 httponly true 바꾸기
-            setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
-            setUser({name : response.nickname , loggin : true, emailAuth : response.emailVerified});
+            // setCookie('refreshToken', refreshToken, { expires : expires, httpOnly : false , secure:true});
+            setUser({
+              name: response.nickname,
+              loggin: true,
+              emailAuth: response.emailVerified,
+            });
             PageHandler(1);
-            router.push('/main');
-        } else {
-          alert(res.data.error.message);
-        }
-      });
+            router.push("/main");
+          } else {
+            alert(res.data.error.message);
+          }
+        });
     } catch (e) {
       console.log(e);
       alert("잠시 후 다시 시도해주세요.");
@@ -62,9 +66,14 @@ export default function Signiin() {
   return (
     <div className="sign">
       <div className="sign_title">
-      <Image src={logo} alt="yehLogo" onClick={() => router.push('/main' , undefined, { shallow: true })} style={{cursor:'pointer'}}/>
+        <Image
+          src={logo}
+          alt="yehLogo"
+          onClick={() => router.push("/main", undefined, { shallow: true })}
+          style={{ cursor: "pointer" }}
+        />
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="sign_contents" >
+      <form onSubmit={handleSubmit(onSubmit)} className="sign_contents">
         <label htmlFor="username">아이디</label>
         <input
           name="username"
@@ -72,7 +81,7 @@ export default function Signiin() {
           {...register("username")}
           placeholder="아이디를 입력해주세요"
           autoComplete="off"
-          />
+        />
         <label htmlFor="password">비밀번호</label>
         <input
           name="password"
@@ -89,9 +98,24 @@ export default function Signiin() {
         </button>
       </form>
       <div className="sign_Etc_Btn">
-        <button onClick={() => router.push({pathname: '/user/userFind', query: { type: 'id' }})}>아이디 찾기</button>
+        <button
+          onClick={() =>
+            router.push({ pathname: "/user/userFind", query: { type: "id" } })
+          }
+        >
+          아이디 찾기
+        </button>
         <span>|</span>
-        <button onClick={() => router.push({pathname: '/user/userFind', query: { type: 'password' }})}>비밀번호 찾기</button>
+        <button
+          onClick={() =>
+            router.push({
+              pathname: "/user/userFind",
+              query: { type: "password" },
+            })
+          }
+        >
+          비밀번호 찾기
+        </button>
         <span>|</span>
         <button onClick={() => router.push("/user/signup")}>회원가입</button>
       </div>
@@ -102,7 +126,7 @@ export default function Signiin() {
 export async function getStaticProps() {
   return {
     props: {
-      path: 'signin',
+      path: "signin",
     },
   };
 }

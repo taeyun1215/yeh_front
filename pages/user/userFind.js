@@ -7,12 +7,8 @@ export default function IdFind() {
   const [id, setId] = useState(null);
 
   const handleOnDivision = () => {
-    if(router.query.type === 'id') return '아이디';
-    else return '비밀번호'
-  }
-
-  const handleOnChange = (event) => {
-    setId(event.target.value);
+    if (router.query.type === "id") return "아이디";
+    else return "비밀번호";
   };
 
   const handleonKeyUp = (event) => {
@@ -26,18 +22,21 @@ export default function IdFind() {
       email: id,
     };
     try {
-      const res = await axios.get(router.query.type === 'id'? '/api/user/username' : '/api/user/password', { params: data });
+      const res = await axios.get(
+        router.query.type === "id" ? "/user/username" : "/user/password",
+        { params: data }
+      );
+      console.log(res);
       if (res.data.success) {
         alert(`가입한 이메일 주소로 ${handleOnDivision()}가 전송되었습니다.`);
-        router.push('/main')
-      }
-      else alert(res.data.error.message);
+        router.push("/main");
+      } else alert(res.data.error.message);
     } catch (e) {
       console.log(e);
-      alert('잠시 후 다시 시도해 주세요.');
+      alert("잠시 후 다시 시도해 주세요.");
     }
   };
-  
+
   return (
     <div
       className="sign"
@@ -51,8 +50,10 @@ export default function IdFind() {
       <div className="idFind">
         <span>가입한 이메일 주소를 입력주세요.</span>
         <input
+          type="text"
+          name="email"
           placeholder="example@goldenplanet.co.kr"
-          onChange={handleOnChange}
+          onChange={(e) => setId(e.target.value)}
           onKeyUp={handleonKeyUp}
         />
         <button onClick={handleOnSubmit}>{handleOnDivision()} 찾기</button>

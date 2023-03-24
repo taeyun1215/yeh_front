@@ -1,0 +1,34 @@
+.ranking {
+    height: fit-content;
+    margin: 20px 0;
+    padding: 10px 20px 15px 20px;
+    border-radius: 7px;
+
+    .rankingTitle {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    .rankingContents {
+        display: flex;
+        width: 13.5rem;
+        margin: 20px 0px;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        
+        .index {
+            font-weight: 700;
+            margin: 0;
+            color: #94969b;
+        }
+        .title {
+            margin: 0;
+            padding-left: 20px;
+        }
+    }
+}

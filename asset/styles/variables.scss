@@ -1,0 +1,11 @@
+$main_color: #2b3089;
+// $main_color: #0CA4EC;
+
+$light_gray: #dedede;
+$medium_gray : #424242;
+
+@mixin center_sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

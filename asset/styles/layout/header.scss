@@ -1,0 +1,97 @@
+.header {
+  height: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .heaeder_logo {
+    width: 7rem;
+    height: 3.5rem;
+    cursor: pointer;
+  }
+  .header_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .header_search {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      button {
+        width: 40px;
+        height: 100%;
+        position: absolute;
+        right: 7px;
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+      }
+      img {
+        width: 25px;
+        height: 25px;
+      }
+      input {
+        width: 350px;
+        height: 40px;
+        padding-left: 15px;
+        border: 1px solid #dedede;
+        border-radius: 20px;
+      }
+    }
+  }
+  .header_signBtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    .header_user {
+      background-color: transparent;
+      border: none;
+    }
+    .header_write {
+      background-color: $main_color;
+      border: 0;
+      border-radius: 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .header_signin {
+      color: $main_color;
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-default:not(:disabled):hover {
+  color: black !important;
+  border-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia)[ant-click-animating-without-extra-node='true'], :where(.css-dev-only-do-not-override-acm2ia)[ant-click-animating='true'] {
+  --antd-wave-shadow-color:transparent
+  --scroll-bar: 0;
+  position: relative;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-default {
+  background-color: #ffffff;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ant-dropdown-menu-title-content{
+  text-align: center;
+}

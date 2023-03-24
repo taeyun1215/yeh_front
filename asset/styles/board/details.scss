@@ -1,0 +1,87 @@
+.detailPost{
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+
+    .detailPostBox {
+        margin: 0px 0px 0px 20px;
+
+        .detailPostBox_header{
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #eee;
+            position: relative;
+    
+            h2 {
+                font-size: 32px;
+                padding-left: 25px;
+            }
+     
+        }
+    
+        .detailPostBox_header_info {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #94969b;
+        }
+
+        p {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+       .detailPostBox_contents {
+        padding: 0 25px;
+        text-align: left;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: keep-all;
+
+            p {
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+            }
+
+            img {
+                position: relative !important;
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+       } 
+
+       .detailPostBox_footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            // border-top: 1px solid #eee;
+          
+            p {
+                font-size: 1.2rem;
+            }
+            .detailPostBox_footer_info {
+                display: flex;
+                gap: 30px;
+
+                button {
+                    border: none;
+                    background-color: transparent;
+                    font-size: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    cursor: pointer;
+                }
+            }
+            .detailPostBox_share{
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+       }
+    }
+    
+}

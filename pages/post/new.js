@@ -19,7 +19,6 @@ export default function New() {
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
-  const [cookie, setCookie, removecookie] = useCookies(["refreshToken"]);
   const inputRefTitle = useRef(null);
   const inputRefContent = useRef(null);
 
@@ -30,7 +29,7 @@ export default function New() {
     } else if (user?.loggin && !user.emailAuth) {
       alert("YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.");
       router.push("/user/signupComplete");
-    } else setToken({ cookie: cookie, router: router, reset: reset });
+    } else setToken({ router: router, reset: reset });
   }, [user?.loggin]);
 
   const handleOnSubmit = async () => {

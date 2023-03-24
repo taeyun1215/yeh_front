@@ -15,7 +15,6 @@ import CreateTime from "../component/utils/createTime";
 import setToken from "../component/utils/setToken";
 import Rank from "./post/rank";
 import { keywordState, pageState, userState } from "../store/states";
-import { useCookies } from "react-cookie";
 
 export default function Main() {
   const router = useRouter();
@@ -23,15 +22,13 @@ export default function Main() {
   const reset = useResetRecoilState(userState);
   const keywordValue = useRecoilValue(keywordState);
 
-  const [cookie, setCookie, removecookie] = useCookies(["refreshToken"]);
   const [postsData, setPostsData] = useState([]);
   const [current, setCurrent] = useRecoilState(pageState);
   const [postsCount, setPostsCount] = useState(0);
 
   // 리프레시 토큰 발급
   useEffect(() => {
-    if (user?.loggin)
-      setToken({ cookie: cookie, router: router, reset: reset });
+    if (user?.loggin) setToken({ router: router, reset: reset });
   }, []);
 
   // 전체 글 데이터 통신

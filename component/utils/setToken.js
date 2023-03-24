@@ -1,37 +1,30 @@
-
 import axios from "axios";
-import getToken from "./getToken";
 
 const setToken = async (props) => {
-    const cookie =  props.cookie
-    // const setCookie = props.setCookie;
-    const reset = props.reset;
-    const router = props.router
+  console.log("tst");
+  const reset = props.reset;
+  const router = props.router;
 
-    // const expires = new Date();
-    // expires.setMinutes(expires.getMinutes() + 30);
+  const response = await axios({
+    method: "get",
+    url: "https://www.devyeh.com/api/user/token/refresh",
+  });
 
-    const response = await getToken(cookie.refreshToken)
-    if(response.data.success) {
-        axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${response.data.data.access_token}`;
-        // setCookie('accessToken', response.data.data.access_token, {expires : expires, httpOnly : false , secure:true } )
-        return new Promise((resolve, reject) => {
-            resolve('userLogin')
-        })
-    } else {
-        alert('세션이 만료되었습니다. 다시 로그인 후 시도해 주세요');
-        router.push("/user/signin");
-        reset();
-        return new Promise((resolve, reject) => {
-            resolve('userLogout')
-        })
-    }
-  } 
-  
+  if (response.data.success) {
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${response.data.data.access_token}`;
+    return new Promise((resolve, reject) => {
+      resolve("userLogin");
+    });
+  } else {
+    alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요");
+    router.push("/user/signin");
+    reset();
+    return new Promise((resolve, reject) => {
+      resolve("userLogout");
+    });
+  }
+};
 
-  
-  
-  export default setToken
-  
+export default setToken;

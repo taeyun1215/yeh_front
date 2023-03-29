@@ -1,0 +1,18 @@
+.myPage {
+  .myPost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    margin-bottom: 25px;
+    padding: 5px 25px;
+
+    .myPostTitle {
+      font-size: $fontSize18;
+      font-weight: bold;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}

@@ -1,12 +1,11 @@
 .ranking {
   height: fit-content;
-  margin: 20px 0;
   padding: 10px 20px 15px 20px;
   border-radius: 7px;
 
   .rankingTitle {
     text-align: center;
-    font-size: 18px;
+    font-size: $fontSize18;
     font-weight: bold;
     margin: 10px;
   }
@@ -15,7 +14,7 @@
     display: flex;
     width: 13.5rem;
     margin: 20px 0px;
-    font-size: 14px;
+    font-size: $fontSize14;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

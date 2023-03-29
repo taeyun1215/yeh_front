@@ -6,16 +6,18 @@
 @import "./board/details.scss";
 @import "./board/comments.scss";
 @import "./board/rank.scss";
+@import "./user/myinfo.scss";
 
 html,
 body {
-  width: auto !important;
+  display: flex;
+  width: 100% !important;
   height: 95% !important;
-  padding: 15px 100px;
-  margin: 0;
+  padding: 15px 0;
+  margin: auto;
 }
 
-body *{
+body * {
   font-family: "Noto Sans KR", sans-serif;
 }
 
@@ -26,11 +28,17 @@ body *{
   height: 100%;
   margin: auto;
 }
+
 #__next {
+  @include desktop {
+    width: 80%;
+  }
   height: 100%;
+  margin: auto;
 }
 
-input,  textarea {
+input,
+textarea {
   background-color: transparent;
 }
 
@@ -45,8 +53,8 @@ input,  textarea {
   padding: 10px;
   cursor: pointer;
 
- .themeToggleIcon {
-  font-size: 20px;
-  font-weight: bold;
- }
+  .themeToggleIcon {
+    font-size: $fontSize20;
+    font-weight: bold;
+  }
 }

@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   .heaeder_logo {
     width: 7rem;
     height: 3.5rem;
@@ -36,7 +37,7 @@
         height: 25px;
       }
       input {
-        width: 350px;
+        width: 20rem;
         height: 40px;
         padding-left: 15px;
         border: 1px solid #dedede;
@@ -58,7 +59,7 @@
       border: 0;
       border-radius: 20px;
       color: white;
-      font-size: 14px;
+      font-size: $fontSize14;
       font-weight: 700;
       padding: 8px 15px;
       margin-left: 10px;
@@ -69,7 +70,7 @@
       cursor: pointer;
       background-color: transparent;
       border: 0;
-      font-size: 14px;
+      font-size: $fontSize14;
       font-weight: 700;
     }
   }

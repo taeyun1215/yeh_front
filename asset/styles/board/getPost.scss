@@ -1,12 +1,20 @@
+@import "../mixin";
+
 .getPost {
+  @include mobile {
+    display: flex;
+  }
   display: grid;
   grid-template-columns: 2fr 8fr;
+  grid-gap: 20px;
 
   .getPostsBox_wrap {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    @include desktop {
+      grid-template-columns: 1fr 1fr;
+    }
     grid-template-rows: max-content;
-    margin: 20px 0 20px 20px;
     gap: 15px;
 
     .getPostsBox {
@@ -107,7 +115,7 @@
 .pagination {
   display: flex;
   justify-content: center;
-  margin: 15px 0;
+  margin: 30px 0;
 }
 
 // 페이지네이션 커스텀텀

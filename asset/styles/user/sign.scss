@@ -1,24 +1,29 @@
 @import "../variables.scss";
 
 .signup {
-  width: 50%;
-  @include center_sort;
+  width: max(50%, 300px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 30px;
   margin: auto;
-  margin-bottom: 30px
 }
 
 .sign {
-  width: 30%;
-  @include center_sort;
+  width: max(30%, 300px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 20px;
   margin: auto;
 }
 
 .sign_title {
-  @include center_sort;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 
   img {
@@ -26,7 +31,7 @@
     height: 6rem;
     cursor: pointer;
   }
-  
+
   span {
     font-size: 1.125rem;
   }
@@ -51,7 +56,7 @@
 
   p {
     margin: 0;
-    font-size: 11px;
+    font-size: $fontSize11;
     color: tomato;
     padding-left: 5px;
   }
@@ -169,7 +174,7 @@
     border: 0;
     color: white;
     background-color: $main_color;
-    font-size: 18px;
+    font-size: $fontSize18;
     font-weight: 700;
     margin-top: 50px;
     cursor: pointer;
@@ -178,38 +183,39 @@
 }
 
 .idFind {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+
+  span {
+    font-size: $fontSize18;
+    font-weight: bold;
+  }
+
+  input {
+    width: 90%;
+    height: 40px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-top: 5px;
+  }
+  button {
     width: 100%;
-    gap: 30px;
-
-    span {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 90%;
-      height: 40px;
-      border: 1px solid #dedede;
-      border-radius: 5px;
-      padding-left: 10px;
-      margin-top: 5px;
-    }
-    button {
-      width: 100%;
-      height: 2.7rem;
-      border: 0;
-      color: white;
-      background-color: #2b3089;
-      font-size: 18px;
-      font-weight: 700;
-      margin-top: 15px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
+    height: 2.7rem;
+    border: 0;
+    color: white;
+    background-color: #2b3089;
+    font-size: $fontSize18;
+    font-weight: 700;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 }
+
 // 이메일 인증 확인 중 모달
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal-root .ant-modal-mask,
 :where(.css-acm2ia).ant-modal-root .ant-modal-mask {
@@ -231,19 +237,14 @@
   font-size: 24px !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin, 
-:where(.css-acm2ia).ant-spin{ 
+:where(.css-dev-only-do-not-override-acm2ia).ant-spin,
+:where(.css-acm2ia).ant-spin {
   color: $main_color !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin .ant-spin-dot, 
+:where(.css-dev-only-do-not-override-acm2ia).ant-spin .ant-spin-dot,
 :where(.css-acm2ia).ant-spin .ant-spin-dot {
   font-size: 52px !important;
-}
-
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title, 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body  {
-  margin: 0 0 30px 0 !important
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer,
@@ -252,7 +253,7 @@
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary,
-:where(.css-acm2ia).ant-modal .ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger) {
+:where(.css-acm2ia).ant-modal .ant-modal-footer .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
   background-color: $main_color !important;
 }
 

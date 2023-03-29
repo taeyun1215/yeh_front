@@ -10,15 +10,16 @@ import {
   EllipsisOutlined,
 } from "@ant-design/icons";
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
-import axios from "axios";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { FaPen } from "react-icons/fa";
 
 import CreateTime from "../../component/utils/createTime";
 import setToken from "../../component/utils/setToken";
 import { pageState, userState } from "../../store/states";
-import Rank from "./rank";
-import Comments from "./comments";
+import { postComment, postLike, postDelete, postRead } from "../api";
+const Rank = dynamic(() => import("./rank"));
+const Comments = dynamic(() => import("./comments"));
 
 export default function Details() {
   const formData = new FormData();
@@ -55,7 +56,7 @@ export default function Details() {
 
   // 상세 게시글 받아오기
   const getPostView = async () => {
-    const res = await axios.get(`/post/read/${router.query.id}`, {});
+    const res = await postRead(router.query.id);
     if (res.data.success) setDetailData(res.data.data);
   };
 
@@ -105,8 +106,8 @@ export default function Details() {
   // 게시글 좋아요
   const handleOnLike = async () => {
     try {
-      const response = await axios.get(`/post/like/${detailData.id}`);
-      if (response.data.success) getPostView();
+      const res = await postLike(detailData.id);
+      if (res.data.success) getPostView();
       else alert("잠시 후 다시 시도해주세요");
     } catch (e) {
       console.log(e);
@@ -119,12 +120,9 @@ export default function Details() {
     if (comments.trim() !== "") {
       formData.append("content", comments);
       try {
-        const response = await axios.post(
-          `/comment/new/${detailData.id}`,
-          formData
-        );
-        if (response.data.success) {
-          alert(response.data.data);
+        const res = await postComment(detailData.id, formData);
+        if (res.data.success) {
+          alert(res.data.data);
           getPostView();
           setCommnets("");
         } else alert("잠시 후 다시 시도해 주세요");
@@ -143,9 +141,9 @@ export default function Details() {
   // 게시글 삭제
   const handleOnDelete = async () => {
     try {
-      const response = await axios.delete(`/post/delete/${detailData.id}`);
-      if (response.data.success) {
-        // alert(response.data.data);
+      // const response = await axios.delete(`/post/delete/${detailData.id}`);
+      const res = await postDelete(detailData.id);
+      if (res.data.success) {
         setIsModal(false);
         PageHandler(1);
         router.push("/main");
@@ -178,8 +176,7 @@ export default function Details() {
         </div>
         <div className="detailPostBox_contents">
           <p>{detailData.content}</p>
-          {detailData.images !== undefined &&
-          detailData.images.every((i) => i !== null)
+          {detailData.images !== undefined && detailData.images.every((i) => i !== null)
             ? detailData.images.map((i) => (
                 <Image
                   src={`https://yeh-bucket.s3.ap-northeast-2.amazonaws.com/${i.imageName}`}
@@ -205,16 +202,11 @@ export default function Details() {
             {detailData.writeStatus ? (
               <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
                 <p style={{ cursor: "pointer" }}>
-                  <EllipsisOutlined
-                    style={{ fontSize: "24px", fontWeight: "bold" }}
-                  />
+                  <EllipsisOutlined style={{ fontSize: "24px", fontWeight: "bold" }} />
                 </p>
               </Dropdown>
             ) : null}
-            <button
-              onClick={() => doCopy(`https://www.devyeh.com${router.asPath}`)}
-              className="detailPostBox_share"
-            >
+            <button onClick={() => doCopy(`https://www.devyeh.com${router.asPath}`)} className="detailPostBox_share">
               <p>
                 <ShareAltOutlined />
               </p>

@@ -29,7 +29,6 @@
     "recoil-persist": "^4.2.0",
     "sass": "^1.56.0",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.8",
     "yup": "^0.32.11"
   },

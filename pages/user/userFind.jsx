@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { userFind } from "../api";
 
 export default function IdFind() {
   const router = useRouter();
@@ -22,11 +22,7 @@ export default function IdFind() {
       email: id,
     };
     try {
-      const res = await axios.get(
-        router.query.type === "id" ? "/user/username" : "/user/password",
-        { params: data }
-      );
-      console.log(res);
+      const res = await userFind(router.query.type, data);
       if (res.data.success) {
         alert(`가입한 이메일 주소로 ${handleOnDivision()}가 전송되었습니다.`);
         router.push("/main");

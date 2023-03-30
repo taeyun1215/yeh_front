@@ -37,7 +37,6 @@ export default function IdFind() {
     <div
       className="sign"
       style={{
-        width: "25%",
         padding: "50px",
         border: "1px solid lightgray",
         borderRadius: "10px",

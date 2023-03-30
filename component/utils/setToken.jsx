@@ -1,18 +1,13 @@
 import axios from "axios";
+import { getRefreshToken } from "../../pages/api";
 
 const setToken = async (props) => {
   const reset = props.reset;
   const router = props.router;
-  const response = await axios({
-    method: "get",
-    // url: "https://www.devyeh.com/api/user/token/refresh",
-    url: "http://localhost:8080/api/user/token/refresh",
-  });
 
-  if (response.data.success) {
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${response.data.data.access_token}`;
+  const res = await getRefreshToken();
+  if (res.data.success) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.data.access_token}`;
     return new Promise((resolve, reject) => {
       resolve("userLogin");
     });

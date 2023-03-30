@@ -127,6 +127,12 @@ const postSearch = async (data) => {
   return result;
 };
 
+// 리프레시 토큰 반환
+const getRefreshToken = async () => {
+  const result = await axios.get("user/token/refresh");
+  return result;
+};
+
 export {
   join,
   joinConfirm,
@@ -144,4 +150,5 @@ export {
   postNew,
   postSearch,
   postEdit,
+  getRefreshToken,
 };

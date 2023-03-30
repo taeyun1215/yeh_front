@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import logo from "../../asset/images/logo.png";
 import { join } from "../api";
+import axios from "axios";
 
 export default function Signup() {
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function Signup() {
   const onSubmit = async (data) => {
     try {
       const res = await join(data);
+      console.log(res);
       if (res.data.success === true) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.data.access_token}`;
         router.push("/user/signupComplete");

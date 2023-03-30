@@ -2,10 +2,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userState } from "../../store/states";
-import { Tabs } from "antd";
+import { Tabs, Avatar, Button, List, Skeleton } from "antd";
 
 import setToken from "../../component/utils/setToken";
-import axios from "axios";
 import { myInfo } from "../api";
 import CreateTime from "../../component/utils/createTime";
 

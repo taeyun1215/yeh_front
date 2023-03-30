@@ -141,7 +141,6 @@ export default function Details() {
   // 게시글 삭제
   const handleOnDelete = async () => {
     try {
-      // const response = await axios.delete(`/post/delete/${detailData.id}`);
       const res = await postDelete(detailData.id);
       if (res.data.success) {
         setIsModal(false);

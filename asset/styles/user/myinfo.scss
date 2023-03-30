@@ -15,4 +15,71 @@
       margin: 0;
     }
   }
+  .myinfo {
+    width: 30%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 50px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    .myinfo_wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: $fontSize16;
+        font-weight: bold;
+      }
+      button {
+        height: 30px;
+        background-color: #2b3089;
+        border: 0;
+        color: white;
+        font-size: 0.875rem;
+        font-weight: 700;
+        padding: 0 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    }
+    span {
+      position: absolute;
+      bottom: -30px;
+      right: 30px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs {
+  width: 100% !important;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-title
+  > a:hover {
+  color: $main_color;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia) a,
+:where(.css-dev-only-do-not-override-acm2ia) a:hover {
+  color: $main_color;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-tab:hover {
+  color: $main_color;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-ink-bar {
+  background: $main_color;
 }

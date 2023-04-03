@@ -13,7 +13,6 @@ export default function Edit() {
   const router = useRouter();
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
-  const [postData, setPostData] = useState([]);
   const [title, setTitle] = useState(""); // props 제목
   const [content, setContent] = useState(""); // props 내용
   const [images, setImages] = useState([]); // props 이미지
@@ -28,7 +27,6 @@ export default function Edit() {
   const getPostView = async () => {
     try {
       const res = await postRead(router.query.id);
-      console.log(res);
       if (res.data.success) {
         setTitle(res.data.data.title);
         setContent(res.data.data.content);
@@ -142,7 +140,7 @@ export default function Edit() {
         </label>
       </form>
       <div className="postBtn">
-        <button className="cancle" onClick={() => router.push(`/post/read/${postData.id}`)}>
+        <button className="cancle" onClick={() => router.push(`/post/read?id=${router.query.id}`)}>
           취소
         </button>
         <button onClick={() => handleOnSubmit()}>등록</button>

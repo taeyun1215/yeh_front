@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
-// axios.defaults.baseURL = "https://www.devyeh.com/api";
-axios.defaults.baseURL = "http://localhost:8080/api";
+axios.defaults.baseURL = "https://www.devyeh.com/api";
+// axios.defaults.baseURL = "http://localhost:8080/api";
 axios.defaults.withCredentials = true;
 
 // 회원가입
@@ -47,6 +47,12 @@ const userFind = async (type, data) => {
 // 유저 마이 페이지
 const myInfo = async () => {
   const result = await axios.get("/post/myPost");
+  return result;
+};
+
+// 회원탈퇴
+const userSecession = async () => {
+  const result = await axios.delete("/user");
   return result;
 };
 
@@ -140,6 +146,7 @@ export {
   login,
   userFind,
   myInfo,
+  userSecession,
   postAll,
   postRank,
   postRead,

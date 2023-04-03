@@ -66,20 +66,45 @@
   .ant-list-item
   .ant-list-item-meta
   .ant-list-item-meta-title
-  > a:hover {
+  > a:hover,
+:where(.css-acm2ia).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title > a:hover {
   color: $main_color;
 }
 
 :where(.css-dev-only-do-not-override-acm2ia) a,
+:where(.css-acm2ia) a,
+:where(.css-acm2ia) a:hover,
 :where(.css-dev-only-do-not-override-acm2ia) a:hover {
   color: $main_color;
 }
 
 :where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+:where(.css-acm2ia).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+:where(.css-acm2ia).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
 :where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-tab:hover {
   color: $main_color;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-ink-bar {
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-ink-bar,
+:where(.css-acm2ia).ant-tabs .ant-tabs-ink-bar {
   background: $main_color;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-tabs .ant-tabs-content-holder {
+  display: flex;
+  min-height: 50vh !important;
+  justify-content: center;
+  align-items: center;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-result-info .ant-result-icon > .anticon {
+  color: $main_color;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primar {
+  font-weight: bold;
+}
+
+:where(.css-dev-only-do-not-override-acm2ia).ant-result .ant-result-extra {
+  margin: 50px 0 0 0;
 }

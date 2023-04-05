@@ -16,9 +16,9 @@ export default function RestPW() {
   }, [params]);
 
   const handleOnSubmit = async () => {
-    if (email === "") return inputRefEmail.current.focus();
-    else if (pw.password === "") return inputRefPw.current.focus();
+    if (pw.password === "") return inputRefPw.current.focus();
     else if (pw.confirmPassword === "") return inputRefConfirmPw.current.focus();
+    else if (pw.password !== pw.confirmPassword) alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.");
     else {
       formData.append("code", params.checkCode);
       formData.append("email", params.email);
@@ -26,7 +26,10 @@ export default function RestPW() {
       formData.append("confirmPassword", pw.confirmPassword);
       try {
         const res = passwordInit(formData);
-        console.log(res);
+        if (res.data.success) {
+          alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
+          router.push("/login/signin");
+        } else alert("잠시 후 다시 시도해주세요");
       } catch (e) {
         console.log(e);
         alert("잠시 후 다시 시도해주세요");

@@ -7,10 +7,7 @@ export default function RestPW() {
   const router = useRouter();
   const params = router.query;
 
-  const [email, setEmail] = useState("");
   const [pw, setPw] = useState({ password: "", confirmPassword: "" });
-
-  const inputRefEmail = useRef(null);
   const inputRefPw = useRef(null);
   const inputRefConfirmPw = useRef(null);
 
@@ -24,7 +21,7 @@ export default function RestPW() {
     else if (pw.confirmPassword === "") return inputRefConfirmPw.current.focus();
     else {
       formData.append("code", params.checkCode);
-      formData.append("email", email);
+      formData.append("email", params.email);
       formData.append("password", pw.password);
       formData.append("confirmPassword", pw.confirmPassword);
       try {
@@ -38,19 +35,13 @@ export default function RestPW() {
   };
 
   return (
-    <div className="myinfo">
+    <div className="myinfo" style={{ width: "35%" }}>
       <div className="myinfo_wrap">
         <p>이메일</p>
-        <input
-          value={email}
-          type="password"
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="example@goldenplant.co.kr"
-          ref={inputRefEmail}
-        />
+        <input value={params.email} type="text" disabled />
       </div>
       <div className="myinfo_wrap">
-        <p>비밀번호</p>
+        <p>새 비밀번호</p>
         <input
           value={pw.password}
           type="password"
@@ -59,7 +50,7 @@ export default function RestPW() {
         />
       </div>
       <div className="myinfo_wrap">
-        <p>비밀번호 확인</p>
+        <p>새 비밀번호 확인</p>
         <input
           value={pw.confirmPassword}
           type="password"

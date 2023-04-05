@@ -64,7 +64,7 @@ const passWordEdit = async (data) => {
 
 // 비밀번호 초기화
 const passwordInit = async (data) => {
-  const result = await axios.get("/user/password", { params: { email: data } });
+  const result = await axios.get("/user/reset-password", data);
   return result;
 };
 

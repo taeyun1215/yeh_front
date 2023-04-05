@@ -1,12 +1,29 @@
 import { useState } from "react";
-import { nickNameEdit, passwordInit, userSecession } from "../api";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useCookies } from "react-cookie";
+
+import { userState } from "../../store/states";
+import { nickNameEdit, userSecession, passWordEdit } from "../api";
+import { useRef } from "react";
 
 export default function MyInfoEdit() {
+  const router = useRouter();
+  const formData = new FormData();
+
+  const [user, setUser] = useRecoilState(userState);
+  const UserHandler = useSetRecoilState(userState);
+
   const [isModal, setIsModal] = useState(false);
   const [openEdit, setOpenEdit] = useState(null);
-  const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
+  const [pw, setPw] = useState({ password: "", confirmPassword: "" });
+  const [cookie, setCookie, removecookie] = useCookies(["refresh_token"]);
+
+  const inputRefNickname = useRef(null);
+  const inputRefPw = useRef(null);
+  const inputRefConfirmPw = useRef(null);
 
   // 회원 탈퇴
   const handleOnSecession = async () => {
@@ -21,19 +38,35 @@ export default function MyInfoEdit() {
   };
 
   const handleOnCancle = () => {
-    setEmail("");
     setNickname("");
+    setPw({ password: "", confirmPassword: "" });
     setOpenEdit(null);
   };
 
   const handleOnSubmit = async (type) => {
     let res;
     try {
-      if (type === "nickname") res = await nickNameEdit({ nickname: nickname, email: email });
-      else res = await passwordInit(email);
-      console.log(res);
-      if (res.data.success) {
-      } else alert("잠시 후 다시 시도해주세요");
+      if (type === "nickname" && nickname === "") return inputRefNickname.current.focus();
+      else if (type === "nickname" && nickname !== "") {
+        formData.append("nickname", nickname);
+        res = await nickNameEdit(formData);
+        if (res.data.success) {
+          setUser({ ...user, name: res.data.data.nickname });
+          alert("닉네임이 수정되었습니다.");
+          router.push("/main");
+        }
+      } else if (type === "password") {
+        if (pw.password === "") return inputRefPw.current.focus();
+        else if (pw.confirmPassword === "") return inputRefConfirmPw.current.focus();
+        else if (pw.password !== pw.confirmPassword) alert("비밀번호와 비밀번호 확인이 다릅니다.");
+        else {
+          res = await passWordEdit(pw);
+          alert("비밀번호가 수정되었습니다. 다시 로그인해 주세요.");
+          UserHandler();
+          removecookie("refresh_token");
+          router.push("/login/signin");
+        }
+      }
     } catch (e) {
       console.log(e);
       alert("잠시 후 다시 시도해주세요");
@@ -57,17 +90,8 @@ export default function MyInfoEdit() {
   const nicknameEdit = (
     <>
       <div className="myinfo_wrap">
-        <p>이메일</p>
-        <input
-          placeholder="example@goldenplanet.co.kr"
-          value={email}
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="myinfo_wrap">
         <p>새 닉네임</p>
-        <input value={nickname} type="text" onChange={(e) => setNickname(e.target.value)} />
+        <input value={nickname} type="text" onChange={(e) => setNickname(e.target.value)} ref={inputRefNickname} />
       </div>
       <div className="myinfo_btns">
         <button onClick={() => handleOnCancle()}>취소</button>
@@ -79,12 +103,21 @@ export default function MyInfoEdit() {
   const passwordEdit = (
     <>
       <div className="myinfo_wrap">
-        <p>이메일</p>
+        <p>비밀번호</p>
         <input
-          placeholder="example@goldenplanet.co.kr"
-          value={email}
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
+          value={pw.password}
+          type="password"
+          onChange={(e) => setPw({ ...pw, password: e.target.value })}
+          ref={inputRefPw}
+        />
+      </div>
+      <div className="myinfo_wrap">
+        <p>비밀번호 확인</p>
+        <input
+          value={pw.confirmPassword}
+          type="password"
+          onChange={(e) => setPw({ ...pw, confirmPassword: e.target.value })}
+          ref={inputRefConfirmPw}
         />
       </div>
       <div className="myinfo_btns">
@@ -107,7 +140,7 @@ export default function MyInfoEdit() {
         onOk={() => handleOnSecession()}
         onCancel={() => setIsModal(false)}
       >
-        <p>계정은 복구되지 않습니다. 정말 탈퇴하시겠습니까?</p>
+        <p>게시글은 모두 삭제되며, 계정은 다시 복구되지 않습니다. 정말 탈퇴하시겠습니까?</p>
       </Modal>
     </>
   );

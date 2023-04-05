@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { BsCheck2Circle } from "react-icons/bs";
 
 import { userState } from "../../store/states";
@@ -8,17 +8,15 @@ import { joinCheck } from "../api";
 
 export default function SignupComplete() {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
   const [confirm, setConfirm] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
     const params = router.query;
     joinCheck(params).then((res) => {
       if (res.data.success) {
         setConfirm(true);
-        setUser({
-          emailAuth: true,
-        });
+        setUser({ ...user, emailAuth: true });
       } else null;
     });
   }, [router.query]);

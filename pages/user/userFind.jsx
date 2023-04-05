@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { userFind } from "../api";
 
-export default function IdFind() {
+export default function UserFind() {
   const router = useRouter();
   const [id, setId] = useState(null);
 
@@ -42,7 +42,7 @@ export default function IdFind() {
         borderRadius: "10px",
       }}
     >
-      <div className="idFind">
+      <div className="userFind">
         <span>가입한 이메일 주소를 입력주세요.</span>
         <input
           type="text"

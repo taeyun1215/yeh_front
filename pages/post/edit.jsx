@@ -40,7 +40,7 @@ export default function Edit() {
   useEffect(() => {
     if (user === undefined || user?.name === null) {
       alert("로그인 후 이용 가능합니다.");
-      router.push("/user/signin");
+      router.push("/login/signin");
     } else if (user?.loggin) {
       setToken({ router: router, reset: reset });
       getPostView();

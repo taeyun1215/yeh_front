@@ -56,6 +56,12 @@ const nickNameEdit = async (data) => {
   return result;
 };
 
+// 비밀번호 수정
+const passWordEdit = async (data) => {
+  const result = await axios.post("/user/change-password", data);
+  return result;
+};
+
 // 비밀번호 초기화
 const passwordInit = async (data) => {
   const result = await axios.get("/user/password", { params: { email: data } });
@@ -159,6 +165,7 @@ export {
   userFind,
   myInfo,
   nickNameEdit,
+  passWordEdit,
   passwordInit,
   userSecession,
   postAll,

@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useCookies } from "react-cookie";
 import Image from "next/image";
 import axios from "axios";
 
@@ -15,7 +14,6 @@ export default function Signiin() {
   const router = useRouter();
   const setUser = useSetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
-  const [cookies, setCookie] = useCookies(["refreshToken"]);
 
   const expires = new Date();
   expires.setHours(expires.getHours() + 2);
@@ -96,7 +94,7 @@ export default function Signiin() {
           비밀번호 찾기
         </button>
         <span>|</span>
-        <button onClick={() => router.push("/user/signup")}>회원가입</button>
+        <button onClick={() => router.push("/login/signup")}>회원가입</button>
       </div>
     </div>
   );

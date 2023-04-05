@@ -43,11 +43,11 @@ const AppLayout = ({ children }) => {
   // const logginNot = [
   //   {
   //     key: "1",
-  //     label: <a onClick={() => router.push("/user/signin")}>로그인</a>,
+  //     label: <a onClick={() => router.push("/login/signin")}>로그인</a>,
   //   },
   //   {
   //     key: "2",
-  //     label: <a onClick={() => router.push("/user/signup")}>회원가입</a>,
+  //     label: <a onClick={() => router.push("/login/signup")}>회원가입</a>,
   //   },
   //   {
   //     key: "3",
@@ -91,11 +91,11 @@ const AppLayout = ({ children }) => {
   //       </Dropdown>
   //     ) : (
   //       <div>
-  //         <button onClick={() => router.push("/user/signin")} className="header_signin">
+  //         <button onClick={() => router.push("/login/signin")} className="header_signin">
   //           로그인
   //         </button>
   //         <span style={{ color: "#2b3089" }}> | </span>
-  //         <button onClick={() => router.push("/user/signup")} className="header_signin">
+  //         <button onClick={() => router.push("/login/signup")} className="header_signin">
   //           회원가입
   //         </button>
   //       </div>
@@ -157,11 +157,11 @@ const AppLayout = ({ children }) => {
             </Dropdown>
           ) : (
             <div>
-              <button onClick={() => router.push("/user/signin")} className="header_signin">
+              <button onClick={() => router.push("/login/signin")} className="header_signin">
                 로그인
               </button>
               <span style={{ color: "#2b3089" }}> | </span>
-              <button onClick={() => router.push("/user/signup")} className="header_signin">
+              <button onClick={() => router.push("/login/signup")} className="header_signin">
                 회원가입
               </button>
             </div>

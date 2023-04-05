@@ -4,8 +4,8 @@ import { passwordInit } from "../api";
 
 export default function RestPW() {
   const formData = new FormData();
-  const params = router.query;
   const router = useRouter();
+  const params = router.query;
 
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState({ password: "", confirmPassword: "" });

@@ -25,12 +25,12 @@ export default function RestPW() {
       formData.append("password", pw.password);
       formData.append("confirmPassword", pw.confirmPassword);
       try {
-        const res = passwordInit(formData);
+        const res = await passwordInit(formData);
         console.log(res);
-        // if (res.data.success) {
-        //   alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
-        //   router.push("/login/signin");
-        // } else alert("잠시 후 다시 시도해주세요");
+        if (res.data.success) {
+          alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
+          router.push("/login/signin");
+        } else alert("잠시 후 다시 시도해주세요");
       } catch (e) {
         console.log(e);
         alert("잠시 후 다시 시도해주세요");

@@ -32,7 +32,7 @@ const AppLayout = ({ children }) => {
   const items = [
     {
       key: "1",
-      label: <a onClick={() => router.push("/user/myPage")}>마이페이지</a>,
+      label: <a onClick={() => router.push("/user/myPost")}>마이페이지</a>,
     },
     {
       key: "2",

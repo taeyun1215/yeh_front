@@ -7,14 +7,14 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 import setToken from "../../component/utils/setToken";
 import { myInfo, postDelete, userSecession } from "../api";
-import OpenModal from "../../component/utils/modal";
+import MyInfoEdit from "./myInfo";
 
-export default function MyPage() {
+export default function MyPost() {
   const router = useRouter();
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
   const [myData, setMyData] = useState([]);
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false); //유저 탈퇴 모달 state
   const [deleteId, setDeleteId] = useState("");
 
   const tabs = ["내가 작성한 글", "내 정보 수정"];
@@ -45,21 +45,7 @@ export default function MyPage() {
     try {
       const res = await postDelete(deleteId);
       if (res.data.success) {
-        setIsModal(false);
         router.reload();
-      } else alert("잠시 후 다시 시도해주세요");
-    } catch (e) {
-      console.log(e);
-      alert("잠시 후 다시 시도해주세요");
-    }
-  };
-
-  const handleOnSecession = async () => {
-    try {
-      const res = await userSecession();
-      console.log(res);
-      if (res.data.success) {
-        setIsModal(false);
       } else alert("잠시 후 다시 시도해주세요");
     } catch (e) {
       console.log(e);
@@ -97,7 +83,6 @@ export default function MyPage() {
                 onClick={() => {
                   setDeleteId(item.id);
                   setIsModal(true);
-                  <OpenModal title="게시글 삭제" text="정말 게시글을 삭제하시겠습니까?" func={handleOnDelete()} />;
                 }}
               >
                 삭제
@@ -124,20 +109,6 @@ export default function MyPage() {
       />
     );
 
-  const MyInfo = (
-    <div className="myinfo">
-      <div className="myinfo_wrap">
-        <p>닉네임</p>
-        <button>수정</button>
-      </div>
-      <div className="myinfo_wrap">
-        <p>비밀번호</p>
-        <button>수정</button>
-      </div>
-      <span onClick={() => setIsModal(true)}>회원탈퇴</span>
-    </div>
-  );
-
   return (
     <div className="myPage">
       <Tabs
@@ -148,20 +119,22 @@ export default function MyPage() {
           return {
             label: <span>{i}</span>,
             key: index,
-            children: index === 0 ? myPost : MyInfo,
+            children: index === 0 ? myPost : <MyInfoEdit />,
           };
         })}
       />
 
-      {isModal && (
-        <OpenModal
-          open={isModal}
-          close={() => setIsModal(false)}
-          title="회원 탈퇴"
-          text="계정은 복구되지 않습니다. 정말 탈퇴하시겠습니까?"
-          func={handleOnSecession}
-        />
-      )}
+      <Modal
+        title="게시글 삭제"
+        open={isModal}
+        centered
+        okText="확인"
+        cancelText="취소"
+        onOk={() => handleOnDelete()}
+        onCancel={() => setIsModal(false)}
+      >
+        <p>정말 게시글을 삭제하시겠습니까?</p>
+      </Modal>
     </div>
   );
 }

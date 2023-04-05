@@ -50,6 +50,18 @@ const myInfo = async () => {
   return result;
 };
 
+// 닉네임 수정
+const nickNameEdit = async (data) => {
+  const result = await axios.put("/user", data);
+  return result;
+};
+
+// 비밀번호 초기화
+const passwordInit = async (data) => {
+  const result = await axios.get("/user/password", { params: { email: data } });
+  return result;
+};
+
 // 회원탈퇴
 const userSecession = async () => {
   const result = await axios.delete("/user");
@@ -146,6 +158,8 @@ export {
   login,
   userFind,
   myInfo,
+  nickNameEdit,
+  passwordInit,
   userSecession,
   postAll,
   postRank,

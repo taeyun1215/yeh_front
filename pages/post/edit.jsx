@@ -48,6 +48,7 @@ export default function Edit() {
   }, [user?.loggin]);
 
   const handleOnSubmit = async () => {
+    console.log(images);
     if (title === "") {
       return inputRefTitle.current.focus();
     } else if (content === "") {
@@ -77,7 +78,6 @@ export default function Edit() {
     const imageLists = e.target.files;
     const tmpArr = Array.from(imageLists);
     let imageUrlLists = [...preView];
-
     for (let i = 0; i < imageLists.length; i++) {
       const currentImageUrl = URL.createObjectURL(imageLists[i]);
       imageUrlLists.push(currentImageUrl);
@@ -90,6 +90,8 @@ export default function Edit() {
       setReuploadImages([...reuploadImages, ...tmpArr].slice(0, 5 - images.length));
       setPreView(imageUrlLists.slice(0, 5 - images.length));
     }
+    console.log(reuploadImages);
+    console.log(images);
   };
 
   return (

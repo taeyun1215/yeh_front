@@ -134,7 +134,6 @@ const AppLayout = ({ children }) => {
               <SearchOutlined
                 style={{
                   fontSize: "22px",
-                  color: "#2b3089",
                   fontWeight: "bold",
                 }}
               />
@@ -160,7 +159,7 @@ const AppLayout = ({ children }) => {
               <button onClick={() => router.push("/login/signin")} className="header_signin">
                 로그인
               </button>
-              <span style={{ color: "#2b3089" }}> | </span>
+              <span className="header_signin_divide"> | </span>
               <button onClick={() => router.push("/login/signup")} className="header_signin">
                 회원가입
               </button>

@@ -95,18 +95,22 @@ export const GlobalStyles = createGlobalStyle`
     color : ${({ theme }) => theme.themeIconColor};
   }
 
+  // 푸터 박스 색상
   &.detailPost &.detailPostBox &.detailPostBox_footer &.detailPostBox_footer_info button  {
     color : ${({ theme }) => theme.text};
   }
 
-  &.postComments &.postComments_wrap &.nestedComments_active button {
-    color : ${({ theme }) => theme.text};
-  }
-  
+  // 푸터 글 색상
   &.detailPost &.detailPostBox &.detailPostBox_footer p {
     color : ${({ theme }) => theme.text};
   }
 
+  // 대댓글 버튼 색상
+  &.postComments &.postComments_wrap &.nestedComments_active button {
+    color : ${({ theme }) => theme.text};
+  }
+
+  // 대댓글 박스 색상
   &.postComments &.postComments_wrap &.nestedComments {
     background-color :  ${({ theme }) => theme.DivBg};
   }
@@ -125,6 +129,12 @@ export const GlobalStyles = createGlobalStyle`
     border-top : ${({ theme }) => theme.DivBorder};
   }
   &.post &.postBtn &.cancle {
+    color : ${({ theme }) => theme.Cancletext};
+  }
+  
+  // 헤더 색상
+  &.header &.header_signBtn &.header_signin, &.header_signin_divide,
+  &.header &.header_wrap &.header_search button {
     color : ${({ theme }) => theme.Cancletext};
   }
 `;

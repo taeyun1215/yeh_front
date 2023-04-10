@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { passwordInit } from "../api";
 
 export default function RestPW() {
-  const formData = new FormData();
+  // const formData = new FormData();
   const router = useRouter();
   const params = router.query;
 
@@ -20,13 +20,14 @@ export default function RestPW() {
     else if (pw.confirmPassword === "") return inputRefConfirmPw.current.focus();
     else if (pw.password !== pw.confirmPassword) alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.");
     else {
-      formData.append("code", params.checkCode);
-      formData.append("email", params.email);
-      formData.append("password", pw.password);
-      formData.append("confirmPassword", pw.confirmPassword);
+      const data = {
+        code: params.checkCode,
+        email: params.email,
+        password: pw.password,
+        confirmPassword: pw.confirmPassword,
+      };
       try {
-        const res = await passwordInit(formData);
-        console.log(res);
+        const res = await passwordInit(data);
         if (res.data.success) {
           alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
           router.push("/login/signin");

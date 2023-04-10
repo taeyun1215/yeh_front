@@ -44,7 +44,7 @@ export default function Signup() {
       console.log(res);
       if (res.data.success === true) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.data.access_token}`;
-        router.push("/login/signupComplete");
+        router.push("/user/signupComplete");
       } else if (res.data.success === false) {
         alert(res.data.error[0].message);
       } else {

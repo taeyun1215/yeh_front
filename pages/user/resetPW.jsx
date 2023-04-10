@@ -26,12 +26,13 @@ export default function RestPW() {
         password: pw.password,
         confirmPassword: pw.confirmPassword,
       };
+      console.log(data);
       try {
         const res = await passwordInit(data);
         console.log(res);
         if (res.data.success) {
           alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
-          router.push("/login/signin");
+          router.push("/user/signin");
         } else alert("잠시 후 다시 시도해주세요");
       } catch (e) {
         console.log(e);

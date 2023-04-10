@@ -28,6 +28,7 @@ export default function Edit() {
     try {
       const res = await postRead(router.query.id);
       if (res.data.success) {
+        console.log(res.data);
         setTitle(res.data.data.title);
         setContent(res.data.data.content);
         setImages(res.data.data.images);
@@ -40,7 +41,7 @@ export default function Edit() {
   useEffect(() => {
     if (user === undefined || user?.name === null) {
       alert("로그인 후 이용 가능합니다.");
-      router.push("/login/signin");
+      router.push("/user/signin");
     } else if (user?.loggin) {
       setToken({ router: router, reset: reset });
       getPostView();

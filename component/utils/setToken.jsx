@@ -13,7 +13,7 @@ const setToken = async (props) => {
     });
   } else {
     alert("세션이 만료되었습니다. 다시 로그인 후 시도해 주세요");
-    router.push("/login/signin");
+    router.push("/user/signin");
     reset();
     return new Promise((resolve, reject) => {
       resolve("userLogout");

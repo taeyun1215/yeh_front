@@ -94,7 +94,7 @@ export default function Signiin() {
           비밀번호 찾기
         </button>
         <span>|</span>
-        <button onClick={() => router.push("/login/signup")}>회원가입</button>
+        <button onClick={() => router.push("/user/signup")}>회원가입</button>
       </div>
     </div>
   );

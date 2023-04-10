@@ -64,7 +64,7 @@ export default function MyInfoEdit() {
           alert("비밀번호가 수정되었습니다. 다시 로그인해 주세요.");
           UserHandler();
           removecookie("refresh_token");
-          router.push("/login/signin");
+          router.push("/user/signin");
         }
       }
     } catch (e) {

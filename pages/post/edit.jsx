@@ -28,7 +28,6 @@ export default function Edit() {
     try {
       const res = await postRead(router.query.id);
       if (res.data.success) {
-        console.log(res.data);
         setTitle(res.data.data.title);
         setContent(res.data.data.content);
         setImages(res.data.data.images);
@@ -38,10 +37,11 @@ export default function Edit() {
       alert("잠시 후 다시 시도해주세요");
     }
   };
+
   useEffect(() => {
     if (user === undefined || user?.name === null) {
       alert("로그인 후 이용 가능합니다.");
-      router.push("/user/signin");
+      router.push("/user/signin", undefined, { shallow: true });
     } else if (user?.loggin) {
       setToken({ router: router, reset: reset });
       getPostView();
@@ -49,7 +49,6 @@ export default function Edit() {
   }, [user?.loggin]);
 
   const handleOnSubmit = async () => {
-    console.log(images);
     if (title === "") {
       return inputRefTitle.current.focus();
     } else if (content === "") {
@@ -59,8 +58,11 @@ export default function Edit() {
       formData.append("content", content);
 
       reuploadImages.forEach((file) => formData.append("imageFiles", file));
+      formData.append("ImagesId", images[0] != null && images.map((i) => i.id));
+
       try {
         const res = await postEdit(router.query.id, formData);
+        console.log(res);
         if (res.data.success) {
           alert(res.data.data);
           router.push(`/post/read?id=${router.query.id}`);
@@ -91,8 +93,6 @@ export default function Edit() {
       setReuploadImages([...reuploadImages, ...tmpArr].slice(0, 5 - images.length));
       setPreView(imageUrlLists.slice(0, 5 - images.length));
     }
-    console.log(reuploadImages);
-    console.log(images);
   };
 
   return (

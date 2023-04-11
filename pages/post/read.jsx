@@ -64,9 +64,10 @@ export default function Details() {
     try {
       if (user === undefined || user?.name === null) {
         alert("로그인 후 이용 가능합니다.");
-        router.push("/user/signin");
+        router.push("/user/signin", undefined, { shallow: true });
       } else if (user?.loggin) {
         setToken({ router: router, reset: reset }).then((res) => {
+          console.log(res);
           if (res === "userLogin") getPostView();
           else return;
         });

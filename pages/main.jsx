@@ -119,12 +119,7 @@ export default function Main() {
           {Data}
         </div>
       )}
-      {/* {isDesktop && (
-        <div className="getPost">
-          <Rank />
-          {Data}
-        </div>
-      )} */}
+
       <div className="pagination">
         <Pagination
           current={current}

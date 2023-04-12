@@ -12,6 +12,7 @@ import AppFooter from "./appFooter";
 import { keywordState, pageState, userState } from "../../store/states";
 import { useGrid } from "../utils/responsive";
 import { postSearch } from "../../pages/api";
+import Rank from "../../pages/post/rank";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
@@ -21,8 +22,9 @@ const AppLayout = ({ children }) => {
   const PageHandler = useSetRecoilState(pageState);
 
   const [searchVal, setSearchVal] = useState("");
+  const [activeSearch, setActiveSearch] = useState(false);
   const [cookie, setCookie, removecookie] = useCookies(["refresh_token"]);
-  const { isMobile, isTablet, isDesktop } = useGrid();
+  const { isMobile, isDesktop } = useGrid();
 
   const logout = () => {
     UserHandler();
@@ -40,23 +42,9 @@ const AppLayout = ({ children }) => {
     },
   ];
 
-  // const logginNot = [
-  //   {
-  //     key: "1",
-  //     label: <a onClick={() => router.push("/user/signin")}>로그인</a>,
-  //   },
-  //   {
-  //     key: "2",
-  //     label: <a onClick={() => router.push("/user/signup")}>회원가입</a>,
-  //   },
-  //   {
-  //     key: "3",
-  //     label: <a onClick={() => router.push("/post/new")}>글쓰기</a>,
-  //   },
-  // ];
-
   const handleOnSubmit = async (e) => {
     if (e.keyCode === 13 && searchVal.trim() !== "") {
+      setActiveSearch(false);
       try {
         const res = await postSearch(searchVal);
         if (res.data.success && res.data.data.postCount > 0) {
@@ -83,42 +71,29 @@ const AppLayout = ({ children }) => {
     setSearchVal("");
   };
 
-  // const signBtn = (
-  //   <div className="header_signBtn">
-  //     {user?.loggin ? (
-  //       <Dropdown menu={{ loggin }} placement="bottom" className="header_more">
-  //         <Button className="header_user">{user.name}</Button>
-  //       </Dropdown>
-  //     ) : (
-  //       <div>
-  //         <button onClick={() => router.push("/user/signin")} className="header_signin">
-  //           로그인
-  //         </button>
-  //         <span style={{ color: "#2b3089" }}> | </span>
-  //         <button onClick={() => router.push("/user/signup")} className="header_signin">
-  //           회원가입
-  //         </button>
-  //       </div>
-  //     )}
-  //     <button onClick={() => router.push("/post/new")} className="header_write">
-  //       글쓰기
-  //     </button>
-  //   </div>
-  // );
+  const DesktopUser = (
+    <div className="header_signBtn">
+      {user?.loggin ? (
+        <Dropdown menu={{ items }} placement="bottom" className="header_more">
+          <Button className="header_user">{user.name}</Button>
+        </Dropdown>
+      ) : (
+        <div>
+          <button onClick={() => router.push("/user/signin")} className="header_signin">
+            로그인
+          </button>
+          <span style={{ color: "#2b3089" }}> | </span>
+          <button onClick={() => router.push("/user/signup")} className="header_signin">
+            회원가입
+          </button>
+        </div>
+      )}
+      <button onClick={() => router.push("/post/new")} className="header_write">
+        글쓰기
+      </button>
+    </div>
+  );
 
-  // const signBtnMobile = (
-  //   <div className="header_signBtn">
-  //     {user?.loggin ? (
-  //       <Dropdown menu={{ loggin }} placement="bottom" className="header_more">
-  //         <Button className="header_user">{user.name}</Button>
-  //       </Dropdown>
-  //     ) : (
-  //       <Dropdown menu={{ logginNot }} placement="bottom" className="header_more">
-  //         <Button className="header_user">{FiMoreVertical}</Button>
-  //       </Dropdown>
-  //     )}
-  //   </div>
-  // );
   return (
     <>
       <div className="header">
@@ -126,7 +101,7 @@ const AppLayout = ({ children }) => {
           <Image
             src={isMobile ? logoSmall : logo}
             alt="yehLogo"
-            className="heaeder_logo"
+            className={isMobile ? "heaeder_logo_small" : "heaeder_logo"}
             onClick={() => handleOnInit()}
           />
           <div className="header_search">
@@ -142,36 +117,16 @@ const AppLayout = ({ children }) => {
               placeholder="관심있는 내용을 검색해보세요"
               className="header_input"
               onChange={(e) => setSearchVal(e.target.value)}
+              onClick={() => setActiveSearch(true)}
               onKeyUp={(e) => handleOnSubmit(e)}
               value={searchVal}
             />
           </div>
         </div>
-        {/* {isMobile && signBtnMobile}
-        {(isTablet || isDesktop) && signBtn} */}
-        <div className="header_signBtn">
-          {user?.loggin ? (
-            <Dropdown menu={{ items }} placement="bottom" className="header_more">
-              <Button className="header_user">{user.name}</Button>
-            </Dropdown>
-          ) : (
-            <div>
-              <button onClick={() => router.push("/user/signin")} className="header_signin">
-                로그인
-              </button>
-              <span className="header_signin_divide"> | </span>
-              <button onClick={() => router.push("/user/signup")} className="header_signin">
-                회원가입
-              </button>
-            </div>
-          )}
-          <button onClick={() => router.push("/post/new")} className="header_write">
-            글쓰기
-          </button>
-        </div>
+        {isDesktop && DesktopUser}
       </div>
       {children}
-      <AppFooter />
+      <AppFooter setSearchVal={setSearchVal} setActiveSearch={setActiveSearch} />
     </>
   );
 };

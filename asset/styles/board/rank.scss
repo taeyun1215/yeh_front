@@ -3,6 +3,11 @@
   padding: 10px 20px 15px 20px;
   border-radius: 7px;
 
+  @include mobile {
+    background-color: transparent !important;
+    margin: 0 30px;
+  }
+
   .rankingTitle {
     text-align: center;
     font-size: $fontSize18;
@@ -19,6 +24,13 @@
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
+
+    @include mobile {
+      width: auto;
+      padding: 10px 15px;
+      background-color: #f8f8f8;
+      border-radius: 20px;
+    }
 
     .index {
       font-weight: 700;

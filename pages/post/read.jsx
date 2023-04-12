@@ -18,6 +18,8 @@ import CreateTime from "../../component/utils/createTime";
 import setToken from "../../component/utils/setToken";
 import { pageState, userState } from "../../store/states";
 import { postComment, postLike, postDelete, postRead } from "../api";
+import { useGrid } from "../../component/utils/responsive";
+
 const Rank = dynamic(() => import("./rank"));
 const Comments = dynamic(() => import("./comments"));
 
@@ -27,6 +29,7 @@ export default function Details() {
   const user = useRecoilValue(userState);
   const reset = useResetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
+  const { isMobile, isTablet, isDesktop } = useGrid();
 
   const [detailData, setDetailData] = useState([]);
   const [comments, setCommnets] = useState("");
@@ -153,90 +156,99 @@ export default function Details() {
       alert("잠시 후 다시 시도해주세요");
     }
   };
-  return (
-    <div className="detailPost">
-      <Rank />
-      <div className="detailPostBox">
-        <div className="detailPostBox_header">
-          <h2>{detailData.title}</h2>
 
-          <div className="detailPostBox_header_info">
-            <div style={{ display: "flex", gap: "10px" }}>
-              <p>
-                <FieldTimeOutlined />
-                {CreateTime(detailData.createTime)}
-              </p>
-              <p>
-                <EyeOutlined />
-                {detailData.view}
-              </p>
-            </div>
-            <p>{detailData.writer}</p>
-          </div>
-        </div>
-        <div className="detailPostBox_contents">
-          <p>{detailData.content}</p>
-          {detailData.images !== undefined && detailData.images.every((i) => i !== null)
-            ? detailData.images.map((i) => (
-                <Image
-                  src={`https://yeh-bucket.s3.ap-northeast-2.amazonaws.com/${i.imageName}`}
-                  key={i.id}
-                  fill
-                  alt="게시글사진"
-                />
-              ))
-            : null}
-        </div>
-        <div className="detailPostBox_footer">
-          <div className="detailPostBox_footer_info">
-            <button onClick={() => handleOnLike()}>
-              <LikeOutlined />
-              {detailData.likes}
-            </button>
+  const Data = (
+    <div className="detailPostBox">
+      <div className="detailPostBox_header">
+        <h2>{detailData.title}</h2>
+
+        <div className="detailPostBox_header_info">
+          <div style={{ display: "flex", gap: "10px" }}>
             <p>
-              <CommentOutlined />
-              {handleOnComments(detailData.comments)}
+              <FieldTimeOutlined />
+              {CreateTime(detailData.createTime)}
+            </p>
+            <p>
+              <EyeOutlined />
+              {detailData.view}
             </p>
           </div>
-          <div style={{ display: "flex", gap: "10px" }}>
-            {detailData.writeStatus ? (
-              <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
-                <p style={{ cursor: "pointer" }}>
-                  <EllipsisOutlined style={{ fontSize: "24px", fontWeight: "bold" }} />
-                </p>
-              </Dropdown>
-            ) : null}
-            <button onClick={() => doCopy(`https://www.devyeh.com${router.asPath}`)} className="detailPostBox_share">
-              <p>
-                <ShareAltOutlined />
-              </p>
-            </button>
-          </div>
+          <p>{detailData.writer}</p>
         </div>
-        <div className="comments_input">
-          <input
-            placeholder="따뜻한 답변은 작성자에게 큰 힘이 됩니다 =)"
-            value={comments}
-            onChange={(e) => setCommnets(e.target.value)}
-            onKeyUp={(e) => handleOnKeyup(e)}
-          />
-          <button onClick={() => insertComments()}>
-            <FaPen />
+      </div>
+      <div className="detailPostBox_contents">
+        <p>{detailData.content}</p>
+        {detailData.images !== undefined && detailData.images.every((i) => i !== null)
+          ? detailData.images.map((i) => (
+              <Image
+                src={`https://yeh-bucket.s3.ap-northeast-2.amazonaws.com/${i.imageName}`}
+                key={i.id}
+                fill
+                alt="게시글사진"
+              />
+            ))
+          : null}
+      </div>
+      <div className="detailPostBox_footer">
+        <div className="detailPostBox_footer_info">
+          <button onClick={() => handleOnLike()}>
+            <LikeOutlined />
+            {detailData.likes}
+          </button>
+          <p>
+            <CommentOutlined />
+            {handleOnComments(detailData.comments)}
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {detailData.writeStatus ? (
+            <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
+              <p style={{ cursor: "pointer" }}>
+                <EllipsisOutlined style={{ fontSize: "24px", fontWeight: "bold" }} />
+              </p>
+            </Dropdown>
+          ) : null}
+          <button onClick={() => doCopy(`https://www.devyeh.com${router.asPath}`)} className="detailPostBox_share">
+            <p>
+              <ShareAltOutlined />
+            </p>
           </button>
         </div>
-        <Comments comments={detailData} getPostView={getPostView} />
-        <Modal
-          title="게시글 삭제"
-          open={isModal}
-          centered
-          okText="확인"
-          cancelText="취소"
-          onOk={handleOnDelete}
-          onCancel={() => setIsModal(false)}
-        >
-          <p>정말 게시글을 삭제하시겠습니까?</p>
-        </Modal>
       </div>
+      <div className="comments_input">
+        <input
+          placeholder="따뜻한 답변은 작성자에게 큰 힘이 됩니다 =)"
+          value={comments}
+          onChange={(e) => setCommnets(e.target.value)}
+          onKeyUp={(e) => handleOnKeyup(e)}
+        />
+        <button onClick={() => insertComments()}>
+          <FaPen />
+        </button>
+      </div>
+      <Comments comments={detailData} getPostView={getPostView} />
+      <Modal
+        title="게시글 삭제"
+        open={isModal}
+        centered
+        okText="확인"
+        cancelText="취소"
+        onOk={handleOnDelete}
+        onCancel={() => setIsModal(false)}
+      >
+        <p>정말 게시글을 삭제하시겠습니까?</p>
+      </Modal>
     </div>
+  );
+  return (
+    <>
+      {isMobile && <div className="detailPost">{Data}</div>}
+      {(isTablet || isDesktop) && (
+        <div className="detailPost">
+          <Rank />
+          {Data}
+        </div>
+      )}
+    </>
   );
 }

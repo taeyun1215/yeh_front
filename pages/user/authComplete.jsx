@@ -14,10 +14,9 @@ export default function SignupComplete() {
   useEffect(() => {
     const params = router.query;
     joinCheck(params).then((res) => {
-      console.log(res);
       if (res.data.success) {
         setConfirm(true);
-        setUser({ name: res.data.data.username, loggin: true, emailAuth: true });
+        setUser({ name: res.data.data.nickname, loggin: true, emailAuth: true });
       } else null;
     });
   }, [router.query]);

@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+📝 프로젝트 기획
 
-## Getting Started
+- 익명성 보장을 기반으로 글을 통해 자신의 목소리를 낼수 있는 사내 소셜 네트워크 서비스입니다.
 
-First, run the development server:
+📝 프로젝트 총평
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- 프로젝트의 기획부터 디자인까지 모든 영역을 수행해 볼 수 있는 좋은 경험이었습니다.
+- 유저 관리를 JWT 토큰을 사용함으로써 보안을 한 층 생각할 수 있는 계기가 되었습니다.
+- RESTful API를 활용한 데이터 통신을 경험해볼 수 있었습니다.
+- 소수정원으로 진행되었기 때문에 자유로운 의견 제시를 함으로써 적극적인 참여 분위기를 형성할 수 있었습니다.
+- 다양한 라이브러리를 사용해 볼 수 있는 좋은 경험이었습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📝 프로젝트 기능 구현
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- NextJs을 이용한 SSR 환경 구축
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- 공통
+    - useMediaQuery 를 사용한 모바일 반응형 작업
+    - styled-components 를 사용한 다크 모드 기능 추가
+    - Recoil 를 사용한 유저 및 검색 state 관리
+    - 쿠키에 RefreshToken 관리 및 만료시간에 따른 제거 구현
+    
+- 유저
+    - useForm,  yupResolver 을 이용한 회원가입 폼 구현 및 유효성 검사
+    - 사이트 내의 모든 기능 사용하기 위한 이메일 인증 기능 구현
+    - 로그인 후,  accessToken을 모든 통신의 헤더에 담아 보냄으로써 권한 있는 유저만 접속 가능하게 구현
+    - 아이디 찾기 및 비밀번호 초기화 기능 구현
+    - 회원 탈퇴 기능 구현
+    
+- 게시글
+    - 페이지 네이션 적용 및 페이지 넘버를 스토리지에 저장함으로써 뒤로 갈 시, 마지막 접속 페이지로 렌더링
+    - 게시글 생성시 , multipart/form-data 를 이용한 이미지 전송 (5개 제한)
+    - 게시글 읽기 및 수정, 삭제(토큰을 이용한 본인 한해) 기능 구현
+    - 게시글 수정 시, 수정하는 이미지 미리보기 기능 구현
+    - 좋아요, 댓글, 대댓글, 공유 기능 구현
+    
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+📝 프로젝트 아쉬운 점
 
-## Learn More
+- 프론트 단독 진행으로 주석 및 커밋 메시지 통일적으로 관리하지 않은 점
+- 반응형 라이브러리를 활용하지 않은 점 (활용했으면 조금 더 깔끔했을 것 같은 느낌)
+- 무한 스크롤 기능을 적용해보고 싶었는데, 시간 상 적용하지 못한 점
 
-To learn more about Next.js, take a look at the following resources:
+📝 앞으로
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 전반적 코드 리팩토링
+- 렌더링 되기 전 Skeleton Loading 추가
+- 게시글 생성 시, 이미지 Drag and Drop 기능 추가
+- 푸시 알람 기능 추가
+- 익명 대화 기능 추가

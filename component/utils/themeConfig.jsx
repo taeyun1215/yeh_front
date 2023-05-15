@@ -31,6 +31,7 @@ export const darkTheme = {
   themeIconColor: "#94969b",
   themeBorder: "1px #94969b solid",
   Cancletext: "#d9d9d9",
+  Skeleton: "#3a3b3d",
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -136,5 +137,11 @@ export const GlobalStyles = createGlobalStyle`
   &.header &.header_signBtn &.header_signin, &.header_signin_divide,
   &.header &.header_wrap &.header_search button {
     color : ${({ theme }) => theme.Cancletext};
+  }
+
+  // skeleton 색상 
+  &.ant-skeleton .ant-skeleton-content .ant-skeleton-title,
+  &.ant-skeleton .ant-skeleton-content .ant-skeleton-paragraph >li {
+    background : ${({ theme }) => theme.Skeleton};
   }
 `;

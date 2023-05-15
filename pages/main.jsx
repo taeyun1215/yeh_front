@@ -60,7 +60,7 @@ export default function Main() {
     <div className="getPostsBox_wrap">
       {postsData.map((i) =>
         loading ? (
-          <Skeleton />
+          <Skeleton key={i} />
         ) : (
           <div
             key={i.id}

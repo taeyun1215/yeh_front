@@ -11,7 +11,7 @@ import { ThemeProvider } from "styled-components";
 import { useGrid } from "../component/utils/responsive";
 import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig";
 import { themeState } from "../store";
-const AppLayout = dynamic(() => import("../component/layout/appLayout"), { ssr: false });
+const AppLayout = dynamic(() => import("../component/layout/AppLayout"), { ssr: false });
 
 function MyApp({ Component, pageProps }) {
   const [theme, setTheme] = useState(false);

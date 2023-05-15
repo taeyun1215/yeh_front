@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { BsCheck2Circle } from "react-icons/bs";
 
-import { userState } from "../../store/states";
+import { userState } from "../../store/index";
 import { joinCheck } from "../api";
 
 export default function SignupComplete() {

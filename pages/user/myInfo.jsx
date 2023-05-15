@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
 
-import { userState } from "../../store/states";
+import { userState } from "../../store/index";
 import { nickNameEdit, userSecession, passWordEdit } from "../api";
 import { useRef } from "react";
 

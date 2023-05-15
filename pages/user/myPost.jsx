@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userState } from "../../store/states";
+import { userState } from "../../store/index";
 import { Tabs, List, Modal, Result, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 

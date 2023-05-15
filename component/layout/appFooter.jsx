@@ -6,7 +6,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import logo from "../../asset/images/logo.png";
 import { useGrid } from "../utils/responsive";
-import { keywordState, pageState, userState } from "../../store/states";
+import { keywordState, pageState, userState } from "../../store/index";
 
 export default function AppFooter({ setSearchVal, setActiveSearch }) {
   const router = useRouter();

@@ -9,7 +9,7 @@ import { useState } from "react";
 import logo from "../../asset/images/logo.png";
 import logoSmall from "../../asset/images/header_logo.png";
 import AppFooter from "./appFooter";
-import { keywordState, pageState, userState } from "../../store/states";
+import { keywordState, pageState, userState } from "../../store/index";
 import { useGrid } from "../utils/responsive";
 import { postSearch } from "../../pages/api";
 import Rank from "../../pages/post/rank";

@@ -6,7 +6,7 @@ import { BsCheck2Circle } from "react-icons/bs";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
-import { pageState, userState } from "../../store/states";
+import { pageState, userState } from "../../store/index";
 import setToken from "../../component/utils/setToken";
 import { joinConfirm } from "../api";
 

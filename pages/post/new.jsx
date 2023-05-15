@@ -4,7 +4,7 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { Modal } from "antd";
 import { InboxOutlined, DeleteFilled } from "@ant-design/icons";
 
-import { pageState, userState } from "../../store/states";
+import { pageState, userState } from "../../store/index";
 import { postNew } from "../api";
 import { useEffect } from "react";
 import setToken from "../../component/utils/setToken";

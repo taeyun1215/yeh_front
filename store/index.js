@@ -23,4 +23,11 @@ const pageState = atom({
   key: "pageState",
   default: 1,
 });
-export { userState, keywordState, pageState };
+
+// 테마 State
+const themeState = atom({
+  key: "themeState",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+export { userState, keywordState, pageState, themeState };

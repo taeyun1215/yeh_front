@@ -6,7 +6,7 @@ import { Modal } from "antd";
 import { InboxOutlined, DeleteFilled } from "@ant-design/icons";
 
 import setToken from "../../component/utils/setToken";
-import { userState } from "../../store/states";
+import { userState } from "../../store/index";
 import { postEdit, postRead } from "../api";
 
 export default function Edit() {

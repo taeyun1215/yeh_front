@@ -16,7 +16,7 @@ import { FaPen } from "react-icons/fa";
 
 import CreateTime from "../../component/utils/createTime";
 import setToken from "../../component/utils/setToken";
-import { pageState, userState } from "../../store/states";
+import { pageState, userState } from "../../store/index";
 import { postComment, postLike, postDelete, postRead } from "../api";
 import { useGrid } from "../../component/utils/responsive";
 

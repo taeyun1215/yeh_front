@@ -1,41 +1,36 @@
 import "../asset/styles/main.scss";
 import Head from "next/head";
-import axios from "axios";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
+import RecoilNexus from "recoil-nexus";
+import { getRecoil, setRecoil } from "recoil-nexus";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig";
 import { useGrid } from "../component/utils/responsive";
-const AppLayout = dynamic(() => import("../component/layout/AppLayout"), { ssr: false });
+import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig";
+import { themeState } from "../store";
+const AppLayout = dynamic(() => import("../component/layout/appLayout"), { ssr: false });
 
 function MyApp({ Component, pageProps }) {
-  // axios.defaults.baseURL = "https://www.devyeh.com/api";
-  // axios.defaults.baseURL = "http://localhost:8080/api";
-  // axios.defaults.withCredentials = true;
-
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState(false);
   const { isDesktop } = useGrid();
 
   const handleThemeToggle = () => {
     setTheme((prev) => !prev);
-    if (theme) localStorage.setItem("theme", false);
-    else localStorage.setItem("theme", true);
+    setRecoil(themeState, (prev) => !prev);
   };
 
   useEffect(() => {
-    setTheme(JSON.parse(localStorage.getItem("theme")));
-  }, [theme]);
+    setTheme(getRecoil(themeState));
+  }, []);
 
   function PageRouter() {
     const pages = pageProps.path;
     switch (pages) {
       case "signin":
-        return <Component {...pageProps} />;
       case "signup":
-        return <Component {...pageProps} />;
       case "postNew":
         return <Component {...pageProps} />;
       default:
@@ -60,6 +55,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={!theme ? lightTheme : darkTheme}>
         <RecoilRoot>
+          <RecoilNexus />
           <GlobalStyles />
           <div className="body_wrap">{PageRouter()}</div>
           {isDesktop && ToggleBtn}

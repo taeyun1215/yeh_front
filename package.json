@@ -26,6 +26,7 @@
     "react-icons": "^4.7.1",
     "react-responsive": "^9.0.2",
     "recoil": "^0.7.6",
+    "recoil-nexus": "^0.4.0",
     "recoil-persist": "^4.2.0",
     "sass": "^1.56.0",
     "semantic-ui-css": "^2.5.0",

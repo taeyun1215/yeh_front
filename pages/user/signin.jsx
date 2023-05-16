@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Image from "next/image";
@@ -12,11 +13,12 @@ import { login } from "../api";
 
 export default function Signiin() {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
-  const PageHandler = useSetRecoilState(pageState);
+  const [user, setUser] = useRecoilState(userState);
+  const setPage = useSetRecoilState(pageState);
 
-  const expires = new Date();
-  expires.setHours(expires.getHours() + 2);
+  useEffect(() => {
+    if (user?.name) router.back();
+  }, []);
 
   const formSchema = yup.object({
     username: yup.string().required(""),
@@ -44,7 +46,7 @@ export default function Signiin() {
           loggin: true,
           emailAuth: response.emailVerified,
         });
-        PageHandler(1);
+        setPage(1);
         router.push("/main");
       } else {
         alert(res.data.error.message);

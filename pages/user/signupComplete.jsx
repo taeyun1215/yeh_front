@@ -4,7 +4,7 @@ import axios from "axios";
 import { Modal, Spin } from "antd";
 import { BsCheck2Circle } from "react-icons/bs";
 import { LoadingOutlined } from "@ant-design/icons";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { pageState, userState } from "../../store/index";
 import setToken from "../../component/utils/setToken";
@@ -13,14 +13,13 @@ import { joinConfirm } from "../api";
 export default function SignupComplete() {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
 
   const [isModal, setIsModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user?.loggin) setToken({ router: router, reset: reset });
+    if (user?.loggin) setToken();
   }, []);
 
   const handleOnAuth = async () => {

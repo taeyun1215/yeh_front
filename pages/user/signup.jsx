@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
@@ -7,9 +8,16 @@ import Image from "next/image";
 import logo from "../../asset/images/logo.png";
 import { join } from "../api";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../store";
 
 export default function Signup() {
   const router = useRouter();
+  const user = useRecoilValue(userState);
+
+  useEffect(() => {
+    if (user?.name) router.back();
+  }, []);
 
   // 회원가입 정보 유효성 검사 및 에러 메시지 출력
   const formSchema = yup.object({

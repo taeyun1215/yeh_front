@@ -19,10 +19,8 @@
       position: relative;
 
       h2 {
-        font-size: 32px;
-        @include mobile {
-          font-size: $fontSize28;
-        }
+        font-size: $fontSize28;
+        margin: 0;
       }
     }
 
@@ -31,28 +29,33 @@
       justify-content: space-between;
       font-size: $fontSize14;
       color: #94969b;
+      margin: 30px 0 10px 0;
     }
 
     p {
+      margin: 0;
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
     .detailPostBox_contents {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 0;
+      gap: 30px;
       text-align: left;
       white-space: pre-wrap;
       word-wrap: break-word;
       word-break: keep-all;
 
       p {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
+        font-size: $fontSize18;
       }
 
       img {
         position: relative !important;
-        width: 100%;
         height: auto;
         object-fit: cover;
       }
@@ -87,4 +90,8 @@
       }
     }
   }
+}
+.ant-skeleton.ant-skeleton-element .ant-skeleton-image {
+  width: 100% !important;
+  min-height: 300px !important;
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Modal } from "antd";
 import { InboxOutlined, DeleteFilled } from "@ant-design/icons";
 
@@ -12,7 +12,6 @@ import { postEdit, postRead } from "../api";
 export default function Edit() {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const [title, setTitle] = useState(""); // props 제목
   const [content, setContent] = useState(""); // props 내용
   const [images, setImages] = useState([]); // props 이미지
@@ -43,7 +42,7 @@ export default function Edit() {
       alert("로그인 후 이용 가능합니다.");
       router.push("/user/signin", undefined, { shallow: true });
     } else if (user?.loggin) {
-      setToken({ router: router, reset: reset });
+      setToken();
       getPostView();
     } else return;
   }, [user?.loggin]);
@@ -113,6 +112,7 @@ export default function Edit() {
         className="postContents"
         ref={inputRefContent}
         style={{ height: "auto", overflowY: "hidden" }}
+        rows="10"
       />
       <div className="postImages">
         {images !== undefined && images.every((i) => i !== null)

@@ -14,10 +14,10 @@
     margin: 0 10px 15px 10px;
 
     .beingComments {
-      padding-top: 20px;
       display: flex;
       flex-direction: column;
       gap: 5px;
+      margin: 10px 0;
     }
 
     .nestedComments {
@@ -101,6 +101,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  margin: 10px 0;
 
   input {
     min-height: 40px;

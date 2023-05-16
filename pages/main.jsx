@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Pagination, Skeleton } from "antd";
 import { EyeOutlined, CommentOutlined, LikeOutlined, FieldTimeOutlined } from "@ant-design/icons";
 import Image from "next/image";
@@ -17,7 +17,6 @@ const Rank = dynamic(() => import("./post/rank"));
 export default function Main() {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const keywordValue = useRecoilValue(keywordState);
 
   const [postsData, setPostsData] = useState([]);
@@ -25,9 +24,10 @@ export default function Main() {
   const [postsCount, setPostsCount] = useState(0);
   const { isMobile, isTablet, isDesktop } = useGrid();
   const [loading, setLoading] = useState(false);
+
   // 리프레시 토큰 발급
   useEffect(() => {
-    if (user?.loggin) setToken({ router: router, reset: reset });
+    if (user?.loggin) setToken();
   }, []);
 
   // 전체 글 데이터 통신
@@ -36,12 +36,13 @@ export default function Main() {
     if (keywordValue?.postCount > 0) {
       setPostsData(keywordValue.posts);
       setPostsCount(keywordValue.postCount);
+      setLoading(false);
     } else {
       const res = await postAll(current);
       if (res.data.success) {
         setPostsCount(res.data.data.postCount);
         setPostsData(res.data.data.posts);
-        await setLoading(false);
+        setLoading(false);
       } else alert("잠시 후 다시 접속해주세요");
     }
   };
@@ -60,7 +61,7 @@ export default function Main() {
     <div className="getPostsBox_wrap">
       {postsData.map((i) =>
         loading ? (
-          <Skeleton key={i} />
+          <Skeleton key={i} active />
         ) : (
           <div
             key={i.id}

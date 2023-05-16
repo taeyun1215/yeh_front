@@ -1,18 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "../../store/index";
 import { Tabs, List, Modal, Result, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 import setToken from "../../component/utils/setToken";
-import { myInfo, postDelete, userSecession } from "../api";
+import { myInfo, postDelete } from "../api";
 import MyInfoEdit from "./myInfo";
 
 export default function MyPost() {
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const [myData, setMyData] = useState([]);
   const [isModal, setIsModal] = useState(false); //유저 탈퇴 모달 state
   const [deleteId, setDeleteId] = useState("");
@@ -30,9 +29,8 @@ export default function MyPost() {
         alert("로그인 후 이용 가능합니다.");
         router.push("/user/signin");
       } else if (user?.loggin) {
-        setToken({ router: router, reset: reset }).then((res) => {
+        setToken().then((res) => {
           if (res === "userLogin") getMyInfo();
-          else return;
         });
       } else return;
     } catch (e) {

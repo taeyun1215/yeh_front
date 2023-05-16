@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Dropdown, Button, Modal } from "antd";
+import { Dropdown, Modal, Skeleton } from "antd";
+import { resetRecoil } from "recoil-nexus";
+
 import {
   EyeOutlined,
   FieldTimeOutlined,
@@ -9,7 +11,7 @@ import {
   ShareAltOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { FaPen } from "react-icons/fa";
@@ -27,13 +29,13 @@ export default function Details() {
   const formData = new FormData();
   const router = useRouter();
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
   const { isMobile, isTablet, isDesktop } = useGrid();
 
   const [detailData, setDetailData] = useState([]);
   const [comments, setCommnets] = useState("");
   const [isModal, setIsModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const items = [
     {
@@ -57,10 +59,16 @@ export default function Details() {
     },
   ];
 
+  const userConfirm = async () => {
+    await setLoading(true);
+    getPostView();
+  };
+
   // 상세 게시글 받아오기
   const getPostView = async () => {
     const res = await postRead(router.query.id);
     if (res.data.success) setDetailData(res.data.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -69,10 +77,8 @@ export default function Details() {
         alert("로그인 후 이용 가능합니다.");
         router.push("/user/signin", undefined, { shallow: true });
       } else if (user?.loggin) {
-        setToken({ router: router, reset: reset }).then((res) => {
-          console.log(res);
-          if (res === "userLogin") getPostView();
-          else return;
+        setToken().then((res) => {
+          if (res === "userLogin") userConfirm();
         });
       } else return;
     } catch (e) {
@@ -160,33 +166,40 @@ export default function Details() {
   const Data = (
     <div className="detailPostBox">
       <div className="detailPostBox_header">
-        <h2>{detailData.title}</h2>
-
+        {loading ? <Skeleton.Input active block /> : <h2>{detailData.title}</h2>}
         <div className="detailPostBox_header_info">
-          <div style={{ display: "flex", gap: "10px" }}>
-            <p>
-              <FieldTimeOutlined />
-              {CreateTime(detailData.createTime)}
-            </p>
-            <p>
-              <EyeOutlined />
-              {detailData.view}
-            </p>
-          </div>
-          <p>{detailData.writer}</p>
+          {loading ? (
+            <Skeleton.Input active size="small" />
+          ) : (
+            <div style={{ display: "flex", gap: "10px" }}>
+              <p>
+                <FieldTimeOutlined />
+                {CreateTime(detailData.createTime)}
+              </p>
+              <p>
+                <EyeOutlined />
+                {detailData.view}
+              </p>
+            </div>
+          )}
+          {loading ? <Skeleton.Input active size="small" /> : <p>{detailData.writer}</p>}
         </div>
       </div>
       <div className="detailPostBox_contents">
-        <p>{detailData.content}</p>
-        {detailData.images !== undefined && detailData.images.every((i) => i !== null)
-          ? detailData.images.map((i) => (
-              <Image
-                src={`https://yeh-bucket.s3.ap-northeast-2.amazonaws.com/${i.imageName}`}
-                key={i.id}
-                fill
-                alt="게시글사진"
-              />
-            ))
+        {loading ? <Skeleton.Input active block /> : <p>{detailData.content}</p>}
+        {detailData.images !== undefined && detailData?.images.every((i) => i !== null)
+          ? detailData.images.map((i) =>
+              loading ? (
+                <Skeleton.Image active key={i} />
+              ) : (
+                <Image
+                  src={`https://yeh-bucket.s3.ap-northeast-2.amazonaws.com/${i.imageName}`}
+                  key={i.id}
+                  fill
+                  alt="게시글사진"
+                />
+              )
+            )
           : null}
       </div>
       <div className="detailPostBox_footer">
@@ -226,7 +239,7 @@ export default function Details() {
           <FaPen />
         </button>
       </div>
-      <Comments comments={detailData} getPostView={getPostView} />
+      <Comments comments={detailData} getPostView={getPostView} loading={loading} />
       <Modal
         title="게시글 삭제"
         open={isModal}
@@ -240,6 +253,7 @@ export default function Details() {
       </Modal>
     </div>
   );
+
   return (
     <>
       {isMobile && <div className="detailPost">{Data}</div>}

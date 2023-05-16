@@ -1,9 +1,10 @@
+import { Skeleton } from "antd";
 import { useState } from "react";
 import { FaCommentDots, FaPen } from "react-icons/fa";
 import CreateTime from "../../component/utils/createTime";
 import { postNestedComment } from "../api";
 
-export default function Comments({ comments, getPostView }) {
+export default function Comments({ comments, getPostView, loading }) {
   const Comments = comments.comments;
   const formData = new FormData();
   const [id, setId] = useState("");
@@ -43,35 +44,42 @@ export default function Comments({ comments, getPostView }) {
         <div className="postComments_wrap">
           {Comments?.map((v) => (
             <div key={v.id}>
-              <div className="beingComments">
-                <p className="writer">{v.writer}</p>
-                <p className="content">{v.content}</p>
-                <div className="beingCommentsInfo">
-                  <p className="createTime">{CreateTime(v.createTime)}</p>
-                  <p className="createTime"> · </p>
-                  <button className="nestedComments_button" onClick={() => handleOnComments(v.id)}>
-                    답글달기
-                  </button>
-                </div>
-                {active ? (
-                  <div id={v.id} className={v.id === id ? "nestedComments_active" : "nestedComments_notActive"}>
-                    <span>@{v.writer}</span>
-                    <input
-                      autoComplete="off"
-                      id={v.id}
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                      onKeyUp={(e) => handleOnKeyUp(e)}
-                      autoFocus
-                    />
-                    <button onClick={() => insertNestedComments()}>
-                      <FaPen />
+              {loading ? (
+                <Skeleton.Input active block />
+              ) : (
+                <div className="beingComments">
+                  <p className="writer">{v.writer}</p>
+                  <p className="content">{v.content}</p>
+                  <div className="beingCommentsInfo">
+                    <p className="createTime">{CreateTime(v.createTime)}</p>
+                    <p className="createTime"> · </p>
+                    <button className="nestedComments_button" onClick={() => handleOnComments(v.id)}>
+                      답글달기
                     </button>
                   </div>
-                ) : null}
-              </div>
-              <div>
-                {v.children?.map((i) => (
+                  {active ? (
+                    <div id={v.id} className={v.id === id ? "nestedComments_active" : "nestedComments_notActive"}>
+                      <span>@{v.writer}</span>
+                      <input
+                        autoComplete="off"
+                        id={v.id}
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        onKeyUp={(e) => handleOnKeyUp(e)}
+                        autoFocus
+                      />
+                      <button onClick={() => insertNestedComments()}>
+                        <FaPen />
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
+              )}
+
+              {v.children?.map((i) =>
+                loading ? (
+                  <Skeleton.Input active block />
+                ) : (
                   <div className="nestedComments" key={i.id}>
                     <div className="beingCommentsInfo">
                       <p className="writer">{i.writer}</p>
@@ -79,8 +87,8 @@ export default function Comments({ comments, getPostView }) {
                     </div>
                     <p className="content">{i.content}</p>
                   </div>
-                ))}
-              </div>
+                )
+              )}
             </div>
           ))}
         </div>

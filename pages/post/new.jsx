@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Modal } from "antd";
 import { InboxOutlined, DeleteFilled } from "@ant-design/icons";
 
@@ -11,7 +11,6 @@ import setToken from "../../component/utils/setToken";
 
 export default function New() {
   const user = useRecoilValue(userState);
-  const reset = useResetRecoilState(userState);
   const PageHandler = useSetRecoilState(pageState);
   const router = useRouter();
 
@@ -29,7 +28,7 @@ export default function New() {
     } else if (user?.loggin && !user.emailAuth) {
       alert("YEH의 모든 기능 사용을 위해 이메일 인증을 완료해 주세요.");
       router.push("/user/signupComplete");
-    } else setToken({ router: router, reset: reset });
+    } else setToken();
   }, [user?.loggin]);
 
   const handleOnSubmit = async () => {
@@ -83,7 +82,7 @@ export default function New() {
   };
 
   return (
-    <div className="post" style={{ paddingTop: "5rem" }}>
+    <div className="post">
       <input
         type="text"
         placeholder="제목을 입력해 주세요"
@@ -99,6 +98,7 @@ export default function New() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
         ref={inputRefContent}
+        rows="10"
         className="postContents"
       />
       <form className="postFile">

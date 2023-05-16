@@ -45,7 +45,7 @@ export default function Comments({ comments, getPostView, loading }) {
           {Comments?.map((v) => (
             <div key={v.id}>
               {loading ? (
-                <Skeleton.Input active block />
+                <Skeleton.Input active block key={v.id} />
               ) : (
                 <div className="beingComments">
                   <p className="writer">{v.writer}</p>

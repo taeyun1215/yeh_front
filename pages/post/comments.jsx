@@ -78,7 +78,7 @@ export default function Comments({ comments, getPostView, loading }) {
 
               {v.children?.map((i) =>
                 loading ? (
-                  <Skeleton.Input active block />
+                  <Skeleton.Input active block key={i} />
                 ) : (
                   <div className="nestedComments" key={i.id}>
                     <div className="beingCommentsInfo">

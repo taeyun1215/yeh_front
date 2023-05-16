@@ -124,19 +124,19 @@
 }
 
 // 페이지네이션 커스텀텀
-:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active a {
+.ant-pagination .ant-pagination-item-active a {
   font-size: 32px;
   font-family: "Major Mono Display", monospace;
 }
 
-:where(.css-acm2ia).ant-pagination .ant-pagination-item-active {
+.ant-pagination-item-active {
   font-weight: 600;
   background-color: transparent;
   border-color: transparent;
 }
 
-:where(.css-acm2ia).ant-pagination .ant-pagination-item a,
-:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item a {
+.ant-pagination-item a,
+.ant-pagination .ant-pagination-item a {
   display: block;
   padding: 0 10px;
   color: rgba(0, 0, 0, 0.2);
@@ -150,12 +150,11 @@
   color: #000000;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-pagination
-  .ant-pagination-item:not(.ant-pagination-item-active):hover {
+.ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover {
   background-color: transparent !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active:hover {
+.ant-pagination .ant-pagination-item-active:hover {
   border-color: transparent !important;
 }
 
@@ -164,19 +163,19 @@
   font-size: 28px !important;
 }
 
-:where(.css-acm2ia).ant-pagination .ant-pagination-item-active:hover {
+.ant-pagination-item-active:hover {
   border-color: transparent !important;
 }
 
-:where(.css-acm2ia).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover {
+.ant-pagination-item:not(.ant-pagination-item-active):hover {
   background-color: transparent !important;
 }
 
-:where(.css-acm2ia).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):active {
+.ant-pagination-item:not(.ant-pagination-item-active):active {
   background-color: transparent !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-pagination .ant-pagination-item-active {
+.ant-pagination .ant-pagination-item-active {
   font-weight: 600;
   background-color: transparent;
   border-color: transparent;

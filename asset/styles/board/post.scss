@@ -80,50 +80,40 @@
   }
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper {
+.ant-upload-wrapper {
   width: 100%;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-drag:not(.ant-upload-disabled):hover {
+.ant-upload-wrapper .ant-upload-drag:not(.ant-upload-disabled):hover {
   border-color: $main_color !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-drag
-  p.ant-upload-drag-icon
-  .anticon {
+.ant-upload-wrapper .ant-upload-drag p.ant-upload-drag-icon .anticon {
   color: $main_color;
   font-size: $fontSize28 !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-drag
-  .ant-upload {
+.ant-upload-wrapper .ant-upload-drag .ant-upload {
   padding: 10px 0 !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-list {
+.ant-upload-wrapper .ant-upload-list {
   height: 100px;
   overflow-y: scroll;
   margin-top: 10px;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-list::-webkit-scrollbar {
+.ant-upload-wrapper .ant-upload-list::-webkit-scrollbar {
   width: 10px; /* 스크롤바의 너비 */
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-list::-webkit-scrollbar-thumb {
+.ant-upload-wrapper .ant-upload-list::-webkit-scrollbar-thumb {
   height: 30%; /* 스크롤바의 길이 */
   background: $main_color; /* 스크롤바의 색상 */
   border-radius: 10px;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-upload-wrapper
-  .ant-upload-list::-webkit-scrollbar-track {
+.ant-upload-wrapper .ant-upload-list::-webkit-scrollbar-track {
   background: #ececec;
 }
 

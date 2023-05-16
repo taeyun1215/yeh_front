@@ -87,18 +87,18 @@
   }
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-btn-default:not(:disabled):hover {
+.ant-btn-default:not(:disabled):hover {
   color: black !important;
   border-color: transparent;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia)[ant-click-animating-without-extra-node='true'], :where(.css-dev-only-do-not-override-acm2ia)[ant-click-animating='true'] {
+[ant-click-animating-without-extra-node='true'], [ant-click-animating='true'] {
   --antd-wave-shadow-color:transparent
   --scroll-bar: 0;
   position: relative;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-btn-default {
+.ant-btn-default {
   background-color: #ffffff;
   border-color: transparent;
   box-shadow: none;

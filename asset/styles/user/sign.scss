@@ -217,46 +217,38 @@
 }
 
 // 이메일 인증 확인 중 모달
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal-root .ant-modal-mask,
-:where(.css-acm2ia).ant-modal-root .ant-modal-mask {
+.ant-modal-root .ant-modal-mask {
   background-color: black !important;
   opacity: 70% !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-body,
-:where(.css-acm2ia).ant-modal .ant-modal-content {
+.ant-modal .ant-modal-title,
+.ant-modal .ant-modal-body,
+.ant-modal .ant-modal-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
   text-align: center;
-}
-
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-title,
-:where(.css-acm2ia).ant-modal .ant-modal-title {
   font-size: 24px !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin,
-:where(.css-acm2ia).ant-spin {
+.ant-spin {
   color: $main_color !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-spin .ant-spin-dot,
-:where(.css-acm2ia).ant-spin .ant-spin-dot {
+.ant-spin .ant-spin-dot {
   font-size: 52px !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-modal .ant-modal-footer,
-:where(.css-acm2ia).ant-modal .ant-modal-footer {
+.ant-modal .ant-modal-footer {
   text-align: center !important;
 }
 
-:where(.css-dev-only-do-not-override-acm2ia).ant-btn-primary,
-:where(.css-acm2ia).ant-modal .ant-modal-footer .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
+.ant-btn-primary,
+.ant-modal .ant-modal-footer .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
   background-color: $main_color !important;
 }
 
-:where(.css-acm2ia).ant-btn-primary:not(:disabled):hover {
+.ant-btn-primary:not(:disabled):hover {
   background-color: $main_color !important;
 }

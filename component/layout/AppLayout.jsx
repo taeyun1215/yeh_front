@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dropdown, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
 
@@ -16,18 +16,18 @@ import Rank from "../../pages/post/rank";
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
-  const keywordHandler = useSetRecoilState(keywordState);
-  const UserHandler = useSetRecoilState(userState);
-  const PageHandler = useSetRecoilState(pageState);
+  // const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
+  const setKeywordState = useSetRecoilState(keywordState);
+  const setPageState = useSetRecoilState(pageState);
 
-  const [searchVal, setSearchVal] = useState("");
-  const [activeSearch, setActiveSearch] = useState(false);
+  const [searchVal, setSearchVal] = useState(null);
+  // const [activeSearch, setActiveSearch] = useState(false);
   const [cookie, setCookie, removecookie] = useCookies(["refresh_token"]);
   const { isMobile, isDesktop } = useGrid();
 
   const logout = () => {
-    UserHandler();
+    setUser();
     removecookie("refresh_token");
   };
 
@@ -42,31 +42,38 @@ const AppLayout = ({ children }) => {
     },
   ];
 
-  const handleOnSubmit = async (e) => {
-    if (e.keyCode === 13 && searchVal.trim() !== "") {
-      setActiveSearch(false);
-      try {
-        const res = await postSearch(searchVal);
-        if (res.data.success && res.data.data.postCount > 0) {
-          keywordHandler({
-            posts: res.data.data.posts,
-            postCount: res.data.data.postCount,
-          });
-          router.push("/main");
-        } else if (res.data.success && res.data.data.postCount === 0) alert("검색 결과가 없습니다.");
-        else alert("잠시 후 다시 시도해주세요.");
-      } catch (e) {
-        console.log(e);
-        alert("잠시 후 다시 시도해주세요.");
-      }
-    } else if (e.keyCode === 13 && searchVal.trim() === "") alert("검색어를 입력해 주세요.");
+  // const handleOnKeyup = async (e) => {
+  //   if (e.keyCode === 13 && searchVal.trim() !== "") {
+  //     setActiveSearch(false);
+  //     try {
+  //       const res = await postSearch(searchVal);
+  //       if (res.data.success && res.data.data.postCount > 0) {
+  //         keywordHandler({
+  //           posts: res.data.data.posts,
+  //           postCount: res.data.data.postCount,
+  //         });
+  //         router.push("/main");
+  //       } else if (res.data.success && res.data.data.postCount === 0) alert("검색 결과가 없습니다.");
+  //       else alert("잠시 후 다시 시도해주세요.");
+  //     } catch (e) {
+  //       console.log(e);
+  //       alert("잠시 후 다시 시도해주세요.");
+  //     }
+  //   } else if (e.keyCode === 13 && searchVal.trim() === "") alert("검색어를 입력해 주세요.");
+  //   else return;
+  // };
+
+  const handleOnKeyup = async (e) => {
+    if (e.keyCode === 13 && searchVal.trim() !== "") setKeywordState(searchVal);
+    else if (e.keyCode === 13 && searchVal.trim() === "") alert("검색어를 입력해 주세요.");
     else return;
   };
 
+  // console.log(searchVal);
   // 로고 버튼 클릭 핸들러
   const handleOnInit = () => {
     router.push("/main", undefined, { shallow: true });
-    PageHandler(1);
+    setPageState(1);
     keywordHandler();
     setSearchVal("");
   };
@@ -105,7 +112,7 @@ const AppLayout = ({ children }) => {
             onClick={() => handleOnInit()}
           />
           <div className="header_search">
-            <button>
+            <button onClick={() => handleOnClick()}>
               <SearchOutlined
                 style={{
                   fontSize: "22px",
@@ -117,16 +124,15 @@ const AppLayout = ({ children }) => {
               placeholder="관심있는 내용을 검색해보세요"
               className="header_input"
               onChange={(e) => setSearchVal(e.target.value)}
-              onClick={() => setActiveSearch(true)}
-              onKeyUp={(e) => handleOnSubmit(e)}
-              value={searchVal}
+              onKeyUp={(e) => handleOnKeyup(e)}
+              value={searchVal || ""}
             />
           </div>
         </div>
         {isDesktop && DesktopUser}
       </div>
       {children}
-      <AppFooter setSearchVal={setSearchVal} setActiveSearch={setActiveSearch} />
+      {/* <AppFooter setSearchVal={setSearchVal} setActiveSearch={setActiveSearch} /> */}
     </>
   );
 };

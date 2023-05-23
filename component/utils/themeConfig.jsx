@@ -123,6 +123,7 @@ export const GlobalStyles = createGlobalStyle`
   &.comments_input button, &.post &.postContents {
     color : ${({ theme }) => theme.text};
   }
+
   input {
     color : ${({ theme }) => theme.text};
   }
@@ -134,6 +135,11 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   // 헤더 색상
+  &.header {
+    background-color: ${({ theme }) => theme.body};
+
+  }
+
   &.header &.header_signBtn &.header_signin, &.header_signin_divide,
   &.header &.header_wrap &.header_search button {
     color : ${({ theme }) => theme.Cancletext};

@@ -138,14 +138,14 @@ const postNew = async (data) => {
   return result;
 };
 
-// 게시글 검색
-const postSearch = async (data) => {
+const postSearch = async (data, page) => {
   const result = await axios({
     method: "post",
     url: "/post/search/",
     data: qs.stringify({
       keyword: data,
     }),
+    params: { page: page },
     headers: {
       "content-type": "application/x-www-form-urlencoded;charset=utf-8",
     },

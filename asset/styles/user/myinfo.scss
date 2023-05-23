@@ -1,4 +1,7 @@
 .myPage {
+  width: 100%;
+  margin-top: 80px;
+
   .myPost {
     display: flex;
     justify-content: space-between;
@@ -30,6 +33,10 @@
   padding: 50px;
   border: 1px solid lightgray;
   border-radius: 10px;
+
+  .myinfo_container {
+    width: 100%;
+  }
 
   .myinfo_wrap {
     width: 100%;

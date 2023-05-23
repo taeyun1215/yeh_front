@@ -98,7 +98,7 @@ export default function New() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
         ref={inputRefContent}
-        rows="10"
+        rows="15"
         className="postContents"
       />
       <form className="postFile">
@@ -131,7 +131,7 @@ export default function New() {
           cancelButtonProps={{ style: { display: "none" } }}
           width="420px"
         >
-          <p>첨부 이미지는 최대 5장까지 가능합니다.</p>
+          <p className="modal_content">첨부 이미지는 최대 5장까지 가능합니다.</p>
         </Modal>
       ) : null}
     </div>

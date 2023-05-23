@@ -87,12 +87,12 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   // 테마 변경 토글 버튼 테두리 색상
-  &.themeToggle {
+  &.side_btns {
     border : ${({ theme }) => theme.themeBorder};
   }
 
   // 테마 변경 토글 버튼 아이콘 색상
-  &.themeToggle &.themeToggleIcon {
+  &.side_btns &.side_btns_icons {
     color : ${({ theme }) => theme.themeIconColor};
   }
 
@@ -139,7 +139,6 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.body};
 
   }
-
   &.header &.header_signBtn &.header_signin, &.header_signin_divide,
   &.header &.header_wrap &.header_search button {
     color : ${({ theme }) => theme.Cancletext};

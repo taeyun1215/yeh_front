@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
 import { getRecoil, setRecoil } from "recoil-nexus";
-import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
+import { BsFillSunFill, BsFillMoonFill, BsArrowBarUp } from "react-icons/bs";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "styled-components";
 import { useGrid } from "../component/utils/responsive";
-
 import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig";
 import { themeState } from "../store";
+
 const AppLayout = dynamic(() => import("../component/layout/AppLayout"), { ssr: false });
 
 function MyApp({ Component, pageProps }) {
@@ -20,14 +20,18 @@ function MyApp({ Component, pageProps }) {
   const [theme, setTheme] = useState(false);
   const { isDesktop } = useGrid();
 
+  useEffect(() => {
+    setTheme(getRecoil(themeState));
+  }, []);
+
   const handleThemeToggle = () => {
     setTheme((prev) => !prev);
     setRecoil(themeState, (prev) => !prev);
   };
 
-  useEffect(() => {
-    setTheme(getRecoil(themeState));
-  }, []);
+  const handleOnTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   function PageRouter() {
     const pages = pageProps.path;
@@ -45,10 +49,15 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
-  const ToggleBtn = (
-    <button onClick={() => handleThemeToggle()} className="themeToggle">
-      {!theme ? <BsFillMoonFill className="themeToggleIcon" /> : <BsFillSunFill className="themeToggleIcon" />}
-    </button>
+  const SideBtn = (
+    <div className="side_btns_container">
+      <button onClick={() => handleOnTop()} className="side_btns">
+        <BsArrowBarUp className="side_btns_icons" />
+      </button>
+      <button onClick={() => handleThemeToggle()} className="side_btns">
+        {!theme ? <BsFillMoonFill className="side_btns_icons" /> : <BsFillSunFill className="side_btns_icons" />}
+      </button>
+    </div>
   );
 
   return (
@@ -61,7 +70,7 @@ function MyApp({ Component, pageProps }) {
           <RecoilNexus />
           <GlobalStyles />
           {PageRouter()}
-          {isDesktop && ToggleBtn}
+          {isDesktop && SideBtn}
         </RecoilRoot>
       </ThemeProvider>
     </QueryClientProvider>

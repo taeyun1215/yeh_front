@@ -69,12 +69,10 @@ const AppLayout = ({ children }) => {
     else return;
   };
 
-  // console.log(searchVal);
   // 로고 버튼 클릭 핸들러
   const handleOnInit = () => {
     router.push("/main", undefined, { shallow: true });
-    setPageState(1);
-    keywordHandler();
+    setKeywordState(null);
     setSearchVal("");
   };
 
@@ -91,7 +89,7 @@ const AppLayout = ({ children }) => {
           </button>
           <span style={{ color: "#2b3089" }}> | </span>
           <button onClick={() => router.push("/user/signup")} className="header_signin">
-            회원가입
+            회원가입 g{" "}
           </button>
         </div>
       )}
@@ -132,7 +130,7 @@ const AppLayout = ({ children }) => {
         {isDesktop && DesktopUser}
       </div>
       {children}
-      {/* <AppFooter setSearchVal={setSearchVal} setActiveSearch={setActiveSearch} /> */}
+      {/* <AppFooter /> */}
     </>
   );
 };

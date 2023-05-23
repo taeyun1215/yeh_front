@@ -6,14 +6,17 @@ import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "styled-components";
 import { useGrid } from "../component/utils/responsive";
+
 import { lightTheme, darkTheme, GlobalStyles } from "../component/utils/themeConfig";
 import { themeState } from "../store";
 const AppLayout = dynamic(() => import("../component/layout/AppLayout"), { ssr: false });
 
 function MyApp({ Component, pageProps }) {
+  const [queryClient] = useState(() => new QueryClient());
   const [theme, setTheme] = useState(false);
   const { isDesktop } = useGrid();
 
@@ -49,7 +52,7 @@ function MyApp({ Component, pageProps }) {
   );
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Head>
         <title>YEH</title>
       </Head>
@@ -57,11 +60,11 @@ function MyApp({ Component, pageProps }) {
         <RecoilRoot>
           <RecoilNexus />
           <GlobalStyles />
-          <div className="body_wrap">{PageRouter()}</div>
+          {PageRouter()}
           {isDesktop && ToggleBtn}
         </RecoilRoot>
       </ThemeProvider>
-    </>
+    </QueryClientProvider>
   );
 }
 export default MyApp;

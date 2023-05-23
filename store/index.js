@@ -14,7 +14,8 @@ const userState = atom({
 // 검색 State
 const keywordState = atom({
   key: "keywordState",
-  default: { posts: null, postCount: 0 },
+  // default: { posts: null, postCount: 0 },
+  default: null,
   effects_UNSTABLE: [persistAtom],
 });
 

@@ -77,6 +77,8 @@ const userSecession = async () => {
 // 메인화면 전체 게시글 조회
 const postAll = async (data) => {
   const result = await axios.get("/post/all", { params: { page: data } });
+  // const result = await axios.get("/post/all", data);
+
   return result;
 };
 

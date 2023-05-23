@@ -51,61 +51,64 @@ export default function MyPost() {
     }
   };
 
-  const myPost =
-    myData.length === 0 ? (
-      <Result
-        icon={<ExclamationCircleOutlined style={{ fontSize: "56px" }} />}
-        title="작성된 게시글이 없습니다. 지금 첫 게시글을 작성해보세요!"
-        extra={<Button type="primary">글쓰기</Button>}
-      />
-    ) : (
-      <List
-        itemLayout="horizontal"
-        dataSource={myData}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              <a
-                key="list-loadmore-edit"
-                onClick={() =>
-                  router.push({
-                    pathname: "/post/edit",
-                    query: { id: item.id },
-                  })
-                }
-              >
-                수정
-              </a>,
-              <a
-                key="list-loadmore-more"
-                onClick={() => {
-                  setDeleteId(item.id);
-                  setIsModal(true);
-                }}
-              >
-                삭제
-              </a>,
-            ]}
-          >
-            <List.Item.Meta
-              title={
+  const myPost = (
+    <div className="mypost">
+      {myData.length === 0 ? (
+        <Result
+          icon={<ExclamationCircleOutlined style={{ fontSize: "56px" }} />}
+          title="작성된 게시글이 없습니다. 지금 첫 게시글을 작성해보세요!"
+          extra={<Button type="primary">글쓰기</Button>}
+        />
+      ) : (
+        <List
+          itemLayout="horizontal"
+          dataSource={myData}
+          renderItem={(item) => (
+            <List.Item
+              actions={[
                 <a
+                  key="list-loadmore-edit"
                   onClick={() =>
                     router.push({
-                      pathname: "/post/read",
+                      pathname: "/post/edit",
                       query: { id: item.id },
                     })
                   }
                 >
-                  {item.title}
-                </a>
-              }
-              description={item.content}
-            />
-          </List.Item>
-        )}
-      />
-    );
+                  수정
+                </a>,
+                <a
+                  key="list-loadmore-more"
+                  onClick={() => {
+                    setDeleteId(item.id);
+                    setIsModal(true);
+                  }}
+                >
+                  삭제
+                </a>,
+              ]}
+            >
+              <List.Item.Meta
+                title={
+                  <a
+                    onClick={() =>
+                      router.push({
+                        pathname: "/post/read",
+                        query: { id: item.id },
+                      })
+                    }
+                  >
+                    {item.title}
+                  </a>
+                }
+                description={item.content}
+              />
+            </List.Item>
+          )}
+        />
+      )}
+    </div>
+  );
 
   return (
     <div className="myPage">
@@ -131,7 +134,7 @@ export default function MyPost() {
         onOk={() => handleOnDelete()}
         onCancel={() => setIsModal(false)}
       >
-        <p>정말 게시글을 삭제하시겠습니까?</p>
+        <p className="modal_content">정말 게시글을 삭제하시겠습니까?</p>
       </Modal>
     </div>
   );

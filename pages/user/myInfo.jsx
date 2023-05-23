@@ -127,8 +127,8 @@ export default function MyInfoEdit() {
     </>
   );
   return (
-    <>
-      <div className="myinfo">
+    <div className="myinfo">
+      <div className="myinfo_container">
         {openEdit !== null ? (openEdit === "nickname" ? nicknameEdit : passwordEdit) : beforeEdit}
       </div>
       <Modal
@@ -140,8 +140,11 @@ export default function MyInfoEdit() {
         onOk={() => handleOnSecession()}
         onCancel={() => setIsModal(false)}
       >
-        <p>게시글은 모두 삭제되며, 계정은 다시 복구되지 않습니다. 정말 탈퇴하시겠습니까?</p>
+        <p className="modal_content">
+          게시글은 모두 삭제되며, 계정은 다시 복구되지 않습니다.
+          <br /> 정말 탈퇴하시겠습니까?
+        </p>
       </Modal>
-    </>
+    </div>
   );
 }
